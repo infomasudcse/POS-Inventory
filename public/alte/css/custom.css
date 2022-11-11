@@ -1,0 +1,55 @@
+.table td,
+.table th {
+    padding: 0.25rem;
+}
+.btn-item-table {
+    border-color: #fff;
+}
+.btn-item-table:hover {
+    border-bottom: 1px solid red;
+}
+.list-group-div .list-group-item {
+    padding: 0.45rem 1.25rem;
+    cursor: pointer;
+    background-color: #f7f7f7;
+}
+.list-group-div .list-group-item:hover {
+    background-color: #dadada;
+}
+.custom-color-row {
+    background-color: #dadada;
+}
+.custom-color-row-two {
+    background-color: #ffda00;
+}
+.clink {
+    color: blue;
+    cursor: pointer;
+}
+
+.clink:hover {
+    color: red;
+}
+
+/**17-10-2022**/
+
+.hidden {
+    display: none;
+}
+
+.delete-overlay {
+    position: absolute;
+    background-color: red;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete-overlay.hidden {
+    display: none;
+}
