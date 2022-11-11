@@ -169,8 +169,6 @@
                 <ol>                    
                     <li><span data-tokenfrom="{{ url('HelperController/getCSRF') }}" data-action="{{ url('report/todayinventory') }}" data-toggle="modal" data-target="#inventoryToday" class="clink"> Today Inventory</span></li>
                     <li><span data-tokenfrom="{{ url('HelperController/getCSRF') }}" data-action="{{ url('report/presentinventory') }}" data-toggle="modal" data-target="#inventoryReportModal" class="clink"> Current Inventory</span></li>
-                    <li>Finish Item</li>
-                    <li>History</li>
                 </ol>
               </div>
               <!-- /.card-body -->
@@ -215,20 +213,7 @@
           </div>                   
           <!-- /.col -->
           
-           <div class="col-md-4">
-            <div class="card card-outline card-warning">
-              <div class="card-header">
-                <h3 class="card-title">Attendence</h3>              
-              </div>
-              <div class="card-body" style="display: block;padding:0.75rem;">
-                <ol>
-                    <li>Today</li>
-                    <li>History</li>
-                </ol>
-              </div>
-            </div>
-          </div>  
-   <!-- /.col -->
+          
 
           <div class="col-md-4">
 
