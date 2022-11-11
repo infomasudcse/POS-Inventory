@@ -63,10 +63,10 @@
                         </tr>
                 
                      <?php if($payments){
-
+                                        $total = 0;
                                 foreach($payments as $key => $payment){
                                     
-                                    $total = 0;
+                                   
                                     $total += floatval($payment->amount);
                                 ?>
                                                             
