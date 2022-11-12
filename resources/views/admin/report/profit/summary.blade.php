@@ -72,7 +72,7 @@
 
                         <th>Branch</th>
 
-                        <th>Vat</th>
+                        <th>Profit</th>
 
                       </tr> 
 

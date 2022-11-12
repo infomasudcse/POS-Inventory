@@ -54,7 +54,7 @@
 
               <div class="card-header">
 
-                <h3 class="card-title">Profits <?php if($profits){ echo $profits[0]->title; }?></h3>                
+                <h3 class="card-title">Profits <?php if(count($profits)){ echo $profits[0]->title; }?></h3>                
 
                 <!-- /.card-tools -->
 
@@ -78,7 +78,7 @@
 
                       <?php
                       
-                      if($profits){
+                      if(count($profits)){
                         $i = 1;
                         $total_cost = 0;
                         $total_unit = 0;
