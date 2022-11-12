@@ -117,8 +117,8 @@
               <!-- /.card-header -->
               <div class="card-body" style="display: block;padding:0.75rem;">
                 <ol>
-                    <li>Today</li>                    
-                    <li>History</li>
+                    <li><a href="{{ url('report/profit/today') }}">Today</a></li> 
+                    <li><span data-tokenfrom="{{ url('HelperController/getCSRF') }}" data-action="{{ url('report/profit/history') }}" data-toggle="modal" data-target="#reportModal" class="clink">History</span></li>
                 </ol>
               </div>
               <!-- /.card-body -->

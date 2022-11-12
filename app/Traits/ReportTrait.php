@@ -614,6 +614,38 @@ trait ReportTrait{
 		return $tot;
 	}
 
+	
+	function getSummaryProfit(){
+			$data = DB::table('saleitems')
+             	->select('branches.id', 'saleitems.sale_id', DB::raw('sum(saleitems.unit_price) as unit, sum(saleitems.cost_price) as cost'))
+             	->whereDate('saleitems.created_at', Carbon::today())
+				->join('sales', 'saleitems.sale_id', '=', 'sales.id')
+				->join('branches', 'sales.branch_id', '=', 'branches.id')
+             	->groupBy('sale_id')
+				->get();
+		
+        return $data;	
+	}
+
+	function getProfit($branch, $from, $to){
+		if($branch){
+			$data = DB::table('saleitems')
+				->select('branches.title', 'saleitems.sale_id', DB::raw('sum(saleitems.unit_price) as unit, sum(saleitems.cost_price) as cost'))
+				
+				->where('saleitems.created_at', '>',$from)
+
+				->where('saleitems.created_at', '<',$to)
+
+				->where('branches.id', $branch)
+
+				->join('sales', 'saleitems.sale_id', '=', 'sales.id')
+				->join('branches', 'sales.branch_id', '=', 'branches.id')
+				->groupBy('sale_id')
+				->get();
+		}
+	
+		return $data;	
+	}
 
 //end
 

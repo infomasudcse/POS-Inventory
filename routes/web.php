@@ -117,13 +117,13 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::post('/report/itemstatus',[Report::class,'itemStatus']);
     Route::get('/report/vat/today',[Report::class,'todayVat']);
     Route::post('/report/vat/history',[Report::class,'vatDetails']);
-
     Route::get('/report/expense/today',[Report::class,'todayExpense']);
     Route::post('/report/expense/details',[Report::class,'expenseDetails']);
-
     Route::get('/report/payment/today',[Report::class,'todayPayment']);
     Route::post('/report/payment/history',[Report::class,'historyPayment']);
    
+    Route::get('/report/profit/today',[Report::class,'todayProfit']);
+    Route::post('/report/profit/history',[Report::class,'profitDetails']);
 });
 
 Route::middleware(['auth','role:staff'])->group(function () {

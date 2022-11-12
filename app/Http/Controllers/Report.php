@@ -217,8 +217,6 @@ class Report extends Controller
 
     }
 
-
-
     function todayExpense(){
         $date = Date('Y-m-d');
         $data['expenses'] = $this->getEspenses('', $date, $date);
@@ -247,6 +245,49 @@ class Report extends Controller
 
     }
 
+    function todayProfit(){
+        $date = Date('Y-m-d');
+        $profits = $this->getSummaryProfit();
+        $data['profits'] = [];
+
+        $branches = $this->getBranches();
+
+        if($profits){
+            foreach($profits as $key=>$val){
+                        $profit = floatval($val->unit) - floatval($val->cost);
+
+                    foreach($branches as $branch){
+                        if($val->id == $branch->id){
+                            if(isset($data['profits'][$branch->id])){
+                                $data['profits'][$branch->id]['profit'] =  $profit + $data['profits'][$branch->id]['profit'];
+                            }else{
+                                $data['profits'][$branch->id] = ['profit' => $profit, 'branch'=> $branch->title];
+                            }
+                        }
+                    }                   
+                }
+        }
+
+       
+
+        $data['from_to'] = $date.' / '.$date;
+        $data['config'] = $this->getConfig();  
+    	return view('admin.report.profit.summary', $data);
+    }
+
+    function profitDetails(Request $request){
+        $validatedData = $request->validate([ 
+            'fromDate' =>'required',
+            'toDate' =>'required',
+            'branch'=>'required'
+            ]);
+    	$from = $request->fromDate;
+    	$to = $request->toDate;
+    	$data['from_to'] = $from.' / '.$to;    	
+    	$data['profits'] = $this->getProfit($request->branch,$from,$to);
+        $data['config'] = $this->getConfig();      	
+    	return view('admin.report.profit.history', $data);
+    }
 
 
     //end
