@@ -628,9 +628,15 @@ trait ReportTrait{
 	}
 
 	function getProfit($branch, $from, $to){
+
+		$to = $to.' 23:59:59';
+
+		$from = $from.' 00:00:01';
+
+		
 		if($branch){
 			$data = DB::table('saleitems')
-				->select('branches.title', 'saleitems.sale_id', DB::raw('sum(saleitems.unit_price) as unit, sum(saleitems.cost_price) as cost'))
+				->select('branches.title', 'saleitems.sale_id','saleitems.created_at', DB::raw('sum(saleitems.unit_price) as unit, sum(saleitems.cost_price) as cost'))
 				
 				->where('saleitems.created_at', '>',$from)
 
@@ -640,7 +646,8 @@ trait ReportTrait{
 
 				->join('sales', 'saleitems.sale_id', '=', 'sales.id')
 				->join('branches', 'sales.branch_id', '=', 'branches.id')
-				->groupBy('sale_id')
+				->groupBy('saleitems.sale_id')
+				->groupBy('saleitems.created_at')
 				->get();
 		}
 	

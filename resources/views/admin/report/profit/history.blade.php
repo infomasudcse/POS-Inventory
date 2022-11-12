@@ -54,7 +54,7 @@
 
               <div class="card-header">
 
-                <h3 class="card-title">Profits <?php if(count($profits)){ echo $profits[0]->title; }?></h3>                
+                <h3 class="card-title">Profits </h3>                
 
                 <!-- /.card-tools -->
 
@@ -69,7 +69,7 @@
                       <tr>
 
                         <th>SL.</th>
-                      
+                        <th>Date</th>
                         <th>Cost Price</th>
                         <th>Unit Price</th>
                         <th>Profit</th>
@@ -83,29 +83,26 @@
                         $total_cost = 0;
                         $total_unit = 0;
                         $total_profit = 0;
-                          foreach($profits as $row){
-
-
-                            $unit = floatval($row->unit);
-                            $cost = floatval($row->cost);
-                            $total_unit +=  $unit;
-                            $total_cost +=  $cost;
-                            $profit = $unit - $cost;
-                            $total_profit +=  $profit;
+                          foreach($profits as $key=>$row){
+                            
+                            $total_unit +=  $row['unit'];
+                            $total_cost +=  $row['cost'];
+                            $total_profit +=  $row['profit'];
                         ?>
                           <tr>
 
                             <td>{{ $i }}</td>
-                            <td>{{ Helper::toCurrency($cost) }} </td>
-                            <td>{{ Helper::toCurrency($unit) }} </td>
-                            <td>{{ Helper::toCurrency($profit) }} </td>
+                            <td>{{ $key }}</td>
+                            <td>{{ Helper::toCurrency($row['cost']) }} </td>
+                            <td>{{ Helper::toCurrency($row['unit']) }} </td>
+                            <td>{{ Helper::toCurrency($row['profit']) }} </td>
                           </tr>
                       <?php
                       $i++;
                           }  
 
 
-                          echo '<tr><th>Total</th><th>'.Helper::toCurrency($total_cost).'</th><th>'.Helper::toCurrency($total_unit).'</th><th>'.Helper::toCurrency($total_profit).'</th></tr>';
+                          echo '<tr><th></th><th>Total</th><th>'.Helper::toCurrency($total_cost).'</th><th>'.Helper::toCurrency($total_unit).'</th><th>'.Helper::toCurrency($total_profit).'</th></tr>';
 
                         }
 

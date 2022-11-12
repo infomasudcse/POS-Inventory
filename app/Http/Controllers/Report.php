@@ -284,7 +284,37 @@ class Report extends Controller
     	$from = $request->fromDate;
     	$to = $request->toDate;
     	$data['from_to'] = $from.' / '.$to;    	
-    	$data['profits'] = $this->getProfit($request->branch,$from,$to);
+    	$profits = $this->getProfit($request->branch,$from,$to);
+       
+        $data['profits'] = [];
+        $offBranch = '';
+        if(count($profits)){
+            foreach($profits as $key=>$val){
+                $unit = floatval($val->unit);
+                $cost = floatval($val->cost);
+                $profit =  $unit - $cost; 
+                $date = date('d-m-y', strtotime($val->created_at));
+                    
+                
+                if(isset($data['profits'][$date])){
+                    $data['profits'][$date]['profit'] +=  $profit;
+                    $data['profits'][$date]['cost'] +=  $cost;
+                    $data['profits'][$date]['unit'] +=  $unit;
+                }else{
+                    $data['profits'][$date] = ['profit' => $profit, 'cost'=> $cost, 'unit'=> $unit, 'branch'=> $val->title];
+                    $offBranch = '';
+                }
+
+                if(!$offBranch){
+                    $offBranch = $val->title;
+                }
+                        
+                                     
+            }
+        }
+
+
+        $data['from_to'] .= ' / '. $offBranch;
         $data['config'] = $this->getConfig();      	
     	return view('admin.report.profit.history', $data);
     }
