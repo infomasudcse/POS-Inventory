@@ -60,7 +60,7 @@
 
               <!-- /.card-header -->
 
-              <div class="card-body">
+              <div class="card-body pb-5">
                     <table class="table" width="100%" style="text-align:center">
                       <tr>
                         <th>Date</th>
@@ -107,6 +107,12 @@
                     </tr>
 
                     </table>
+
+                    <?php if($config->corporate_report_note){ ?>
+
+                        <div class="mt-5 mb-3"><p>* Report generated from <?=request()->getHttpHost();?> on <?=date('d-m-Y');?></p></div>
+
+                    <?php } ?>
 
               </div>
 

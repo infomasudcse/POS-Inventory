@@ -181,14 +181,19 @@
                     <div class="hidden-row hidden" id="hidden-row">
 
                             <div class="form-group row">
-                              <label for="tr" class="col-3 col-form-label">Corporate Report Multiply</label>
+                              <label for="corporate_multiply" class="col-3 col-form-label">Corporate Report Multiply</label>
                               <div class="col-9">
                                 <input type="number" step="0.1" name="corporate_multiply" class="form-control" id="tr" value="{{ $cf->corporate_multiply }}" required>
                               </div>
                             </div>
+
+                            <div class="form-group row">
+                              <label for="corporate_report_note" class="col-3 col-form-label">Add Corporate Report Note</label>
+                              <div class="col-2">
+                                <input type="checkbox" class="form-control" name="corporate_report_note" id="corporate_report_note" value="1" {{ (($cf->corporate_report_note) ? 'checked': '') }}>
+                              </div>
+                              
                     </div>
-
-
 
 
                 </div>

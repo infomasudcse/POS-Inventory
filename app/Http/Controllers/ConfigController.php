@@ -64,6 +64,7 @@ class ConfigController extends Controller
             'logo'=> 'logo.png',
             'mono'=> 'mono.png',   
             'corporate_multiply'=> $request->input('corporate_multiply'),  
+            'corporate_report_note' => $request->input('corporate_report_note')?: 0,
             ];
         
         $uploadedFile = $request->file('logo'); 

@@ -33,6 +33,7 @@ class CreateConfigsTable extends Migration
             $table->string('logo',30)->default('logo.png');
             $table->string('mono',30)->default('mono.png');
             $table->float('corporate_multiply', 3, 2)->default(1.00);
+            $table->tinyInteger('corporate_report_note')->default(1);
             $table->string('support',30)->default('MaxDigital.live');
             $table->string('support_link',50)->default('http://maxdigital.live'); 
             $table->string('support_contact',30)->default('01763036764');   
