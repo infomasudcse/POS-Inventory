@@ -31,7 +31,10 @@ trait ReportTrait{
 		$branches =  Branch::all();
 
 		return $branches;
+	}
 
+	function getBranchById($id){
+		return Branch::where('id', $id)->get()->first();
 	}
 
 	function getConfig(){
@@ -56,6 +59,27 @@ trait ReportTrait{
 		}
 
 		return $return;
+	}
+
+	function getSaleCorporate($branch,$from,$to){
+
+		$to = $to.' 23:59:59';
+
+		$from = $from.' 00:00:01';
+
+		$sale = DB::table('sales')
+				->select('subtotal', 'total_tax', 'created_at' )            	
+
+             	->where('created_at', '>',$from)
+
+             	->where('created_at', '<',$to)
+
+             	->where('branch_id',$branch)          	
+
+             	->get();        
+
+		return $sale;	        	
+
 	}
 
 	function getDetailsSale($branch,$from,$to){

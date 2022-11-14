@@ -62,7 +62,8 @@ class ConfigController extends Controller
             'autobarcode'=> $request->input('autobarcode')?: 0 ,
             'br_line'=> $request->input('br_line'),
             'logo'=> 'logo.png',
-            'mono'=> 'mono.png',     
+            'mono'=> 'mono.png',   
+            'corporate_multiply'=> $request->input('corporate_multiply'),  
             ];
         
         $uploadedFile = $request->file('logo'); 

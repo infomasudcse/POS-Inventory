@@ -18,6 +18,49 @@ class Report extends Controller
         $data['paymenttypes'] = $this->getPymentType();
     	return view('admin.report.index', $data);
     }
+
+    function corporateSale(Request $request){
+    	//print_r($request->all());
+    	//die();
+        $data['config'] = $this->getConfig();  
+        $multiple = floatval($data['config']->corporate_multiply);
+
+
+    	$validatedData = $request->validate([ 
+            'fromDate' =>'required',
+            'toDate' =>'required',
+            'branch'=>'required'
+            ]);
+    	$from = $request->fromDate;
+    	$to = $request->toDate;    	 
+        $branch = $this->getBranchById($request->branch);
+        $branch_name = $branch? $branch->title : '';
+        $data['from_to'] = $request->fromDate.' / '.$request->toDate.' / '.$branch_name;   
+        $result = [];	
+    	$sales = $this->getSaleCorporate($request->branch,$request->fromDate,$request->toDate);  
+        if(count($sales)){
+            foreach($sales as $sale){
+                $date = date('d-m-y', strtotime($sale->created_at));
+                $subtotal = floatval($sale->subtotal) * $multiple;
+                $tax = floatval($sale->total_tax) * $multiple;
+                $total = $subtotal +  $tax ;
+
+                if(isset($result[$date])){
+                    $result[$date]['subtotal'] +=  $subtotal;
+                    $result[$date]['tax'] +=    $tax ;
+                    $result[$date]['total'] +=   $total;
+                }else{
+                    $result[$date] = ['subtotal' => $subtotal, 'tax'=>  $tax ,'total' =>   $total];
+                }
+            }
+        }
+        
+
+
+        $data['sales'] = $result;
+      
+    	return view('admin.report.sale.corporate', $data);
+    }
     
     function saleDetails(Request $request){
     	//print_r($request->all());

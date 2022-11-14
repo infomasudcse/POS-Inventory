@@ -172,6 +172,25 @@
                     </div>
                   </div>
 
+                  <div class="form-group row">
+                      <div class="col">
+                        <h3 id="more-option" class="form-title pt-5 mb-3">More....</h3>
+                      </div>
+                    </div>
+
+                    <div class="hidden-row hidden" id="hidden-row">
+
+                            <div class="form-group row">
+                              <label for="tr" class="col-3 col-form-label">Corporate Report Multiply</label>
+                              <div class="col-9">
+                                <input type="number" step="0.1" name="corporate_multiply" class="form-control" id="tr" value="{{ $cf->corporate_multiply }}" required>
+                              </div>
+                            </div>
+                    </div>
+
+
+
+
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">

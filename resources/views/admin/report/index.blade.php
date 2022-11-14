@@ -103,6 +103,7 @@
                     <li><a href="{{ url('report/sale/today') }}">Today</a></li>
                     <li><span data-tokenfrom="{{ url('HelperController/getCSRF') }}" data-action="{{ url('report/sale/summary') }}" data-toggle="modal" data-target="#reportModal" class="clink"> Summary Sale</span></li>
                     <li><span data-tokenfrom="{{ url('HelperController/getCSRF') }}" data-action="{{ url('report/sale/details') }}" data-toggle="modal" data-target="#reportModal" class="clink">Details Sale</span></li>
+                    <li><span data-tokenfrom="{{ url('HelperController/getCSRF') }}" data-action="{{ url('report/sale/corporate') }}" data-toggle="modal" data-target="#reportModal" class="clink">Corporate</span></li>
                 </ol>
               </div>
             </div>
