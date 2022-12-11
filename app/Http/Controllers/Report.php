@@ -37,9 +37,17 @@ class Report extends Controller
         $branch_name = $branch? $branch->title : '';
         $data['from_to'] = $request->fromDate.' / '.$request->toDate.' / '.$branch_name;   
         $result = [];	
-    	$sales = $this->getSaleCorporate($request->branch,$request->fromDate,$request->toDate);  
+    	$sales = $this->getSaleCorporate($request->branch,$request->fromDate,$request->toDate); 
+        
         if(count($sales)){
             foreach($sales as $sale){
+                $profit = 0;
+                foreach($sale->saleitems as $item){
+                    $item_profit = floatval($item->unit_price) - floatval($item->cost_price);
+                   
+                    $profit += $item_profit * $multiple;
+                }
+
                 $date = date('d-m-y', strtotime($sale->created_at));
                 $subtotal = floatval($sale->subtotal) * $multiple;
                 $tax = floatval($sale->total_tax) * $multiple;
@@ -49,13 +57,14 @@ class Report extends Controller
                     $result[$date]['subtotal'] +=  $subtotal;
                     $result[$date]['tax'] +=    $tax ;
                     $result[$date]['total'] +=   $total;
+                    $result[$date]['profit'] +=   $profit;
                 }else{
-                    $result[$date] = ['subtotal' => $subtotal, 'tax'=>  $tax ,'total' =>   $total];
+                    $result[$date] = ['subtotal' => $subtotal, 'tax'=>  $tax ,'total' =>  $total ,'profit'=> $profit];
                 }
             }
         }
         
-
+       
 
         $data['sales'] = $result;
       

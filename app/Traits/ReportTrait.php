@@ -67,16 +67,27 @@ trait ReportTrait{
 
 		$from = $from.' 00:00:01';
 
-		$sale = DB::table('sales')
-				->select('subtotal', 'total_tax', 'created_at' )            	
+		// $sale = DB::table('sales')
+		// 		->select('subtotal', 'total_tax', 'created_at' )            	
 
-             	->where('created_at', '>',$from)
+        //      	->where('created_at', '>',$from)
 
-             	->where('created_at', '<',$to)
+        //      	->where('created_at', '<',$to)
 
-             	->where('branch_id',$branch)          	
+        //      	->where('branch_id',$branch)          	
 
-             	->get();        
+        //      	->get();  
+				
+
+		$sale = Sale::with('saleitems')            	
+
+             	->where('sales.created_at', '>',$from)
+
+             	->where('sales.created_at', '<',$to)
+
+             	->where('sales.branch_id',$branch)             	
+
+             	->get();   
 
 		return $sale;	        	
 

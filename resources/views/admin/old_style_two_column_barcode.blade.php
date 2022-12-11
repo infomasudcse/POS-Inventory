@@ -12,7 +12,7 @@ float:left;
 .label_text{margin-left:50px;}
 .bb{background-color:#ffffff;}
 .cc{background-color:#ffffff;}
-.box_barcode{border:1px solid #00ffff;float:left;text-align:center;width:175px;padding:10px 10px;}
+.box_barcode{border:1px solid #ffffff;float:left;text-align:center;width:175px;padding:10px 10px;}
 </style>
 <?php
 
@@ -33,7 +33,7 @@ float:left;
 
 
 <div style="width:90%;border:1px solid #ffffff;opacity:.1;" id="receiptDiv">
-    <div style="width:480px;margin-left:-30px;margin-top:-38px;border:1px solid red;height:720px;opacity:1" align="center">
+    <div style="width:480px;margin-left:-30px;margin-top:-38px;border:1px solid #ffffff;height:720px;opacity:0;" align="center">
     <?php
         $price = Helper::toCurrency($inv->unit_price);
 

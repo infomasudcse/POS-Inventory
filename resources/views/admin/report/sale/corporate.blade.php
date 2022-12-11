@@ -67,6 +67,7 @@
                         <th>Subtotal</th>
                         <th>Tax</th>
                         <th>Total Sale</th>
+                        <th>Total Profit</th>
                       </tr>
 
                       <?php
@@ -77,10 +78,12 @@
                      $t_sub = 0;
                      $t_tax = 0;
                      $t_total = 0;
+                     $t_profit = 0;
                     foreach($sales as $key => $sale){ 
                         $t_sub += $sale['subtotal'];
                         $t_tax += $sale['tax'];
                         $t_total += $sale['total'];
+                        $t_profit += $sale['profit'];
                     ?>
                         
                        <tr class="details" >                         
@@ -93,6 +96,8 @@
 
                           <td><?=Helper::toCurrency($sale['total']);?></td>
 
+                          <td><?=Helper::toCurrency($sale['profit']);?></td>
+
                         </tr>
 
                        
@@ -104,6 +109,7 @@
                         <th><?=Helper::toCurrency($t_sub);?></th>
                         <th><?=Helper::toCurrency($t_tax);?></th>
                         <th><?=Helper::toCurrency($t_total);?></th>
+                        <th><?=Helper::toCurrency($t_profit);?></th>
                     </tr>
 
                     </table>

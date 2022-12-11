@@ -11,7 +11,20 @@
 6.	HTML
 4.	CSS
 
-## Project Goal
+## Upcoming Features
+
+1. Add Product Media
+
+2. Share Product 
+
+## Additional Features
+
+1. Various Payment Option and Report 
+
+2. Auto Product Sku / Manual Sku Option
+
+
+## Project Features
 
 1.	Business owner can 
 
