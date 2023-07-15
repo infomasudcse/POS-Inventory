@@ -96,7 +96,7 @@
 
                 <tr>
 
-                  <th>SL.</th>
+                  <th>Date</th>
                   <th>Type</th>
                   <th>Amount</th>
                   <th>Note</th>

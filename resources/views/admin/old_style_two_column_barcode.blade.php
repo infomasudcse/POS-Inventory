@@ -33,7 +33,7 @@ float:left;
 
 
 <div style="width:90%;border:1px solid #ffffff;opacity:.1;" id="receiptDiv">
-    <div style="width:480px;margin-left:-30px;margin-top:-38px;border:1px solid #ffffff;height:720px;opacity:0;" align="center">
+    <div style="width:480px;margin-left:-30px;margin-top:-28px;border:1px solid #ffffff;height:720px;opacity:0;" align="center">
     <?php
         $price = Helper::toCurrency($inv->unit_price);
 
@@ -46,8 +46,8 @@ float:left;
           <div><span style=''>".$img."</span></div>
           <div><span style='letter-spacing:2px;font-size:11px;'>*".$inv->sku."* </span></div>
           <div style='line-height:1;'><span style='font-size:9px;line-height:1;'>".$str."</span></div>
-          <div style=''> <b style='font-size:14px;'>".$price."</b> <span style='font-size:10px;'>+".$configs->default_tax_name."</span> </div>
-          <div style=''><span style='font-size:13px;'>".ucwords($configs->business_name)."</span></div>";
+          <div style=''> <b style='font-size:12px;'>".$price."</b> <span style='font-size:10px;'>+".$configs->default_tax_name."</span> </div>
+          <div style=''><span style='font-size:14px;'>".ucwords($configs->business_name)."</span></div>";
         ?>
         </div>
      <?php }   ?>
