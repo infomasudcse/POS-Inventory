@@ -27,6 +27,8 @@
     $('#expenseTypeTable').DataTable({"ajax":'ExpensetypeController/getExpenseType'});
     $('#paymentTypeTable').DataTable({"ajax":'PaymenttypeController/getPaymentType'});
     $('#expensesTable').DataTable({"ajax":'ExpensesController/getExpenses'});
+    $('#customerTable').DataTable({"ajax":'CustomerController/getCustomers'});
+    
     
     //load item suggestion
     $('#item-category').change(function(){    

@@ -68,7 +68,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
     'customer' => CustomerController::class,
     ]);  
 
-    Route::get('/DashboardController/getChartData', [DashboardController::class,'getChartData']);
+    Route::get('/DashboardController/getChartData/{type}', [DashboardController::class,'getChartData']);
 
     Route::get('/config/changeSystemStatus', [ConfigController::class, 'changeState']);  
 

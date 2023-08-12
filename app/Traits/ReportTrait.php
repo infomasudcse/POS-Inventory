@@ -209,6 +209,40 @@ trait ReportTrait{
 
 	}
 
+	function getWeekSale($branch_id=''){
+
+		 
+		$week = Carbon::now()->week();
+		if($week != 1) {
+
+			$week -= 1;
+		}
+		$startWeek = Carbon::now()->week($week)->startOfWeek(); // 30 May 2022
+		$endWeek   = Carbon::now()->week($week)->endOfWeek();  // 5 June 2022
+
+		//dd($startWeek);
+		
+		
+		if($branch_id){
+			$sales = DB::table('sales')
+             ->select(DB::raw('sum(total_sale) as total'))
+             ->whereBetween('created_at', [$startWeek, $endWeek])
+			 ->where('branch_id', $branch_id)
+			 ->groupBy('created_at')
+			 ->orderBy('created_at','ASC')
+             ->get();
+		}else{
+			$sales = DB::table('sales')
+             ->select('total_sale as total', 'created_at')
+			 ->whereBetween('created_at', [$startWeek, $endWeek])
+			 ->orderBy('created_at','ASC')
+             ->get();
+		}
+
+       return $sales;
+
+	}
+
 
 	function getSale($date='', $branch_id=''){
 

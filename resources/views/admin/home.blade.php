@@ -142,6 +142,28 @@
 
         </div>
 
+				<!-- Week -->
+				<div class="row">
+          <div class="col-lg-12"> 
+             <div class="card card-default card-outline">
+              <div class="card-header bg-warning">
+                <h3 class="card-title">  <i class="far fa-chart-bar"></i> Last Week Sales   </h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>               
+                </div>
+              </div>
+              <div class="card-body">
+                <div id="bar-week-chart" style="height: 300px;"></div>
+              </div>
+              <!-- /.card-body-->
+            </div>
+          </div>
+          <!-- /.col-md-6 -->
+        </div>
+				<!-- Month -->
+
         <div class="row">         
 
           <div class="col-lg-12">           
@@ -154,7 +176,7 @@
 
                   <i class="far fa-chart-bar"></i>
 
-                  Sales
+                  Month Sales
 
                 </h3>
 
