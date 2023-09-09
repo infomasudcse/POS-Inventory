@@ -14,32 +14,41 @@ $.ajax({
   cache: false          
   }).done(function( cdata ) {
 
+    // $.plot($('#bar-week-chart'), data, options);
+
     var bar_data = {
       data : JSON.parse(cdata),
-      bars: { show: true }
+      bars: { show: true },
+      valueLabels:
+      {
+         show: true,
+         showTextLabel: true,
+         yoffset: 1,
+         align: 'center',
+         font: "12pt 'Trebuchet MS'",
+         fontcolor: 'blue'
+      }
     }
-    $.plot('#bar-week-chart', [bar_data], {
-      grid  : {
-        borderWidth: 0.5,
-        borderColor: '#f3f3f3',
-        tickColor  : '#f3f3f3',
-        hoverable: true,
-        clickable: true,
-      },
-      valueLabels: {
-        show: true
+   
+     $.plot('#bar-week-chart', [bar_data], {
+    grid  : {
+      borderWidth: 0.5,
+      borderColor: '#f3f3f3',
+      tickColor  : '#f3f3f3'
     },
-      series: {
-         bars: {
-          show: true, barWidth: 0.2, align: 'center',
-        },
+    series: {
+       bars: {
+        show: true, barWidth: 0.2, align: 'center'
       },
-      colors: ['#28a745'],
-     
+    },
+    colors: ['#206830'],
        xaxis : {
          ticks: [[0,'Sun'], [1, 'Mon'], [2,'Tue'], [3,'Wed'], [4,'Thu'], [5,'Fri'], [6,'Sat']]
-       }
+       },
     })
+
+
+
 
   }); 
 
@@ -51,7 +60,16 @@ $.ajax({
   
       var bar_data = {
         data : JSON.parse(cdata), //[[1,10], [2,8], [3,4], [4,13], [5,17], [6,9],[7,20],[8,10],[9,15],[10,25],[11,20],[12,15],[13,18],[14,19],[15,9]],
-        bars: { show: true }
+        bars: { show: true },
+        valueLabels:
+        {
+           show: true,
+           showTextLabel: true,
+           yoffset: 1,
+           align: 'center',
+           font: "9pt 'Trebuchet MS'",
+           fontcolor: 'blue'
+        }
       }
       $.plot('#bar-chart', [bar_data], {
         grid  : {

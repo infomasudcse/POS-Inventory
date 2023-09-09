@@ -464,6 +464,7 @@
 <!--FLOT CHARTS -->
 
 <script src="{{ asset('alte/js/flot/jquery.flot.js') }}"></script>
+<script src="{{ asset('alte/js/flotvalues.js') }}"></script>
 
 <!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized  -->
 

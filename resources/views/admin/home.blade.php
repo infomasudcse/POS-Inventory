@@ -147,7 +147,7 @@
           <div class="col-lg-12"> 
              <div class="card card-default card-outline">
               <div class="card-header bg-warning">
-                <h3 class="card-title">  <i class="far fa-chart-bar"></i> Last Week Sales   </h3>
+                <h3 class="card-title">  <i class="far fa-chart-bar"></i> Last Week Sales (Without Tax)  </h3>
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse">
                     <i class="fas fa-minus"></i>

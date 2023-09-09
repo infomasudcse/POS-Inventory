@@ -225,7 +225,7 @@ trait ReportTrait{
 		
 		if($branch_id){
 			$sales = DB::table('sales')
-             ->select(DB::raw('sum(total_sale) as total'))
+             ->select(DB::raw('sum(subtotal) as total'))
              ->whereBetween('created_at', [$startWeek, $endWeek])
 			 ->where('branch_id', $branch_id)
 			 ->groupBy('created_at')
@@ -233,7 +233,7 @@ trait ReportTrait{
              ->get();
 		}else{
 			$sales = DB::table('sales')
-             ->select('total_sale as total', 'created_at')
+             ->select('subtotal as total', 'created_at')
 			 ->whereBetween('created_at', [$startWeek, $endWeek])
 			 ->orderBy('created_at','ASC')
              ->get();

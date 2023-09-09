@@ -132,35 +132,40 @@
                                   <table class="table">
 
                                       <tr>
-
                                         <th>SKU</th>
-
                                         <th>Qty</th>
-
-                                        <th>Cost Price</th>
-
-                                        <th>Unit Price</th>                                        
-
+                                        <th>Unit Cost</th>
+                                        <th>Total Cost</th>
+                                        <th>Unit Price</th>  
+                                        <th>Total Price</th>
                                         <th>Tax Amount</th>
-
                                       </tr>
 
                                   <?php foreach($sale->saleitems as $item){ ?>
 
                                       <tr>
                                         <td><?=$item->sku;?></td>
-
                                         <td><?=$item->qty;?></td>
-
                                         <td>
                                           <?php 
                                             echo Helper::toCurrency($item->cost_price);
-                                            $total_cost += floatval($item->cost_price);
-                                          ?>
-                                          
+                                           
+                                          ?>                                          
+                                        </td>
+                                        <td>
+                                          <?php                                           
+                                            $items_costing =  floatval($item->cost_price) * $item->qty;
+                                            echo Helper::toCurrency($items_costing);
+                                            $total_cost += $items_costing;
+                                          ?>                                          
                                         </td>
 
                                         <td><?=Helper::toCurrency($item->unit_price);?></td>
+                                        <td>
+                                          <?php                                           
+                                            echo Helper::toCurrency( floatval($item->unit_price) * $item->qty );
+                                          ?>                                          
+                                        </td>
 
                                         <td><?=Helper::toCurrency($item->tax_amount);?> (<?=$item->tax_code;?>%)</td>
 
@@ -191,9 +196,11 @@
 
                      <h4>Total Tax : <?=Helper::toCurrency($summ->taxs); ?></h4>
 
+                     <h4>Total Sale : <?=Helper::toCurrency($summ->totals);?></h4>       
+
                      <h4>Total Discount : <?=Helper::toCurrency($summ->discounts);?></h4>
 
-                     <h4>Total Sale : <?=Helper::toCurrency($summ->totals);?></h4>                    
+                                  
 
                     <?php } ?> 
                     <?php                       
