@@ -93,10 +93,10 @@
   <!-- Main Footer -->
   <footer class="main-footer">
     <div class="float-right d-none d-sm-inline">
-        Copyright &copy; Branch Name.
+        Copyright &copy; Mayer Doya Fashion Houes.
     </div>
     <!-- Default to the left -->
-    <strong>Software company</strong>
+    Powered by <strong><a href="https://www.anisha.uk/" class="credit-link">ANISHA</a></strong>
   </footer>
 </div>
 <!-- ./wrapper -->

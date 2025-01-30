@@ -56,13 +56,7 @@
             </div>
             
         </form>
-        <div style="width:100%;position: fixed;bottom:0;background-color: #E6E6E6;padding-top:15px;padding-bottom:15px;left:0;">
-        <div id="footer" style="display:flex;  align-items: center;flex-direction: row; justify-content: space-evenly;">
-             <p>MayerDoyaFashionHouse © <?=date('Y');?></p>
-             
-             <p> <a href="http://maxdigital.live">Max Digital</a> | <a href="https://www.facebook.com/maxdigitallive/">Contact on Facebook</a></p>
-        </div>
-    </div>
+       
     </x-auth-card>
 </x-guest-layout>
 

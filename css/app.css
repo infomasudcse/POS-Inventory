@@ -184444,3 +184444,17 @@ select {
   }
 }
 
+
+.main-footer{
+	position: absolute;
+    bottom: 0;
+    padding: 20px 15px;
+    border-top: 2px dashed grey;
+    width: 100%;
+    text-align: center;
+}
+
+.main-footer a{
+	color: #FF6F3C;
+}
+

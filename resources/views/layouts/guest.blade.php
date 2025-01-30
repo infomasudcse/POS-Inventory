@@ -20,5 +20,9 @@
         <div class="font-sans text-gray-900 antialiased">
             {{ $slot }}
         </div>
+
+        <footer class="main-footer">        
+            Powered by <strong><a href="https://www.anisha.uk/">ANISHA</a></strong>
+        </footer>
     </body>
 </html>

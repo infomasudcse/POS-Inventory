@@ -85,7 +85,7 @@
 
         <a class="nav-link" data-toggle="dropdown" href="#">
 
-          <i class="fas fa-th-large"></i>
+        <i class="fas fa-power-off"></i> LOG OUT
 
           <!-- <span class="badge badge-warning navbar-badge">15</span> -->
 
@@ -105,7 +105,7 @@
 
             <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();this.closest('form').submit();">
 
-              <i class="fas fa-users mr-2"></i> Logout            
+            <i class="fas fa-sign-out-alt"></i> Logout            
 
             </a>
 
@@ -353,6 +353,14 @@
 
           </li>
 
+          <li class="nav-item">
+            <a href="{{ url('/sms') }}" class="nav-link  <?=(($newTitle=='SMS')?'active':'');?>">
+            <i class="nav-icon far fa-comment-dots"></i>
+              <p>SMS</p>
+            </a>
+          </li>
+
+
           
           <li class="nav-item has-treeview <?=(($newTitle=='Configuration')?'menu-open':'');?>">
             <a href="#" class="nav-link  <?=(($newTitle=='Configuration')?'active':'');?>">
@@ -383,6 +391,17 @@
 
         </ul>
 
+      </nav>
+
+      <nav class="mt-2">
+       
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item" style="opacity: .4; margin-top: 100px;">
+            <a href="https://www.anisha.uk/" class="nav-link">
+              <p>Powered by ANISHA </p>
+            </a>
+          </li>  
+        </ul> 
       </nav>
 
       <!-- /.sidebar-menu -->

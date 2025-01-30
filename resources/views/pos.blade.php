@@ -95,13 +95,23 @@
 
 
   <!-- Main Footer -->
-  <footer class="main-footer">
-    <!-- To the right -->
-    <div class="float-right d-none d-sm-inline">
-        Copyright &copy; Branch Name.
+  <footer class="main-footer bg-dark">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-sm-6">
+            Powered by <strong><a href="https://www.anisha.uk/" class="credit-link">ANISHA</a></strong>
+        </div>
+        <div class="col-12 col-sm-6">
+            <div class="float-right">
+              Mayer Doya Fashion House
+          </div>
+        </div>
+      </div>
     </div>
+    <!-- To the right -->
+    
     <!-- Default to the left -->
-    <strong>By <a href="maxdigital.live">MaxDigital</a></strong>
+   
   </footer>
 </div>
 <!-- ./wrapper -->

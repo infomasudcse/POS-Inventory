@@ -22,6 +22,7 @@ use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PaymenttypeController;
+use App\Http\Controllers\SmsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,7 +85,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('/SubCategoryController/getSubCategory', [SubcategoryController::class,'getSubCategory']); 
     Route::get('/SubCategoryController/getSubCategoryByCatId/{id}', [SubcategoryController::class,'getSubCategoryByCatId']);
     Route::get('/VariationController/getVariation', [VariationController::class,'getVariation']);    
-   Route::get('/VariationvalController/getVariationval', [VariationvalController::class,'getVariationval']);
+    Route::get('/VariationvalController/getVariationval', [VariationvalController::class,'getVariationval']);
     Route::get('/ItemController/getItems',[ItemController::class,'getItems']);
     Route::get('/ItemController/getSuggestion/{id}',[ItemController::class,'getSuggestion']);
     Route::get('/InventoryController/getInventory',[InventoryController::class,'getInventory']);
@@ -125,6 +126,10 @@ Route::middleware(['auth','role:admin'])->group(function () {
    
     Route::get('/report/profit/today',[Report::class,'todayProfit']);
     Route::post('/report/profit/history',[Report::class,'profitDetails']);
+    //sms
+    Route::get('/sms',[SmsController::class,'index']);
+    Route::get('sms/updateBalance',[SmsController::class,'updateBalance']);
+    Route::post('/sms/sendSms',[SmsController::class,'sendSms']);
 });
 
 Route::middleware(['auth','role:staff'])->group(function () {
