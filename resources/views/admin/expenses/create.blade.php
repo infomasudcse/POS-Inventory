@@ -135,6 +135,15 @@
                   </div>
                 </div>
 
+                <div class="form-group row">
+                  <label for="fromdate" class="col-sm-2 col-form-label">Date</label>
+                  <div class="col-sm-6 col-12">
+                  <input type="date" placeholder="dd/mm/yyyy" class="form-control" name="fromDate" id="fromdate" autocomplete="off">
+                  <p class="text-muted">If you dont add date , the date will be today.</p>
+                  </div>
+                  
+                </div>
+
                   
               </div>
 

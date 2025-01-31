@@ -9,6 +9,7 @@ use App\Models\Saleitems;
 use App\Models\Inventory;
 use App\Traits\InventoryTrait;
 use App\Helper\Helper;
+use App\Http\Controllers\SmsController;
 
 class SaleController extends Controller
 {
@@ -89,7 +90,8 @@ class SaleController extends Controller
 
         $cartTotal = $this->getCartTotal();
         if($cartTotal == 0){
-            $request->session()->push('payment', ['payment_type'=>'none','amount'=>0.00]);
+            return redirect('/sales/index')->with('status', 'Check Total Items !');
+            //$request->session()->push('payment', ['payment_type'=>'none','amount'=>0.00]);
         }
         $cartTotPayment =  $this->getTotalPayment();
         $changeAmount  = $cartTotal - $cartTotPayment; 
@@ -158,6 +160,8 @@ class SaleController extends Controller
         $data['title'] = $this->title;
         //save payments
         $this->savePayments($data['sale']->id);
+        //send sms
+        SmsController::sendSaleReceipt($cartTotPayment, $data['customer'], $data['config']->business_name);
         //remove sales info 
         $this->deleteSaleInfo(); 
         $data['payments'] = $this->getSalePayments($data['sale']->id);

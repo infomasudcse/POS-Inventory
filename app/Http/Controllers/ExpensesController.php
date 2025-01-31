@@ -47,11 +47,13 @@ class ExpensesController extends Controller
      */
     public function store(Request $request)
     {
+        
         $rules = [
             'branch_id' =>'required|numeric',
             'expensetype_id' =>'required|numeric',
             'amount' => 'required|min:0|max:999999',
-            'note' => 'max:200',
+            'note' => 'max:200',     
+            'fromDate'=> 'date',     
         ];
        
         $validatedData = $request->validate($rules);
@@ -61,6 +63,11 @@ class ExpensesController extends Controller
         $newExpenses->expensetype_id = $request->expensetype_id;
         $newExpenses->amount = $request->amount;
         $newExpenses->description = $request->note;
+        if($request->fromDate != ''){
+            $date = Carbon::parse($request->fromDate)->timestamp;
+            $newExpenses->created_at =  date('Y-m-d H:i:s', $date+300); 
+        }
+
        
         if($newExpenses->save()){
             return redirect('expenses')->with('status', 'Expense Added!');
@@ -142,7 +149,7 @@ class ExpensesController extends Controller
     }
 
     function getExpenses(){
-        $expenses = Expenses::whereDate('created_at', Carbon::today())->with('expensetype')->with('branch')->get();
+        $expenses = Expenses::where('created_at', '>', Carbon::today()->subDays(7))->with('expensetype')->with('branch')->orderBy('created_at', 'DESC')->get();
         $expensesData =[]; 
         $i=1;       
         foreach($expenses as $expense){
@@ -155,7 +162,7 @@ class ExpensesController extends Controller
                         </form>
                         </div>";
 
-                $expensesData['data'][] = array($i,$expense->expensetype->typename,$expense->amount, $expense->description, $expense->branch->name,$action);
+                $expensesData['data'][] = array(date('d-m', strtotime($expense->created_at)),$expense->expensetype->typename,$expense->amount, $expense->description, $expense->branch->name,$action);
                 $i++;
          }
         return json_encode($expensesData);
