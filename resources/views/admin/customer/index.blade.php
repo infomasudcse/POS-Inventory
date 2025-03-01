@@ -37,7 +37,10 @@
               <div class="card-header">
                   <div class="row">
                       <div class="col"><h5 class="m-0">{{ $title }}</h5></div>
-                      <div class="col"></div>
+                      <div class="col text-right">
+                        <button data-link="{{ url('sms/sendBulk') }}" class="btn btn-secondary" id="sendToSMSRequestForm">Send SMS </button><br/>
+                        <span id="selectedCount" class="text-danger">Selected: 0</span>
+                      </div>
 
                   </div>  
 
@@ -46,13 +49,13 @@
               <div class="card-body">
               <table id="customerTable" class="table table-bordered">
                 <thead>
-                <tr>                  
-                  <th>SL</th> 
-                  <th>Name</th>                 
-                  <th>Phone</th>                  
-                  <th>Total Buy</th>
-                  <th>Action</th>
-                </tr>
+                  <tr>                  
+                    <th><input type="checkbox" id="selectAllCustomer"> <label for="selectAllCustomer">All</label></th> 
+                    <th>Name</th>                 
+                    <th>Phone</th>                  
+                    <th>Total Buy</th>
+                    <th>Action</th>
+                  </tr>
                 </thead>
                 <tbody>                 
 

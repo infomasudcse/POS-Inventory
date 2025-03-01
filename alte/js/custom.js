@@ -27,15 +27,61 @@
     $('#expenseTypeTable').DataTable({"ajax":'ExpensetypeController/getExpenseType'});
     $('#paymentTypeTable').DataTable({"ajax":'PaymenttypeController/getPaymentType'});
     $('#expensesTable').DataTable({"ajax":'ExpensesController/getExpenses'});
-    $('#customerTable').DataTable({"ajax":'CustomerController/getCustomers'});
+    $('#customerTable').DataTable({
+      "ajax":'CustomerController/getCustomers',
+      "pageLength": 20,
+      "columnDefs": [
+        {
+            "targets": [0], // Disable ordering for the first and second column (index starts at 0)
+            "orderable": false
+        }
+    ]
+    });
+
+    /** SMS  */
+    // Select/Deselect all checkboxes
+    function updateSelectedCount() {
+        let count = $(".customer-checkbox:checked").length; // Count checked checkboxes
+        $("#selectedCount").text('Selected: ' + count); // Update the counter display
+    }
+
+    // Select/Deselect all checkboxes
+    $('#selectAllCustomer').on('click', function () {
+        $('.customer-checkbox').prop('checked', this.checked);
+        updateSelectedCount(); // Update count when "Select All" is clicked
+    });
+
+    // Update count when checkboxes are clicked
+    $(document).on('change', '.customer-checkbox', function () {
+        updateSelectedCount();
+    });
+
+
+    $('#sendToSMSRequestForm').on('click', function () {
+  
+      // Send selected IDs as a GET request
+      let selectedCustomers = [];
+
+      $(".customer-checkbox:checked").each(function () {
+          selectedCustomers.push($(this).val());
+      });
+      if (selectedCustomers.length > 0) {
+              let url = $(this).data('link') + "/" + selectedCustomers.join(",");
+              window.location.href = url; // Redirect to GET request URL
+          } else {
+              alert("Please select at least one customer.");
+          }
+      });
+
+    /** SMS END */
     
     //load item suggestion
     $('#item-category').change(function(){    
         var selectedOption = $(this).children("option:selected").val();
         var actionUrl = $(this).attr('data-find-url');
 
-        console.log(actionUrl);
-        console.log(selectedOption);
+        //console.log(actionUrl);
+        //console.log(selectedOption);
 
          $.ajax({         
           url: actionUrl+'/'+selectedOption,

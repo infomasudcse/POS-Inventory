@@ -59,6 +59,11 @@
 
     <!-- Main content -->
 
+<?php 
+$cids = isset($ids)? $ids : '';
+
+?>    
+
 <div class="content">
 
       <div class="container-fluid">
@@ -77,7 +82,7 @@
                     <div class="form-group row">
                       <label for="fn" class="col-sm-2 col-form-label"> Mobile Number</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control is-warning" id="fn" name="mobile_no" value="{{ old('mobile_no') }}">
+                        <input type="text" class="form-control is-warning" id="fn" name="mobile_no" value="{{ $cids }}">
                       </div>
                     </div>
 

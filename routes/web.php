@@ -130,6 +130,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('/sms',[SmsController::class,'index']);
     Route::get('sms/updateBalance',[SmsController::class,'updateBalance']);
     Route::post('/sms/sendSms',[SmsController::class,'sendSms']);
+    Route::get('/sms/sendBulk/{ids}',[SmsController::class,'sendSmsBulk']);
 });
 
 Route::middleware(['auth','role:staff'])->group(function () {

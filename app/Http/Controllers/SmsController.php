@@ -39,6 +39,13 @@ class SmsController extends Controller
     	return view('admin.sms', $data);
     }
 
+    public static function sendSmsBulk($ids) {
+        $data['title'] = 'SMS';
+        $data['ids'] = $ids;
+    	$data['sms_balance'] = SmsController::getBalance();       
+    	return view('admin.sms', $data);
+    }
+
     public static function updateBalance()
     {
         self::checkBalance();

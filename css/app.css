@@ -184458,3 +184458,10 @@ select {
 	color: #FF6F3C;
 }
 
+
+.bg-image {
+  background-image: url('../images/abs-bg.png');
+  background-repeat: no-repeat;
+  background-position: top left;
+
+}

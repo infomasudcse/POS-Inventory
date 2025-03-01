@@ -101,8 +101,8 @@ class CustomerController extends Controller
                         </div>";
                     
 
-                $customerData['data'][] = array( $i, $customer->name, $customer->mobile, Helper::toCurrency($customer->paid), $action);
-                $i++;
+            $customerData['data'][] = array( '<input type="checkbox" class="customer-checkbox" value="'.$customer->mobile.'"> ', $customer->name, $customer->mobile, Helper::toCurrency($customer->paid), $action);
+            $i++;
          }
         
         return json_encode($customerData);
