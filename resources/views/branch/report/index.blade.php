@@ -148,8 +148,36 @@
 
               </div>
               <!-- /.col -->
+
               <div class="col-12 col-lg-6">
-                <div class="card card-outline card-warning">
+
+                <div class="card card-outline card-success">
+
+                  <div class="card-header">
+
+                    <h3 class="card-title">Stock</h3>
+
+                  </div>
+
+                  <!-- /.card-header -->
+
+                  <div class="card-body" style="display: block;padding:0.75rem;">
+
+                    <ol>
+                      <li><a href="{{ url('branchReport/CurrentStock') }}" > Today Stock</a></li>
+                    </ol>
+
+                  </div>
+
+                  <!-- /.card-body -->
+
+                </div>
+
+                <!-- /.card -->
+
+              </div>
+              <div class="col-12 col-lg-6">
+                <div class="card card-outline card-default">
 
                   <div class="card-header">
 

@@ -11,10 +11,10 @@ use Illuminate\Support\Facades\DB;
 
 class SmsController extends Controller
 {
-    const mode_live = true;
-    const masking = true;
-    const customer_id = 1150;
-    const api_key = "20bcaa044c97055217a4c9bd5cc4c3dd1ae93d8ee0747";
+    const mode_live = false;
+    const masking = false;
+    const customer_id = 0;
+    const api_key = "0";
     const single_message_url = 'https://www.24bulksmsbd.com/api/smsSendApi';
     const single_masking_message_url = 'https://www.24bulksmsbd.com/api/sendMaskingApi';
     const dynamic_message_url = 'https://www.24bulksmsbd.com/api/DynamicSMSApi';

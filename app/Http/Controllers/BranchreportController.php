@@ -7,6 +7,7 @@ use App\Traits\ReportTrait;
 use App\Models\Branch;
 use App\Models\Expenses;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 
 class BranchreportController extends Controller
@@ -61,6 +62,23 @@ class BranchreportController extends Controller
     	$data['branchinfo'] = Branch::find($branch);    	
     	$data['from_to'] = 'Yesterday';
 		return view('branch.report.expense',$data);
+
+	}
+
+	function CurrentStock() {
+		$branch = auth()->user()->branch_id;
+		$data['stock'] = DB::table('inventories')	
+			->join('items', 'inventories.item_id', '=', 'items.id')
+			->join('subcategories', 'items.subcategory_id', '=', 'subcategories.id')
+			->select(DB::raw('SUM(inventories.qty) as qty'), 'subcategories.id', 'subcategories.name')
+			->where('inventories.branch_id', $branch)
+			->groupBy('subcategories.id')
+			->get();
+
+		$data['today'] = Date('d-m-Y');
+		$data['branchinfo'] = Branch::find($branch);
+
+		return view('branch.report.stock',$data);	
 
 	}
 

@@ -154,6 +154,7 @@ Route::middleware(['auth','role:staff'])->group(function () {
     Route::get('/branchReport/todayDetails',[BranchreportController::class, 'todayDetails']);
     Route::post('/branchReport/saleDetails',[BranchreportController::class, 'saleDetails']);
     Route::get('/branchReport/expenseYeasterday',[BranchreportController::class, 'branchExpense']);
+    Route::get('/branchReport/CurrentStock',[BranchreportController::class, 'CurrentStock']);
     
     //Branch Transfer
     Route::get('/branchTransfer',[BranchTransferController::class, 'index'])->name('branch-transfer');
