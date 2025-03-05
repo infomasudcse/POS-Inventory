@@ -23,6 +23,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PaymenttypeController;
 use App\Http\Controllers\SmsController;
+use App\Http\Controllers\SalesmanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,6 +68,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
     'paymenttype' => PaymenttypeController::class,
     'expenses' => ExpensesController::class,
     'customer' => CustomerController::class,
+    'salesman' => SalesmanController::class,
     ]);  
 
     Route::get('/DashboardController/getChartData/{type}', [DashboardController::class,'getChartData']);
@@ -95,7 +97,8 @@ Route::middleware(['auth','role:admin'])->group(function () {
 
     Route::get('/ExpensetypeController/getExpenseType',[ExpensetypeController::class,'getExpenseType']);
     Route::get('/ExpensesController/getExpenses',[ExpensesController::class,'getExpenses']);  
-    Route::get('/PaymenttypeController/getPaymentType',[PaymenttypeController::class,'getPaymentType']);  
+    Route::get('/PaymenttypeController/getPaymentType',[PaymenttypeController::class,'getPaymentType']);
+    Route::get('/SalesmanController/getSalesmans',[SalesmanController::class,'getSalesmans']);   
 
     Route::get('/HelperController/getCSRF',[HelperController::class,'getCSRF']);
     Route::post('/helper/updateInventoryQty',[HelperController::class,'updateInventoryQty']);
@@ -122,8 +125,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('/report/expense/today',[Report::class,'todayExpense']);
     Route::post('/report/expense/details',[Report::class,'expenseDetails']);
     Route::get('/report/payment/today',[Report::class,'todayPayment']);
-    Route::post('/report/payment/history',[Report::class,'historyPayment']);
-   
+    Route::post('/report/payment/history',[Report::class,'historyPayment']);   
     Route::get('/report/profit/today',[Report::class,'todayProfit']);
     Route::post('/report/profit/history',[Report::class,'profitDetails']);
     //sms

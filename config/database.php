@@ -48,7 +48,7 @@ return [
             'url' => env('DATABASE_URL'),
             'host' =>  '127.0.0.1',
             'port' =>  '3306',
-            'database' => 'mayerdoya',
+            'database' => 'business',
             'username' =>'root',
             'password' => 'P@ss123',
             'unix_socket' => env('DB_SOCKET', ''),

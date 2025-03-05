@@ -27,6 +27,7 @@
     $('#expenseTypeTable').DataTable({"ajax":'ExpensetypeController/getExpenseType'});
     $('#paymentTypeTable').DataTable({"ajax":'PaymenttypeController/getPaymentType'});
     $('#expensesTable').DataTable({"ajax":'ExpensesController/getExpenses'});
+    $('#salesmanTable').DataTable({"ajax":'SalesmanController/getSalesmans'});
     $('#customerTable').DataTable({
       "ajax":'CustomerController/getCustomers',
       "pageLength": 20,

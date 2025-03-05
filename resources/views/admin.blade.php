@@ -316,6 +316,12 @@
             </a>
 
           </li>
+          <li class="nav-item">
+            <a href="{{ route('salesman.index') }}" class="nav-link  <?=(($newTitle=='Salesman')?'active':'');?>">
+              <i class="nav-icon fas fa-user-tie"></i>
+              <p>Salesman </p>
+            </a>
+          </li>
 
           <li class="nav-item">
 
