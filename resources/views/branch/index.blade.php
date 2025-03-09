@@ -251,6 +251,17 @@
                 @endif
               </div>
 
+              <div class="card-header">
+                <form action="{{ url('sales/addSalesman') }}" method="POST" id="salesmanForm">
+                  @csrf
+                  <div class="row">
+                    <div class="col-12">
+                      <input id="salesman" class="p-0 w-100" name="salesman" placeholder="salesman" type="text" value="{{ old('salesman') }}" autocomplete="off" />               
+                    </div>
+                  </div>
+               </form>
+              </div>
+
               <div class="card-body" style="padding:0.50rem;">
 
                 <div class="row">

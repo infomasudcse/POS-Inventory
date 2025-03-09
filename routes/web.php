@@ -149,6 +149,7 @@ Route::middleware(['auth','role:staff'])->group(function () {
     Route::post('/sales/addDiscount',[SaleController::class, 'addDiscount']);
     Route::post('/sales/addCustomer',[SaleController::class, 'addCustomer']);
     Route::get('/sales/removeCustomer',[SaleController::class, 'removeCustomer']);
+    Route::post('/sales/addSalesman',[SaleController::class, 'addSalesman']);
 
     Route::get('/CustomerController/getSuggestion/{id}',[CustomerController::class,'getSuggestion']);
     //Branch Report

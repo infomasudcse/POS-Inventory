@@ -404,6 +404,19 @@ trait SaleTrait {
 
     }
 
+    public function addSalesman(Request $request){
+        //use session
+        $salesman =  $request->input('salesman');
+        if($salesman){
+            $customer = Customer::where('id', $customer_id)->get()->first();
+            $new_customer = ['id'=>$customer->id,'name'=>$customer->name, 'mobile'=>$customer->mobile];
+        }
+
+        $request->session()->put('salesman', $new_customer);       
+
+        return redirect('/sales');
+    }
+
     public function addCustomer(Request $request){
         //use session
         $customer_id =  $request->input('customer_id');
@@ -431,7 +444,6 @@ trait SaleTrait {
         $request->session()->put('customer', $new_customer);       
 
         return redirect('/sales');
-
     }
 
     public function getSaleCustomer(){
