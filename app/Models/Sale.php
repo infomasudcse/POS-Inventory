@@ -20,6 +20,7 @@ class Sale extends Model
         'user_id',
         'branch_id',
         'customer_id',
+        'salesman_id'
     ];
 
     public function branch()

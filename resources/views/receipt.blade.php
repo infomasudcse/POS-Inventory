@@ -75,11 +75,14 @@
                             <table style="width:100%;" id="subHeaderTable">
                               <tr><td>SaleID: {{ Helper::viewSaleId($sale->id) }}</td><td style="text-align:right;">Date: {{ $sale->created_at }}</td></tr>
                               <tr>
-                              <td>Salesman: {{ $salesman }}</td>
-                                <td style="text-align:right;">
-                                  Customer:
+                              <td>
+                              @if($manager)  Manager: {{ $manager }} <br/> @endif 
+                              @if($salesman)  Salesman: {{ $salesman }} @endif 
 
-                                  @if($customer)                   
+                              </td>
+                                <td style="text-align:right;">
+                                  @if($customer)  
+                                  Customer:                 
                                   {{ ucwords($customer->name) }}
                                   <br>
                                   Mobile: {{ '********'.substr($customer->mobile, -3) }}

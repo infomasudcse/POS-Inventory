@@ -128,11 +128,14 @@
                 </tr>
 
                 <tr>
-                  <td>Salesman: {{ $salesman }}</td>
+                  <td> 
+                    @if($manager)  Manager: {{ $manager }} <br/> @endif 
+                    @if($salesman)  Salesman: {{ $salesman['name'] }} @endif 
+                  </td>
                   <td style="text-align:right;">
-                    Customer: 
+                    
                     @if($customer)
-                     {{ $customer['name'] }}
+                     Customer: {{ $customer['name'] }}
                      <br>
                      Mobile: {{ '********'.substr($customer['mobile'], -3) }}
                     @endif

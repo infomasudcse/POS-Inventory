@@ -176,43 +176,25 @@
                 <!-- /.card -->
 
               </div>
+
               <div class="col-12 col-lg-6">
                 <div class="card card-outline card-default">
-
                   <div class="card-header">
-
-                    <h3 class="card-title">Attendence</h3>
-
-                    <!-- /.card-tools -->
-
+                    <h3 class="card-title">Salesman</h3>
                   </div>
-
-                  <!-- /.card-header -->
-
                   <div class="card-body" style="display: block;padding:0.75rem;">
-
                     <ol>
-
-                        <li>Today</li>                    
-
-                        <li>History</li>
-
+                        <li><a href="{{ url('branchReport/salesmanSales') }}" >Today </a></li>
                     </ol>
-
                   </div>
-
-                  <!-- /.card-body -->
-
                 </div>
               </div>
 
             </div>
           </div>
-
         </div>
 
-      </div><!-- /.container-fluid -->
-
+      </div>
 </div>
 
 

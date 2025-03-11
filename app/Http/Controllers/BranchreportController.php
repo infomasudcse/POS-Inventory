@@ -78,8 +78,15 @@ class BranchreportController extends Controller
 		$data['today'] = Date('d-m-Y');
 		$data['branchinfo'] = Branch::find($branch);
 
-		return view('branch.report.stock',$data);	
+		return view('branch.report.stock',$data);
+	}
 
+	function salesmanSales(){
+		$branch = auth()->user()->branch_id;
+		$data['today'] = Date('d-m-Y');
+		$data['branchinfo'] = Branch::find($branch);
+		
+		return view('branch.report.salesman',$data);
 	}
 
 //end class 

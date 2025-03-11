@@ -28,6 +28,7 @@ class SaleController extends Controller
         $data['payment'] = $this->getTotalPayment();
         $data['due'] = $this->getDue();
         $data['customer'] = $this->getSaleCustomer();
+        $data['salesman'] = $this->getSalesman();        
         $data['paymentType'] = $this->getPaymentType();
         return view('branch.index',$data);
     }
@@ -98,8 +99,9 @@ class SaleController extends Controller
         if($changeAmount <= 0){
             $data['cartContent'] = $this->getCartContent();
             //$data['payments'] = session('payment');
-            $data['salesman'] = auth()->user()->name;
+            $data['salesman'] = $this->getSalesman();
             $data['customer'] = $this->getSaleCustomer();
+            $data['manager'] = auth()->user()->name;
             //sale
             // if($cartContent)
             $cartTax = $this->getCartTax();
@@ -115,6 +117,7 @@ class SaleController extends Controller
                 'user_id' =>  auth()->user()->id,
                 'branch_id' =>  auth()->user()->branch_id,
                 'customer_id' => $data['customer']? $data['customer']['id'] : 0,
+                'salesman_id' => $data['salesman']? $data['salesman']['id'] : 0,
             ];
 
            //save sale and get instance 

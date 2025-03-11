@@ -199,10 +199,7 @@
 
               </div>
               <div class="card-header">
-            
-                  @if($customer)
-
-                 
+                  @if($customer)                 
                   <div class="row">
                       <div class="col">
                         <table class="summary_table">
@@ -252,14 +249,26 @@
               </div>
 
               <div class="card-header">
+                @if($salesman)
+                <div class="row">
+                    <div class="col-12">
+                      <span class="text-primary"> {{ $salesman['name'] }} </span>               
+                    </div>
+                  </div>                
+                @else 
                 <form action="{{ url('sales/addSalesman') }}" method="POST" id="salesmanForm">
                   @csrf
                   <div class="row">
-                    <div class="col-12">
+                    <div class="col-9">
                       <input id="salesman" class="p-0 w-100" name="salesman" placeholder="salesman" type="text" value="{{ old('salesman') }}" autocomplete="off" />               
                     </div>
+                    <div class="col-3 text-right">
+                      <button type="submit" class="btn btn-sm btn-outline-info">Add</button>                  
+                    </div>
+
                   </div>
                </form>
+               @endif
               </div>
 
               <div class="card-body" style="padding:0.50rem;">

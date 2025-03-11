@@ -11,6 +11,7 @@ use App\Models\Salepayments;
 use App\Models\Inventory;
 
 use App\Models\Customer;
+use App\Models\Salesman;
 
 use Cart;
 
@@ -49,10 +50,9 @@ trait SaleTrait {
         //empty payments               
 
         session()->forget('payment');
-
         session()->forget('discount');
-
         session()->forget('customer');
+        session()->forget('salesman');
 
     }
 
@@ -406,15 +406,27 @@ trait SaleTrait {
 
     public function addSalesman(Request $request){
         //use session
-        $salesman =  $request->input('salesman');
-        if($salesman){
-            $customer = Customer::where('id', $customer_id)->get()->first();
-            $new_customer = ['id'=>$customer->id,'name'=>$customer->name, 'mobile'=>$customer->mobile];
-        }
-
-        $request->session()->put('salesman', $new_customer);       
+        $salesman_id =  $request->input('salesman');
+        if ($salesman_id) {
+            $salesman = Salesman::where('idnumber', $salesman_id)->get()->first();
+            if ($salesman) { 
+                $details = ['id'=>$salesman->id,'name'=>$salesman->name];
+                $request->session()->put('salesman', $details);
+            }
+        }               
 
         return redirect('/sales');
+    }
+
+    public function getSalesman() {
+
+        $return = [];
+        $salesman = session('salesman');
+        if ($salesman) {
+           $return = $salesman;
+        }
+
+        return $return;
     }
 
     public function addCustomer(Request $request){
