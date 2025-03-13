@@ -71,7 +71,7 @@
           <form method="POST" action="{{ route('logout') }}" >
             @csrf
             <a href="{{ route('logout') }}" class="btn button btn-default" onclick="event.preventDefault();this.closest('form').submit();">
-               Logout            
+              <i class="fas fa-power-off"></i> LOG OUT          
             </a>
                            
             </form>          
@@ -99,19 +99,15 @@
     <div class="container">
       <div class="row">
         <div class="col-12 col-sm-6">
-            Powered by <strong><a href="https://www.anisha.uk/" class="credit-link">ANISHA</a></strong>
+            Powered by <strong><a href="{{ Helper::getConfig()->support_link }}" class="credit-link">{{ Helper::getConfig()->support }}</a></strong>
         </div>
         <div class="col-12 col-sm-6">
             <div class="float-right">
-              Mayer Doya Fashion House
+            {{ Helper::getConfig()->business_name }}
           </div>
         </div>
       </div>
-    </div>
-    <!-- To the right -->
-    
-    <!-- Default to the left -->
-   
+    </div>  
   </footer>
 </div>
 <!-- ./wrapper -->

@@ -15,7 +15,7 @@
 <body class="hold-transition layout-top-nav">
 <div class="wrapper">
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
+  <nav class="main-header navbar navbar-expand-md navbar-dark">
     <div class="container">
       <a href="#" class="navbar-brand">
         {{ Helper::printMono() }}
@@ -37,7 +37,7 @@
 
             ?>
 
-            <a href="{{ url($action)}}" class="nav-link">Back</a>
+            <a href="{{ url($action)}}" class=" btn btn-info button nav-link">Back</a>
           </li>
         </ul>        
       </div>
@@ -50,7 +50,7 @@
     <div class="content">
     <div class="container">
         <div class="row">
-            <div class="col-sm-12"><button type="button" onClick="return  print_this('receiptDiv') " class=" float-right btn btn-sm btn-default">Print</button></div>
+            <div class="col-sm-12"><button type="button" onClick="return  print_this('receiptDiv') " class=" float-right btn btn-sm btn-info">Print</button></div>
       <div class="col-lg-12">
         <div class="card card-primary card-outline">
           <div class="card-body">
@@ -175,6 +175,11 @@
                       <tr class="longtext">
                           <td style="text-align:center;"><p><br/><br/><br/><?php echo $config->return_policy; ?></p></td>  
                       </tr>
+                      @if($sale->discount_code)
+                        <tr>
+                          <td style="text-align:center;"><p>__{{ $sale->discount_code }}__ </p></td>
+                        </tr>
+                      @endif
                       <tr>           
                           <td style="text-align:center;"><p>Powered by:<br/> {{ $config->support }} </p></td>
                       </tr>
@@ -193,12 +198,19 @@
   </div>
   <!-- /.content-wrapper -->
   <!-- Main Footer -->
-  <footer class="main-footer">
-    <div class="float-right d-none d-sm-inline">
-        Copyright &copy; Mayer Doya Fashion House.
-    </div>
-    <!-- Default to the left -->
-    Powered by <strong><a href="https://www.anisha.uk/" class="credit-link">ANISHA</a></strong>
+  <footer class="main-footer bg-dark">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-sm-6">
+            Powered by <strong><a href="{{ Helper::getConfig()->support_link }}" class="credit-link">{{ Helper::getConfig()->support }}</a></strong>
+        </div>
+        <div class="col-12 col-sm-6">
+            <div class="float-right">
+            {{ Helper::getConfig()->business_name }}
+          </div>
+        </div>
+      </div>
+    </div>  
   </footer>
 </div>
 <!-- ./wrapper -->

@@ -2,6 +2,7 @@
 
 namespace App\Helper;
 
+use Illuminate\Support\Facades\DB;
 
 
 class Helper{
@@ -12,7 +13,11 @@ class Helper{
 
 	public static function printMono(){
 		echo '<img src="'.asset('storage/app/public/mono.png').'" alt="logo" style="width:60px;height:60px;" class="brand-image img-circle elevation-3" />';
-	} 
+	}
+
+	public static function getConfig(){
+		return  DB::table('configs')->where('id', 1)->first();
+	}
 
 
 	public static function toCurrency($value){

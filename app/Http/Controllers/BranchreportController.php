@@ -83,8 +83,24 @@ class BranchreportController extends Controller
 
 	function salesmanSales(){
 		$branch = auth()->user()->branch_id;
+		$date = Date('Y-m-d');
 		$data['today'] = Date('d-m-Y');
 		$data['branchinfo'] = Branch::find($branch);
+		$sales = $this->getSalesmanSales($branch,$date,$date);
+		$sale_data = [];
+		if ($sales) { 
+			foreach ($sales as $key => $sell) {
+
+				if(isset($sale_data[$sell->salesman_id]['items'][$sell->item_id])) {
+					$sale_data[$sell->salesman_id]['items'][$sell->item_id]['qty'] += $sell->qty;
+				} else {
+					$sale_data[$sell->salesman_id]['items'][$sell->item_id] = ['name' => $sell->item_name, 'qty'=> $sell->qty];
+					$sale_data[$sell->salesman_id]['salesman_name'] =  $sell->name;
+				}
+			}
+		}
+
+		$data['sale_data'] = $sale_data;
 		
 		return view('branch.report.salesman',$data);
 	}

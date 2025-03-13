@@ -114,6 +114,7 @@ class SaleController extends Controller
                 'total_payment' => $cartTotPayment,
                 'total_tax'=> $cartTax,
                 'total_discount' => $this->getTotalDiscount(),
+                'discount_code' => session('discount')['discount_code'],
                 'user_id' =>  auth()->user()->id,
                 'branch_id' =>  auth()->user()->branch_id,
                 'customer_id' => $data['customer']? $data['customer']['id'] : 0,
@@ -157,7 +158,8 @@ class SaleController extends Controller
                
                 
             }
-         //create receipt        
+         //create receipt      
+        $data['discount_info'] = session('discount');   
         $data['branchinfo'] = $this->getBranchInfo($data['sale']->branch_id);
         $data['config'] = $this->getConfig();        
         $data['title'] = $this->title;

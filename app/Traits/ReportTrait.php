@@ -93,24 +93,33 @@ trait ReportTrait{
 
 	}
 
-	function getDetailsSale($branch,$from,$to){
-
+	function getSalesmanSales($branch, $from, $to, $salesmanid=0)
+	{
 		$to = $to.' 23:59:59';
-
 		$from = $from.' 00:00:01';
+		$sales = DB::table('sales')
+				->select('sales.salesman_id', 'saleitems.qty', 'items.name as item_name', 'items.id as item_id', 'salesman.name')
+				->join('saleitems', 'sales.id', '=', 'saleitems.sale_id')
+				->join('items', 'saleitems.item_id', '=', 'items.id')           			
+				->join('salesman', 'sales.salesman_id', '=', 'salesman.id')           			
+				->where('sales.branch_id',$branch)
+				->where('sales.created_at', '>',$from)
+				->where('sales.created_at', '<',$to)
+				->get();        
 
-		$sale = Sale::with('saleitems')            	
+		return $sales;
+	}
 
+	function getDetailsSale($branch,$from,$to){
+		$to = $to.' 23:59:59';
+		$from = $from.' 00:00:01';
+		$sale = Sale::with('saleitems')
              	->where('sales.created_at', '>',$from)
-
              	->where('sales.created_at', '<',$to)
+             	->where('sales.branch_id',$branch)
+				->get();        
 
-             	->where('sales.branch_id',$branch)             	
-
-             	->get();        
-
-		return $sale;	        	
-
+		return $sale;
 	}
 
 	function getSummaryOfDetails($branch,$from,$to){

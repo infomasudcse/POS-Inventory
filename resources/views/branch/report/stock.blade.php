@@ -101,7 +101,7 @@
 
               </div>
 
-			  <div class="card-footer" style="text-align:center;">Powered by: ANISHA.UK</div>
+			       <div class="card-footer" style="text-align:center;">Powered by: ANISHA.UK</div>
 
               <!-- /.card-body -->
 

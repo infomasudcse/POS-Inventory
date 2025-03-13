@@ -17,6 +17,7 @@ class Sale extends Model
         'total_payment',
         'total_tax',
         'total_discount',
+        'discount_code',
         'user_id',
         'branch_id',
         'customer_id',

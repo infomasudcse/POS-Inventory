@@ -64,16 +64,29 @@
               	<table id="" class="table" style="width:100%;">
 
                     <thead>
-
-                    <tr>
-                      <th style="text-align:left;">Item</th>
-                      <th style="text-align:left;">Qty</th>                                    
-                    </tr>
+                      <tr>
+                        <th style="text-align:left;">Sales Man</th>
+                        <th style="text-align:left;">Item</th>
+                        <th style="text-align:left;">Qty</th>                                    
+                      </tr>
 
                     </thead>
 
                     <tbody>
-                    
+                      @if($sale_data)
+                        @foreach($sale_data as $key => $sell)
+                          <tr>
+                            <td colspan="3"> {{ $sell['salesman_name'] }}</td>
+                          </tr>
+                          @if($sell['items'])
+                            @foreach($sell['items'] as $item)
+                              <tr>
+                                <td></td><td> {{ $item['name'] }}</td><td> {{ $item['qty']  }}</td>
+                              </tr>
+                            @endforeach
+                          @endif
+                        @endforeach
+                      @endif                    
                     </tbody>
 
                 </table>
