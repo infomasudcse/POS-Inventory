@@ -292,15 +292,16 @@
 
 
         <tr class="longtext">
-        <td style="text-align:center;"><p><br/><br/><br/><?php echo $config->return_policy; ?></p></td>  
+          <td style="text-align:center;"><p><br/><br/><br/><?php echo $config->return_policy; ?></p></td>  
         </tr>
+        @if($discount_info && $discount_info['discount_code'])
+        <tr>
+                <td style="text-align:center;"><p>__{{ $discount_info['discount_code'] }}__ </p></td>
+            </tr>
+        @endif
 
-        <tr>           
-
+        <tr>
             <td style="text-align:center;"><p>Powered by:<br/> {{ $config->support }} </p></td>
-
-
-
         </tr>
 
 

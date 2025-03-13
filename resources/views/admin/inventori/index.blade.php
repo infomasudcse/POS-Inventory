@@ -310,15 +310,9 @@
 <!--- End modal -->
 
 <div class="modal fade" id="inventoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-
   <div class="modal-dialog modal-dialog-centered" role="document">
-
     <div class="modal-content">
-
-      
-
       <div class="modal-header">
-
         <h5 class="modal-title" id="exampleModalLabel">New BarCode</h5>
 
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -330,40 +324,22 @@
       </div>
 
       <form class="" action="{{ url('helper/printBarcode') }}" method="POST" target="_blank">
+        <div class="modal-body">
+            <input type="hidden" name="_token" value="" id="tok"/>
+            <input type="hidden" name="data_inv" value="" id="data_inv"/>
+            <div class="form-group">
+              <label for="sku" class="col-form-label">Item SKU : </label>
+              <input type="number" class="form-control" name="sku" id="sku" readonly/>
+            </div>
+            <div class="form-group">
+              <label for="quantity" class="col-form-label">Quantity:</label>
+              <input type="number" name="qty" class="form-control" id="quantity">
+            </div>
+        </div>
 
-
-
-      <div class="modal-body">
-
-          <input type="hidden" name="_token" value="" id="tok"/>
-
-           <input type="hidden" name="data_inv" value="" id="data_inv"/>
-
-          <div class="form-group">
-
-            <label for="sku" class="col-form-label">Item SKU : </label>
-
-            <input type="number" class="form-control" name="sku" id="sku" readonly/>
-
-          </div>
-
-          <div class="form-group">
-
-            <label for="quantity" class="col-form-label">Quantity:</label>
-
-            <input type="number" name="qty" class="form-control" id="quantity">
-
-          </div>
-
-        
-
-      </div>
-
-      <div class="modal-footer">
-
-        <button type="submit" class="btn btn-primary">Print Barcode</button>
-
-      </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Print Barcode</button>
+        </div>
 
       </form>
 

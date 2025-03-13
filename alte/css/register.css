@@ -16,6 +16,11 @@
 .pointer{
 	cursor: pointer;
 }
+.alter_payment .label{
+	color: #808080db;
+}
 
-
+.alter_payment input[type=number]{
+	padding:0;
+}
 

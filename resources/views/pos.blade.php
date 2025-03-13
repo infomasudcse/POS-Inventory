@@ -19,7 +19,7 @@
 <div class="wrapper">
 
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
+  <nav class="main-header navbar navbar-expand-md navbar-dark">
     <div class="container">
       <a href="#" class="navbar-brand">
       {{ Helper::printMono() }}
@@ -70,7 +70,7 @@
         <li class="nav-item dropdown">
           <form method="POST" action="{{ route('logout') }}" >
             @csrf
-            <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();this.closest('form').submit();">
+            <a href="{{ route('logout') }}" class="btn button btn-default" onclick="event.preventDefault();this.closest('form').submit();">
                Logout            
             </a>
                            

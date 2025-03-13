@@ -335,7 +335,7 @@
 
 
 
-                    <table class="summary_table">
+                    <table class="summary_table alter_payment">
 
                       <tr>
 
@@ -411,6 +411,16 @@
                         <td style="width:40%;">
 
                         @if($branchInfo->discount == 1)
+                        <?php 
+                          $discount = session('discount');
+                          $discount_code = '';
+                          $discount_amount = '';
+                          if($discount){
+                            $discount_amount = $discount['amount'];
+                            $discount_code = $discount['discount_code'];
+
+                          }  
+                        ?>
 
                           <form action="{{ url('sales/addDiscount') }}" method="POST">
 
@@ -424,38 +434,32 @@
 
                               <tr><td>Discount Type:</td></tr>
 
-                              <tr><td class="">
-
+                              <tr>
+                                <td class="">
                                     <select class="small_input" name="discount_type">
-
                                       <option value="fixed">Fixed</option>
-
                                       <option value="percent"> - % -  </option>
-
                                     </select>
-
                                 </td>
-
                               </tr>
 
-                              <tr><td>Amount :</td></tr>
-
-                              <tr><td  class="">
-
-                                    <input class="small_input" name="amount" type="text" step="0.01" autocomplete="off" /> 
-
-                                </td>
-
-                              </tr>
+                              <tr><td class="label">Discount Amount:</td></tr>
 
                               <tr>
-
-                                <td class="">                                 
-
-                                  <button type="submit" class="btn btn-sm btn-outline-info">Add Discount</button>                                    
-
-                                </td>                                
-
+                                <td  class="">
+                                    <input class="small_input" name="amount" type="text" autocomplete="off" value="{{ $discount_amount }}"/> 
+                                </td>
+                              </tr>
+                              <tr><td class="label">Discount Code:</td></tr>
+                              <tr>
+                                <td  class="">
+                                    <input class="small_input" name="discount_code" type="text" autocomplete="off" value="{{ $discount_code }}"/>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="">
+                                  <button type="submit" class="btn btn-sm btn-outline-info">Add Discount</button>
+                                </td>
                               </tr> 
 
                             </table>

@@ -132,7 +132,14 @@ class SalesmanController extends Controller
          $i=1;       
          foreach($salesmans as $salesman){
             $action = "<div class='btn-group'>
-                        <a type='button' href='".url('salesman/'.$salesman->id.'/edit')."' class='btn btn-default btn-sx'>Edit</a>
+                        <a type='button' href='".url('salesman/'.$salesman->id.'/edit')."' class='btn btn-sm btn-default mr-3 btn-item-table'>Edit</a>
+                        <form action='helper/printSalesmanBarcode' method='post'>
+                        <input type='hidden' name='_token' value='".csrf_token()."' />
+                        <input type='hidden' name='_method' value='POST'/>
+                        <input type='hidden' name='idnumber' value='".$salesman->idnumber."'/>
+                        <input type='hidden' name='name' value='".$salesman->name."'/>
+                        <button type='submit' title='PRINT' class='btn btn-default btn-sm btn-item-table'><i class='fas fa-barcode'></i></button>
+                        </form>
                         </div>";
 
                 $salesmanData['data'][] = array($i,$salesman->name.'<br/>'.$salesman->nid,$salesman->mobile,$salesman->idnumber,$action);

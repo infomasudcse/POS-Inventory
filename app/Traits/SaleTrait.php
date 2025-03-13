@@ -172,7 +172,7 @@ trait SaleTrait {
 
         ]);     
 
-        $discount = ['type'=>$validatedData['discount_type'],'amount'=>$validatedData['amount']];
+        $discount = ['type'=>$validatedData['discount_type'],'amount'=>$validatedData['amount'], 'discount_code' => $request->discount_code];
 
         $request->session()->put('discount', $discount);       
 

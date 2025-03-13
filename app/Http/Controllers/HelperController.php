@@ -13,6 +13,7 @@ use \Mpdf\Mpdf;
 class HelperController extends Controller
 {
    	use InventoryTrait;
+
 	function printBarcode(Request $request){
 		$data['title']='Inventory';
 		//print_r($request->all());
@@ -62,6 +63,38 @@ class HelperController extends Controller
 		}		
 			
 	}
+
+	function printSalesmanBarcode(Request $request){
+		$data['title']='Inventory';
+		//print_r($request->all());
+		$validatedData = $request->validate([            
+            'idnumber' =>'required|numeric',
+            'name' =>'required',
+            ]);
+		
+		$data['configs'] = DB::table('configs')->get()->first();
+ 		$data['idnumber'] = $validatedData['idnumber'];
+ 		$data['name'] = $validatedData['name'];
+        //load view 
+		$pdf= true;		
+		$page = 'admin.salesmanIDbarcodepdf';
+
+		if($pdf){
+			//require base_path() . '/vendor/au'	
+			$mpdf =  new \Mpdf\Mpdf();		
+			$mpdf->WriteHTML(view($page, $data));
+			$mpdf->Output();
+
+			//$pdf =  Pdf::loadView($page, $data);
+			//return $pdf->stream('document.pdf');
+			//$pdf = Pdf::loadHTML(view($page, $data));
+			
+			//return $pdf->stream();
+		}		
+			
+	}
+
+	
 
 	function setBranchForTransfer(Request $request){
 		$validatedData = $request->validate([            

@@ -103,6 +103,8 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('/HelperController/getCSRF',[HelperController::class,'getCSRF']);
     Route::post('/helper/updateInventoryQty',[HelperController::class,'updateInventoryQty']);
     Route::post('/helper/printBarcode',[HelperController::class,'printBarcode']);
+    Route::post('/helper/printSalesmanBarcode',[HelperController::class,'printSalesmanBarcode']);
+    
     Route::post('/helper/transferTo',[HelperController::class,'transferTo']);
     Route::get('/inventory/massDistribute',[InventoryController::class,'massDistribute']);
     Route::post('/helper/addToAdminTransfer',[HelperController::class,'addToAdminTransfer']);
