@@ -261,32 +261,19 @@ trait SaleTrait {
 
 
     public function getTotalDiscount(){
-
         $amount = 0.00;
-
         $disq = session('discount');
-
         if($disq){
-
            $value = floatval($disq['amount']);
-
             if($disq['type']=='percent'){
-
                 $amount = ($this->getCartSubtotal() * $value) /100;
-
             }else{
-
                 $amount = $value;
-
             }
-
         }
 
         return $amount;
-
     }
-
-
 
     public function getCartSubtotal(){
 

@@ -5,11 +5,11 @@ $img =  '<img src="data:image/png;base64,' . DNS1D::getBarcodePNG($idnumber,'C12
 $str = '';            
 ?>
 <div class="" id="" style="position:relative;width:40%; text-align:center;border:1px dotted white;">
-  <div style="margin-top:-65px;disply:flex;justify-content:center;align-itmes:center;position:absolute;">
+  <div style="disply:flex;justify-content:center;align-itmes:center;position:absolute;">
     <?php        
                 
-      echo "<div style='text-align:center;height:121px;margin:10px;'>"; 
-        echo "<table  style='text-align:center;width:100%;' cellpadding='0' border='0' >
+      echo "<div style='text-align:center;height:121px;margin:60px; border:1px solid black;'>"; 
+        echo "<table  style='text-align:center;width:100%; margin-top:200px; margin-bottom:20px;padding:30px;' cellpadding='0' border='0' >
           <tr><td  style='font-family: sans-serif;padding-bottom:1px;'><b style='font-size:13px;line-height:12px;'>".ucwords($name)."</b></td></tr>
           <tr><td>".$img."</td></tr>
           <tr><td class='' style='padding:0;margin:0;font-size:10px;line-height:10px;'><b style='font-size:10px;line-height:10px;'>".$idnumber."</b></td></tr>

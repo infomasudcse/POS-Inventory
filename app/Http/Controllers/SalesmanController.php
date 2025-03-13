@@ -133,7 +133,7 @@ class SalesmanController extends Controller
          foreach($salesmans as $salesman){
             $action = "<div class='btn-group'>
                         <a type='button' href='".url('salesman/'.$salesman->id.'/edit')."' class='btn btn-sm btn-default mr-3 btn-item-table'>Edit</a>
-                        <form action='helper/printSalesmanBarcode' method='post'>
+                        <form action='helper/printSalesmanBarcode' method='post' target='_blank'>
                         <input type='hidden' name='_token' value='".csrf_token()."' />
                         <input type='hidden' name='_method' value='POST'/>
                         <input type='hidden' name='idnumber' value='".$salesman->idnumber."'/>
