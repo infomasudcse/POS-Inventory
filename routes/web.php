@@ -130,6 +130,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::post('/report/payment/history',[Report::class,'historyPayment']);   
     Route::get('/report/profit/today',[Report::class,'todayProfit']);
     Route::post('/report/profit/history',[Report::class,'profitDetails']);
+    Route::post('/report/salesman/details',[Report::class,'salesmanSalesDetails']);
     //sms
     Route::get('/sms',[SmsController::class,'index']);
     Route::get('sms/updateBalance',[SmsController::class,'updateBalance']);

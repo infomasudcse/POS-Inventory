@@ -97,7 +97,9 @@ trait ReportTrait{
 	{
 		$to = $to.' 23:59:59';
 		$from = $from.' 00:00:01';
-		$sales = DB::table('sales')
+		$sales = [];
+		if ($branch) {
+			$sales = DB::table('sales')
 				->select('sales.salesman_id', 'saleitems.qty', 'items.name as item_name', 'items.id as item_id', 'salesman.name')
 				->join('saleitems', 'sales.id', '=', 'saleitems.sale_id')
 				->join('items', 'saleitems.item_id', '=', 'items.id')           			
@@ -105,7 +107,18 @@ trait ReportTrait{
 				->where('sales.branch_id',$branch)
 				->where('sales.created_at', '>',$from)
 				->where('sales.created_at', '<',$to)
-				->get();        
+				->get(); 
+		} else {
+			
+			$sales = DB::table('sales')
+				->select('sales.salesman_id', 'saleitems.qty', 'items.name as item_name', 'items.id as item_id', 'salesman.name')
+				->join('saleitems', 'sales.id', '=', 'saleitems.sale_id')
+				->join('items', 'saleitems.item_id', '=', 'items.id')           			
+				->join('salesman', 'sales.salesman_id', '=', 'salesman.id')
+				->where('sales.created_at', '>',$from)
+				->where('sales.created_at', '<',$to)
+				->get(); 
+		}
 
 		return $sales;
 	}

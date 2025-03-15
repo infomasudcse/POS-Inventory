@@ -166,7 +166,9 @@ class SaleController extends Controller
         //save payments
         $this->savePayments($data['sale']->id);
         //send sms
-        SmsController::sendSaleReceipt($cartTotPayment, $data['customer'], $data['config']->business_name);
+        if(SmsController::mode_live) {
+            SmsController::sendSaleReceipt($cartTotPayment, $data['customer'], $data['config']->business_name);
+        }
         //remove sales info 
         $this->deleteSaleInfo(); 
         $data['payments'] = $this->getSalePayments($data['sale']->id);

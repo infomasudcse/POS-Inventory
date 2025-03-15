@@ -371,7 +371,34 @@ class Report extends Controller
     	return view('admin.report.profit.history', $data);
     }
 
+    function salesmanSalesDetails(Request $request) {        
+		$validatedData = $request->validate([ 
+            'fromDate' =>'required',
+            'toDate' =>'required',
+            'branch' =>'required'
+            ]);
+    
+    	$data['from_to'] = $request->fromDate.' / '.$request->toDate;  
+		//$data['branchinfo'] = Branch::find($branch);
+		$sales = $this->getSalesmanSales($request->branch, $request->fromDate, $request->toDate);
+		$sale_data = [];
+		if ($sales) { 
+			foreach ($sales as $key => $sell) {
 
+				if(isset($sale_data[$sell->salesman_id]['items'][$sell->item_id])) {
+					$sale_data[$sell->salesman_id]['items'][$sell->item_id]['qty'] += $sell->qty;
+                    $sale_data[$sell->salesman_id]['salesman_total_qty'] += $sell->qty;
+				} else {
+					$sale_data[$sell->salesman_id]['items'][$sell->item_id] = ['name' => $sell->item_name, 'qty'=> $sell->qty];
+					$sale_data[$sell->salesman_id]['salesman_name'] =  $sell->name;
+                    $sale_data[$sell->salesman_id]['salesman_total_qty'] =  $sell->qty;
+				}
+			}
+		}
+		$data['sale_data'] = $sale_data;
+		
+		return view('admin.report.salesman_report',$data);
+    }
     //end
 }
 ?>

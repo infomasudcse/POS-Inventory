@@ -1,702 +1,682 @@
 @extends('admin')
 
-
-
 @section('content')
 
- <!-- Content Header (Page header) -->
+<div class="content-header">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col">
+				@if (session('status'))
+					<div class="alert alert-success">
+						{{ session('status') }}
+					</div>
+				@endif
 
- <div class="content-header">
-
-      <div class="container-fluid">
-
-        <div class="row">
-
-          <!-- use this space for notify user -->
-
-           <div class="col">
-
-            <!-- use this space for notify user -->
-
-            @if (session('status'))
-
-              <div class="alert alert-success">
-
-                  {{ session('status') }}
-
-              </div>
-
-            @endif
-
-            @if ($errors->any())
-
-              <div class="alert alert-danger">
-
-                  <ul>
-
-                      @foreach ($errors->all() as $error)
-
-                          <li>{{ $error }}</li>
-
-                      @endforeach
-
-                  </ul>
-
-              </div>
-
-            @endif
-
-          </div>
-
-
-
-        </div><!-- /.row -->
-
-      </div><!-- /.container-fluid -->
-
+				@if ($errors->any())
+				<div class="alert alert-danger">
+					<ul>
+						@foreach ($errors->all() as $error)
+							<li>{{ $error }}</li>
+						@endforeach
+					</ul>
+				</div>
+				@endif
+			</div>
+		</div>
+	</div><!-- /.container-fluid -->
 </div>
 
-   
-    <!-- Main content -->
+
+	<!-- Main content -->
 
 <div class="content">
 
-      <div class="container-fluid">
+	<div class="container-fluid">
 
-        <div class="row">
+		<div class="row">
 
-          <div class="col-md-4">
+		<div class="col-md-4">
 
-            <div class="card card-outline card-info">
+			<div class="card card-outline card-info">
 
-              <div class="card-header">
-                <h3 class="card-title">Item Status</h3>                
-              </div>
-              <form class="form-horizontal" action="{{ url('report/itemstatus') }}" method="POST" >
-                @csrf
-                <div class="card-body" style="display: block;padding:0.75rem;">
+			<div class="card-header">
+				<h3 class="card-title">Item Status</h3>                
+			</div>
+			<form class="form-horizontal" action="{{ url('report/itemstatus') }}" method="POST" >
+				@csrf
+				<div class="card-body" style="display: block;padding:0.75rem;">
 
-                  <div class="form-group row">
-                      <label for="name" class="col-5 col-form-label">Item Sku/Number</label>
-                      <div class="col-7">
-                        <input type="text" name="sku" class="form-control" id="name">
-                      </div>
-                    </div>
+				<div class="form-group row">
+					<label for="name" class="col-5 col-form-label">Item Sku/Number</label>
+					<div class="col-7">
+						<input type="text" name="sku" class="form-control" id="name">
+					</div>
+					</div>
 
-                </div>
-                <div class="card-footer">
-                    <button type="submit" class="btn btn-info">Search</button>
-                    
-                </div>
-              </form>
-            </div>
-          </div>         
+				</div>
+				<div class="card-footer">
+					<button type="submit" class="btn btn-info">Search</button>
+					
+				</div>
+			</form>
+			</div>
+		</div>         
 
-          <!-- /.col -->
-          <div class="col-md-4">
-            <div class="card card-outline card-primary">
-              <div class="card-header">
-                <h3 class="card-title">Sales</h3>
-              </div>
-              <div class="card-body" style="display: block;padding:0.75rem;">
-                <ol>
-                    <li><a href="{{ url('report/sale/today') }}">Today</a></li>
-                    <li><span data-tokenfrom="{{ url('HelperController/getCSRF') }}" data-action="{{ url('report/sale/summary') }}" data-toggle="modal" data-target="#reportModal" class="clink"> Summary Sale</span></li>
-                    <li><span data-tokenfrom="{{ url('HelperController/getCSRF') }}" data-action="{{ url('report/sale/details') }}" data-toggle="modal" data-target="#reportModal" class="clink">Details Sale</span></li>
-                    <li><span data-tokenfrom="{{ url('HelperController/getCSRF') }}" data-action="{{ url('report/sale/corporate') }}" data-toggle="modal" data-target="#reportModal" class="clink">Corporate</span></li>
-                </ol>
-              </div>
-            </div>
-          </div>  
-           <!-- /.col -->
-          <div class="col-md-4">
-            <div class="card card-outline card-warning">
-              <div class="card-header">
-                <h3 class="card-title">Profit</h3>
-                <!-- /.card-tools -->
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body" style="display: block;padding:0.75rem;">
-                <ol>
-                    <li><a href="{{ url('report/profit/today') }}">Today</a></li> 
-                    <li><span data-tokenfrom="{{ url('HelperController/getCSRF') }}" data-action="{{ url('report/profit/history') }}" data-toggle="modal" data-target="#reportModal" class="clink">History</span></li>
-                </ol>
-              </div>
-              <!-- /.card-body -->
-            </div>
-          </div> 
-          <!-- /.col -->
-          <div class="col-md-4">
-            <div class="card card-outline card-warning">
-              <div class="card-header">
-                <h3 class="card-title">Payment</h3>               
-                <!-- /.card-tools -->
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body" style="display: block;padding:0.75rem;">
-                <ol>
-                    <li><a href="{{ url('report/payment/today') }}">Today</a></li>
-                    <li><span data-tokenfrom="{{ url('HelperController/getCSRF') }}" data-action="{{ url('report/payment/history') }}" data-toggle="modal" data-target="#reportPaymentModal" class="clink"> History</span></li>                   
-                </ol>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-          </div>  
-         
-   <!-- /.col -->
-          <div class="col-md-4">
-            <div class="card card-outline card-primary">
-              <div class="card-header">
-                <h3 class="card-title">VAT</h3>
-              </div>
-              <div class="card-body" style="display: block;padding:0.75rem;">
-                <ol>
-                    <li><a href="{{ url('report/vat/today') }}">Today</a></li> 
-                    <li><span data-tokenfrom="{{ url('HelperController/getCSRF') }}" data-action="{{ url('report/vat/history') }}" data-toggle="modal" data-target="#reportModal" class="clink">History</span></li>
-                </ol>
-              </div>
-            </div>
-          </div> 
-          <!-- /.col -->
-          <div class="col-md-4">
-            <div class="card card-outline card-primary">
-              <div class="card-header">
-                <h3 class="card-title">Inventory</h3>               
-                <!-- /.card-tools -->
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body" style="display: block;padding:0.75rem;">
-                <ol>                    
-                    <li><span data-tokenfrom="{{ url('HelperController/getCSRF') }}" data-action="{{ url('report/todayinventory') }}" data-toggle="modal" data-target="#inventoryToday" class="clink"> Today Inventory</span></li>
-                    <li><span data-tokenfrom="{{ url('HelperController/getCSRF') }}" data-action="{{ url('report/presentinventory') }}" data-toggle="modal" data-target="#inventoryReportModal" class="clink"> Current Inventory</span></li>
-                </ol>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-          </div> 
-         <!-- /.col -->
-          <div class="col-md-4">
-              <div class="card card-outline card-success">
-                <div class="card-header">
-                  <h3 class="card-title">Distribute</h3>               
-                  <!-- /.card-tools -->
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body" style="display: block;padding:0.75rem;">
-                  <ol>
-                      <li><a href="{{ url('report/distribute/today') }}">Today</a></li>
-                      <li><span data-tokenfrom="{{ url('HelperController/getCSRF') }}" data-action="{{ url('report/distribute/history') }}" data-toggle="modal" data-target="#distributeModal" class="clink"> History</span></li>
-                  </ol>
-                </div>
-                <!-- /.card-body -->
-              </div>
-              <!-- /.card -->
-          </div>
-          <!-- /.col -->
-           <div class="col-md-4">
-            <div class="card card-outline card-secondary">
-              <div class="card-header">
-                <h3 class="card-title">Expense</h3>
-              </div>
-              <div class="card-body" style="display: block;padding:0.75rem;">
-                <ol>
-                    <li><a href="{{ url('report/expense/today') }}">Today</a></li>
-                   
-                    <li><span data-tokenfrom="{{ url('HelperController/getCSRF') }}" data-action="{{ url('report/expense/details') }}" data-toggle="modal" data-target="#reportModal" class="clink">Details</span></li>
-                </ol>
-              </div>
-            </div>
+		<!-- /.col -->
+		<div class="col-md-4">
+			<div class="card card-outline card-primary">
+			<div class="card-header">
+				<h3 class="card-title">Sales</h3>
+			</div>
+			<div class="card-body" style="display: block;padding:0.75rem;">
+				<ol>
+					<li><a href="{{ url('report/sale/today') }}">Today</a></li>
+					<li><span data-tokenfrom="{{ url('HelperController/getCSRF') }}" data-action="{{ url('report/sale/summary') }}" data-toggle="modal" data-target="#reportModal" class="clink"> Summary Sale</span></li>
+					<li><span data-tokenfrom="{{ url('HelperController/getCSRF') }}" data-action="{{ url('report/sale/details') }}" data-toggle="modal" data-target="#reportModal" class="clink">Details Sale</span></li>
+					<li><span data-tokenfrom="{{ url('HelperController/getCSRF') }}" data-action="{{ url('report/sale/corporate') }}" data-toggle="modal" data-target="#reportModal" class="clink">Corporate</span></li>
+				</ol>
+			</div>
+			</div>
+		</div>  
+		<!-- /.col -->
+		<div class="col-md-4">
+			<div class="card card-outline card-warning">
+			<div class="card-header">
+				<h3 class="card-title">Profit</h3>
+				<!-- /.card-tools -->
+			</div>
+			<!-- /.card-header -->
+			<div class="card-body" style="display: block;padding:0.75rem;">
+				<ol>
+					<li><a href="{{ url('report/profit/today') }}">Today</a></li> 
+					<li><span data-tokenfrom="{{ url('HelperController/getCSRF') }}" data-action="{{ url('report/profit/history') }}" data-toggle="modal" data-target="#reportModal" class="clink">History</span></li>
+				</ol>
+			</div>
+			<!-- /.card-body -->
+			</div>
+		</div> 
+		<!-- /.col -->
+		<div class="col-md-4">
+			<div class="card card-outline card-warning">
+			<div class="card-header">
+				<h3 class="card-title">Payment</h3>               
+				<!-- /.card-tools -->
+			</div>
+			<!-- /.card-header -->
+			<div class="card-body" style="display: block;padding:0.75rem;">
+				<ol>
+					<li><a href="{{ url('report/payment/today') }}">Today</a></li>
+					<li><span data-tokenfrom="{{ url('HelperController/getCSRF') }}" data-action="{{ url('report/payment/history') }}" data-toggle="modal" data-target="#reportPaymentModal" class="clink"> History</span></li>                   
+				</ol>
+			</div>
+			<!-- /.card-body -->
+			</div>
+			<!-- /.card -->
+		</div>  
+		
+<!-- /.col -->
+		<div class="col-md-4">
+			<div class="card card-outline card-primary">
+			<div class="card-header">
+				<h3 class="card-title">VAT</h3>
+			</div>
+			<div class="card-body" style="display: block;padding:0.75rem;">
+				<ol>
+					<li><a href="{{ url('report/vat/today') }}">Today</a></li> 
+					<li><span data-tokenfrom="{{ url('HelperController/getCSRF') }}" data-action="{{ url('report/vat/history') }}" data-toggle="modal" data-target="#reportModal" class="clink">History</span></li>
+				</ol>
+			</div>
+			</div>
+		</div> 
+		<!-- /.col -->
+		<div class="col-md-4">
+			<div class="card card-outline card-primary">
+			<div class="card-header">
+				<h3 class="card-title">Inventory</h3>               
+				<!-- /.card-tools -->
+			</div>
+			<!-- /.card-header -->
+			<div class="card-body" style="display: block;padding:0.75rem;">
+				<ol>                    
+					<li><span data-tokenfrom="{{ url('HelperController/getCSRF') }}" data-action="{{ url('report/todayinventory') }}" data-toggle="modal" data-target="#inventoryToday" class="clink"> Today Inventory</span></li>
+					<li><span data-tokenfrom="{{ url('HelperController/getCSRF') }}" data-action="{{ url('report/presentinventory') }}" data-toggle="modal" data-target="#inventoryReportModal" class="clink"> Current Inventory</span></li>
+				</ol>
+			</div>
+			<!-- /.card-body -->
+			</div>
+			<!-- /.card -->
+		</div> 
+		<!-- /.col -->
+		<div class="col-md-4">
+			<div class="card card-outline card-success">
+				<div class="card-header">
+				<h3 class="card-title">Distribute</h3>               
+				<!-- /.card-tools -->
+				</div>
+				<!-- /.card-header -->
+				<div class="card-body" style="display: block;padding:0.75rem;">
+				<ol>
+					<li><a href="{{ url('report/distribute/today') }}">Today</a></li>
+					<li><span data-tokenfrom="{{ url('HelperController/getCSRF') }}" data-action="{{ url('report/distribute/history') }}" data-toggle="modal" data-target="#distributeModal" class="clink"> History</span></li>
+				</ol>
+				</div>
+				<!-- /.card-body -->
+			</div>
+			<!-- /.card -->
+		</div>
 
-            <!-- /.card -->
+		<!-- /.col -->
+		<div class="col-md-4">
+			<div class="card card-outline card-secondary">
+				<div class="card-header">
+					<h3 class="card-title">Expense</h3>
+				</div>
+				<div class="card-body" style="display: block;padding:0.75rem;">
+					<ol>
+						<li><a href="{{ url('report/expense/today') }}">Today</a></li>					
+						<li><span data-tokenfrom="{{ url('HelperController/getCSRF') }}" data-action="{{ url('report/expense/details') }}" data-toggle="modal" data-target="#reportModal" class="clink">Details</span></li>
+					</ol>
+				</div>
+			</div>
+		</div>
 
-          </div>                   
-          <!-- /.col -->
-          
-          
+		<!-- /.col -->
+		<div class="col-md-4">
+			<div class="card card-outline card-secondary">
+				<div class="card-header">
+					<h3 class="card-title">Salesman</h3>
+				</div>
+				<div class="card-body" style="display: block;padding:0.75rem;">
+					<ol>										
+						<li><span data-tokenfrom="{{ url('HelperController/getCSRF') }}" data-action="{{ url('report/salesman/details') }}" data-toggle="modal" data-target="#reportModal" class="clink">Details</span></li>
+					</ol>
+				</div>
+			</div>
+		</div>
+		
+		
 
-          <div class="col-md-4">
+		<div class="col-md-4">
 
-            <div class="card card-outline card-info">
+			<div class="card card-outline card-info">
 
-              <div class="card-header">
+			<div class="card-header">
 
-                <h3 class="card-title">Pad</h3>               
+				<h3 class="card-title">Pad</h3>               
 
-                <!-- /.card-tools -->
+				<!-- /.card-tools -->
 
-              </div>
+			</div>
 
-              <!-- /.card-header -->
+			<!-- /.card-header -->
 
-              <div class="card-body" style="display: block;padding:0.75rem;">
+			<div class="card-body" style="display: block;padding:0.75rem;">
 
-                <ol>                    
-                     <li><span data-tokenfrom="{{ url('HelperController/getCSRF') }}" data-action="{{ url('PreviewController/printPad') }}" data-toggle="modal" data-target="#padModal" class="clink"> Print</span></li>
-                </ol>
+				<ol>                    
+					<li><span data-tokenfrom="{{ url('HelperController/getCSRF') }}" data-action="{{ url('PreviewController/printPad') }}" data-toggle="modal" data-target="#padModal" class="clink"> Print</span></li>
+				</ol>
 
-              </div>
+			</div>
 
-              <!-- /.card-body -->
+			<!-- /.card-body -->
 
-            </div>
+			</div>
 
-            <!-- /.card -->
+			<!-- /.card -->
 
-          </div>
+		</div>
 
-        </div>
+		</div>
 
-        <!-- /.row -->
+		<!-- /.row -->
 
-      </div><!-- /.container-fluid -->
+	</div><!-- /.container-fluid -->
 
 </div>
 
 <div class="modal fade" id="padModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
-  <div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal-dialog modal-dialog-centered" role="document">
 
-    <div class="modal-content">
+	<div class="modal-content">
 
-      
+	
 
-      <div class="modal-header">
+	<div class="modal-header">
 
-        <h5 class="modal-title" id="exampleModalLabel">Pad Input</h5>
+		<h5 class="modal-title" id="exampleModalLabel">Pad Input</h5>
 
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 
-          <span aria-hidden="true">&times;</span>
+		<span aria-hidden="true">&times;</span>
 
-        </button>
+		</button>
 
-      </div>
+	</div>
 
-      <form class="" id="actionForm"  method="POST">
-
-
-
-      <div class="modal-body">
-
-          <input type="hidden" name="_token" id="tok" value="" />     
-
-          <div class="form-group">
-
-            <label for="fromdate" class="col-form-label">Select Date:</label>
-             <input type="date"  placeholder="mm/dd/yyyy" class="form-control" name="fromDate" id="fromdate" autocomplete="off" required/>
-
-            
-
-          </div>
-
-
-          <div class="form-group">
-                        <div class="form-check">
-                          <input class="form-check-input" value="no" type="radio" name="owner">
-                          <label class="form-check-label">No Proprietor Name</label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" value="yes" type="radio" name="owner" checked="">
-                          <label class="form-check-label">Yes Proprietor Name</label>
-                        </div>
-                       
-                      </div>
+	<form class="" id="actionForm"  method="POST">
 
 
 
-      </div>
+	<div class="modal-body">
 
-      <div class="modal-footer">
+		<input type="hidden" name="_token" id="tok" value="" />     
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+		<div class="form-group">
 
-      </div>
+			<label for="fromdate" class="col-form-label">Select Date:</label>
+			<input type="date"  placeholder="mm/dd/yyyy" class="form-control" name="fromDate" id="fromdate" autocomplete="off" required/>
 
-      </form>
+			
 
-    </div>
+		</div>
 
-  </div>
+
+		<div class="form-group">
+						<div class="form-check">
+						<input class="form-check-input" value="no" type="radio" name="owner">
+						<label class="form-check-label">No Proprietor Name</label>
+						</div>
+						<div class="form-check">
+						<input class="form-check-input" value="yes" type="radio" name="owner" checked="">
+						<label class="form-check-label">Yes Proprietor Name</label>
+						</div>
+					
+					</div>
+
+
+
+	</div>
+
+	<div class="modal-footer">
+
+		<button type="submit" class="btn btn-primary">Submit</button>
+
+	</div>
+
+	</form>
+
+	</div>
+
+</div>
 
 </div>
 
 <!-- Inventory report mmodal -->
 <!-- inventory Today -->
 <div class="modal fade" id="inventoryToday" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Today Inventory Report Input</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form class="" id="actionForm"  method="POST">
-      <div class="modal-body">
-        <input type="hidden" name="_token" id="tok" value="" />
-        <div class="form-group">
-            <label for="branch" class="col-form-label">Select Branch:</label>
-            <select name="branch" class="form-control" id="branch">
-              <option value="0">All</option>
-              @foreach($branches as $branch)
-                <option value="{{ $branch->id }}">{{ $branch->title }}</option>
-              @endforeach
-            </select>
-          </div>       
+<div class="modal-dialog modal-dialog-centered" role="document">
+	<div class="modal-content">
+	<div class="modal-header">
+		<h5 class="modal-title" id="exampleModalLabel">Today Inventory Report Input</h5>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<form class="" id="actionForm"  method="POST">
+	<div class="modal-body">
+		<input type="hidden" name="_token" id="tok" value="" />
+		<div class="form-group">
+			<label for="branch" class="col-form-label">Select Branch:</label>
+			<select name="branch" class="form-control" id="branch">
+			<option value="0">All</option>
+			@foreach($branches as $branch)
+				<option value="{{ $branch->id }}">{{ $branch->title }}</option>
+			@endforeach
+			</select>
+		</div>       
 
-      </div>
+	</div>
 
-      <div class="modal-footer">
+	<div class="modal-footer">
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+		<button type="submit" class="btn btn-primary">Submit</button>
 
-      </div>
+	</div>
 
-      </form>
+	</form>
 
-    </div>
+	</div>
 
-  </div>
+</div>
 
 </div>
 
 <!-- Inventory Report Modal -->
 <div class="modal fade" id="inventoryReportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
-  <div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal-dialog modal-dialog-centered" role="document">
 
-    <div class="modal-content">
+	<div class="modal-content">
 
-      
+	
 
-      <div class="modal-header">
+	<div class="modal-header">
 
-        <h5 class="modal-title" id="exampleModalLabel">Inventory Report Input</h5>
+		<h5 class="modal-title" id="exampleModalLabel">Inventory Report Input</h5>
 
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 
-          <span aria-hidden="true">&times;</span>
+		<span aria-hidden="true">&times;</span>
 
-        </button>
+		</button>
 
-      </div>
+	</div>
 
-      <form class="" id="actionForm"  method="POST">
-
-
-
-      <div class="modal-body">
-
-          <input type="hidden" name="_token" id="tok" value="" />     
-
-          <div class="form-group">
-
-            <label for="branch" class="col-form-label">Select Branch:</label>
-
-            <select name="branch" class="form-control" id="branch">
-
-               <option value="0">All</option>
-
-              @foreach($branches as $branch)
-
-                <option value="{{ $branch->id }}">{{ $branch->title }}</option>
-
-              @endforeach
+	<form class="" id="actionForm"  method="POST">
 
 
 
-            </select>
+	<div class="modal-body">
 
-          </div>
+		<input type="hidden" name="_token" id="tok" value="" />     
 
-            <div class="form-group">
+		<div class="form-group">
 
-            <label for="branch" class="col-form-label">Select Item:</label>
+			<label for="branch" class="col-form-label">Select Branch:</label>
 
-            <select name="item" class="form-control" id="branch">
+			<select name="branch" class="form-control" id="branch">
 
-               <option value="0">All</option>
+			<option value="0">All</option>
 
-              @foreach($items as $item)
+			@foreach($branches as $branch)
 
-                <option value="{{ $item->id }}">{{ $item->name }}</option>
+				<option value="{{ $branch->id }}">{{ $branch->title }}</option>
 
-              @endforeach
-
-
-
-            </select>
-
-          </div>
+			@endforeach
 
 
-        
 
-      </div>
+			</select>
 
-      <div class="modal-footer">
+		</div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+			<div class="form-group">
 
-      </div>
+			<label for="branch" class="col-form-label">Select Item:</label>
 
-      </form>
+			<select name="item" class="form-control" id="branch">
 
-    </div>
+			<option value="0">All</option>
 
-  </div>
+			@foreach($items as $item)
+
+				<option value="{{ $item->id }}">{{ $item->name }}</option>
+
+			@endforeach
+
+
+
+			</select>
+
+		</div>
+
+
+		
+
+	</div>
+
+	<div class="modal-footer">
+
+		<button type="submit" class="btn btn-primary">Submit</button>
+
+	</div>
+
+	</form>
+
+	</div>
+
+</div>
 
 </div>
 
 
 <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
-  <div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal-dialog modal-dialog-centered" role="document">
 
-    <div class="modal-content">
+	<div class="modal-content">
 
-      
+	
 
-      <div class="modal-header">
+	<div class="modal-header">
 
-        <h5 class="modal-title" id="exampleModalLabel">Report Input</h5>
+		<h5 class="modal-title" id="exampleModalLabel">Report Input</h5>
 
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 
-          <span aria-hidden="true">&times;</span>
+		<span aria-hidden="true">&times;</span>
 
-        </button>
+		</button>
 
-      </div>
+	</div>
 
-      <form class="" id="actionForm"  method="POST">
-
-
-
-      <div class="modal-body">
-
-          <input type="hidden" name="_token" id="tok" value="" />     
-
-          <div class="form-group">  
-
-            <label for="fromdate" class="col-form-label">From : </label>
-
-            <input type="date"  placeholder="mm/dd/yyyy" class="form-control" name="fromDate" id="fromdate" autocomplete="off" />
-
-          </div>
-
-           <div class="form-group">
-
-            <label for="toDate" class="col-form-label">To : </label>
-
-            <input type="date" placeholder="mm/dd/yyyy" class="form-control" name="toDate" id="toDate"  autocomplete="off" />
-
-          </div>
-
-          <div class="form-group">
-
-            <label for="branch" class="col-form-label">Branch:</label>
-
-            <select name="branch" class="form-control" id="branch">
-
-               <option value="">All ( No Details ) </option>
-
-              @foreach($branches as $branch)
-
-                <option value="{{ $branch->id }}">{{ $branch->title }}</option>
-
-              @endforeach
+	<form class="" id="actionForm"  method="POST">
 
 
 
-            </select>
+	<div class="modal-body">
 
-          </div>
+		<input type="hidden" name="_token" id="tok" value="" />     
 
-        
+		<div class="form-group">  
 
-      </div>
+			<label for="fromdate" class="col-form-label">From : </label>
 
-      <div class="modal-footer">
+			<input type="date"  placeholder="mm/dd/yyyy" class="form-control" name="fromDate" id="fromdate" autocomplete="off" />
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+		</div>
 
-      </div>
+		<div class="form-group">
 
-      </form>
+			<label for="toDate" class="col-form-label">To : </label>
 
-    </div>
+			<input type="date" placeholder="mm/dd/yyyy" class="form-control" name="toDate" id="toDate"  autocomplete="off" />
 
-  </div>
+		</div>
+
+		<div class="form-group">
+
+			<label for="branch" class="col-form-label">Branch:</label>
+
+			<select name="branch" class="form-control" id="branch">
+
+			<option value="">All ( No Details ) </option>
+
+			@foreach($branches as $branch)
+
+				<option value="{{ $branch->id }}">{{ $branch->title }}</option>
+
+			@endforeach
+
+
+
+			</select>
+
+		</div>
+
+		
+
+	</div>
+
+	<div class="modal-footer">
+
+		<button type="submit" class="btn btn-primary">Submit</button>
+
+	</div>
+
+	</form>
+
+	</div>
+
+</div>
 
 </div>
 
 
 <div class="modal fade" id="distributeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
-  <div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal-dialog modal-dialog-centered" role="document">
 
-    <div class="modal-content">
+	<div class="modal-content">
 
-      
+	
 
-      <div class="modal-header">
+	<div class="modal-header">
 
-        <h5 class="modal-title" id="exampleModalLabel">Report Input</h5>
+		<h5 class="modal-title" id="exampleModalLabel">Report Input</h5>
 
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 
-          <span aria-hidden="true">&times;</span>
+		<span aria-hidden="true">&times;</span>
 
-        </button>
+		</button>
 
-      </div>
+	</div>
 
-      <form class="" id="actionForm"  method="POST">
-
-
-
-      <div class="modal-body">
-
-          <input type="hidden" name="_token" id="tok" value="" />     
-
-          <div class="form-group">  
-
-            <label for="fromdate" class="col-form-label">From : </label>
-
-            <input type="date"  placeholder="mm/dd/yyyy" class="form-control" name="fromDate" id="fromdate" autocomplete="off" />
-
-          </div>
-
-           <div class="form-group">
-
-            <label for="toDate" class="col-form-label">To : </label>
-
-            <input type="date" placeholder="mm/dd/yyyy" class="form-control" name="toDate" id="toDate"  autocomplete="off" />
-
-          </div>
-
-          <div class="form-group">
-
-            <label for="branch" class="col-form-label">From Branch:</label>
-
-            <select name="frombranch" class="form-control" id="branch">              
-
-              @foreach($branches as $branch)
-
-                <option value="{{ $branch->id }}">{{ $branch->title }}</option>
-
-              @endforeach
+	<form class="" id="actionForm"  method="POST">
 
 
 
-            </select>
+	<div class="modal-body">
 
-          </div>
-           <div class="form-group">
+		<input type="hidden" name="_token" id="tok" value="" />     
 
-            <label for="branch" class="col-form-label">To Branch:</label>
+		<div class="form-group">  
 
-            <select name="tobranch" class="form-control" id="branch">               
+			<label for="fromdate" class="col-form-label">From : </label>
 
-              @foreach($branches as $branch)
+			<input type="date"  placeholder="mm/dd/yyyy" class="form-control" name="fromDate" id="fromdate" autocomplete="off" />
 
-                <option value="{{ $branch->id }}">{{ $branch->title }}</option>
+		</div>
 
-              @endforeach
+		<div class="form-group">
+
+			<label for="toDate" class="col-form-label">To : </label>
+
+			<input type="date" placeholder="mm/dd/yyyy" class="form-control" name="toDate" id="toDate"  autocomplete="off" />
+
+		</div>
+
+		<div class="form-group">
+
+			<label for="branch" class="col-form-label">From Branch:</label>
+
+			<select name="frombranch" class="form-control" id="branch">              
+
+			@foreach($branches as $branch)
+
+				<option value="{{ $branch->id }}">{{ $branch->title }}</option>
+
+			@endforeach
 
 
 
-            </select>
+			</select>
 
-          </div>
+		</div>
+		<div class="form-group">
 
-        
+			<label for="branch" class="col-form-label">To Branch:</label>
 
-      </div>
+			<select name="tobranch" class="form-control" id="branch">               
 
-      <div class="modal-footer">
+			@foreach($branches as $branch)
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+				<option value="{{ $branch->id }}">{{ $branch->title }}</option>
 
-      </div>
+			@endforeach
 
-      </form>
 
-    </div>
 
-  </div>
+			</select>
+
+		</div>
+
+		
+
+	</div>
+
+	<div class="modal-footer">
+
+		<button type="submit" class="btn btn-primary">Submit</button>
+
+	</div>
+
+	</form>
+
+	</div>
+
+</div>
 
 </div>
 <!-- payment modal -->
 <div class="modal fade" id="reportPaymentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
+<div class="modal-dialog modal-dialog-centered" role="document">
+	<div class="modal-content">
+	<div class="modal-header">
 
-        <h5 class="modal-title" id="exampleModalLabel">Report Input</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+		<h5 class="modal-title" id="exampleModalLabel">Report Input</h5>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+		</button>
 
-      </div>
+	</div>
 
-      <form class="" id="actionForm"  method="POST">
-      <div class="modal-body">
+	<form class="" id="actionForm"  method="POST">
+	<div class="modal-body">
 
-          <input type="hidden" name="_token" id="tok" value="" />     
+		<input type="hidden" name="_token" id="tok" value="" />     
 
-          <div class="form-group">  
+		<div class="form-group">  
 
-            <label for="fromdate" class="col-form-label">From : </label>
+			<label for="fromdate" class="col-form-label">From : </label>
 
-            <input type="date"  placeholder="mm/dd/yyyy" class="form-control" name="fromDate" id="fromdate" autocomplete="off" />
+			<input type="date"  placeholder="mm/dd/yyyy" class="form-control" name="fromDate" id="fromdate" autocomplete="off" />
 
-          </div>
+		</div>
 
-           <div class="form-group">
+		<div class="form-group">
 
-            <label for="toDate" class="col-form-label">To : </label>
+			<label for="toDate" class="col-form-label">To : </label>
 
-            <input type="date" placeholder="mm/dd/yyyy" class="form-control" name="toDate" id="toDate"  autocomplete="off" />
+			<input type="date" placeholder="mm/dd/yyyy" class="form-control" name="toDate" id="toDate"  autocomplete="off" />
 
-          </div>
+		</div>
 
-          <div class="form-group">
-            <label for="branch" class="col-form-label">Branch:</label>
-            <select name="branch" class="form-control" id="branch">
-               <option value="">All </option>
-              @foreach($branches as $branch)
-                <option value="{{ $branch->id }}">{{ $branch->title }}</option>
-              @endforeach
-            </select>
-          </div>
+		<div class="form-group">
+			<label for="branch" class="col-form-label">Branch:</label>
+			<select name="branch" class="form-control" id="branch">
+			<option value="">All </option>
+			@foreach($branches as $branch)
+				<option value="{{ $branch->id }}">{{ $branch->title }}</option>
+			@endforeach
+			</select>
+		</div>
 
-          <div class="form-group">
-            <label for="branch" class="col-form-label">Payment Type:</label>
-            <select name="type" class="form-control" id="branch">
-               <option value="">All</option>
-              @foreach($paymenttypes as $type)
-                <option value="{{ $type->id }}">{{ $type->typename }}</option>
-              @endforeach
-            </select>
-          </div>       
+		<div class="form-group">
+			<label for="branch" class="col-form-label">Payment Type:</label>
+			<select name="type" class="form-control" id="branch">
+			<option value="">All</option>
+			@foreach($paymenttypes as $type)
+				<option value="{{ $type->id }}">{{ $type->typename }}</option>
+			@endforeach
+			</select>
+		</div>       
 
-      </div>
+	</div>
 
-      <div class="modal-footer">
+	<div class="modal-footer">
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+		<button type="submit" class="btn btn-primary">Submit</button>
 
-      </div>
+	</div>
 
-      </form>
+	</form>
 
-    </div>
+	</div>
 
-  </div>
+</div>
 
 </div>
 

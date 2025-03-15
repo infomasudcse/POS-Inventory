@@ -210,7 +210,7 @@
                               </td>
                             </tr>
                           <tr>                            
-                              <td colspan="2">{{ ucwords($customer['name']) }} / {{ $customer['mobile'] }}</td>
+                              <td colspan="2" class="text-info">{{ ucwords($customer['name']) }} / {{ $customer['mobile'] }}</td>
                           </tr>
                             
                         </table>
@@ -315,7 +315,7 @@
 
                             <td> Total :</td>
 
-                            <td class="text-right">{{ Helper::toCurrency($total) }}</td>
+                            <td class="text-right text-danger"><strong>{{ Helper::toCurrency($total) }}</strong></td>
 
                           </tr>
 
@@ -558,7 +558,7 @@
 
                       <td>Amount Due:</td>
 
-                      <td  class="text-right"> <?php echo Helper::toCurrency($due); ?></td>
+                      <td class="text-right"><strong>{{ Helper::toCurrency($due) }}</strong></td>
 
                     </tr>
 

@@ -20,11 +20,6 @@ class SmsController extends Controller
     const dynamic_message_url = 'https://www.24bulksmsbd.com/api/DynamicSMSApi';
     const balance_url = 'https://www.24bulksmsbd.com/api/balance';
 
-    /**
-     * $customer[id]
-     * $customer[name]
-     * $customer[mobile]
-     */
     public static function sendSaleReceipt($total_paid, $customer, $business_name)
     {
         if ($customer && $customer['mobile']){
