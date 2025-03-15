@@ -184444,6 +184444,12 @@ select {
   }
 }
 
+button[type=submit] {
+  width: 100%;
+  margin: auto;
+  justify-content: center;
+
+}
 
 .main-footer{
 	position: absolute;
@@ -184458,10 +184464,15 @@ select {
 	color: #FF6F3C;
 }
 
-
 .bg-image {
   background-image: url('../images/abs-bg.png');
   background-repeat: no-repeat;
   background-position: top left;
+}
+
+.software-info {
+  color: #c7c7c7;
+  text-align: center;
+  padding-top: 15px;
 
 }

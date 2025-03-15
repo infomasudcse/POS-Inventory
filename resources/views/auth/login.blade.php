@@ -56,6 +56,7 @@
             </div>
             
         </form>
+        <div class="software-info">Business PRO : Version : 1.5.0</div>
        
     </x-auth-card>
 </x-guest-layout>
