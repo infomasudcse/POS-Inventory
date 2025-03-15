@@ -72,7 +72,7 @@ class BranchreportController extends Controller
 			->join('subcategories', 'items.subcategory_id', '=', 'subcategories.id')
 			->select(DB::raw('SUM(inventories.qty) as qty'), 'subcategories.id', 'subcategories.name')
 			->where('inventories.branch_id', $branch)
-			->groupBy('subcategories.id')
+			->groupBy('subcategories.id', 'subcategories.name')
 			->get();
 
 		$data['today'] = Date('d-m-Y');

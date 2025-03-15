@@ -127,20 +127,21 @@
                   <td style="text-align:right;">Date: {{ $sale->created_at }}</td>
                 </tr>
 
+                
                 <tr>
                   <td> 
                     @if($manager)  Manager: {{ $manager }} <br/> @endif 
-                    @if($salesman)  Salesman: {{ $salesman['name'] }} @endif 
+                    @if(!empty($salesman))  Salesman: {{ $salesman['name'] }} @endif 
                   </td>
                   <td style="text-align:right;">
                     
-                    @if($customer)
+                    @if(!empty($customer))
                      Customer: {{ $customer['name'] }}
                      <br>
                      Mobile: {{ '********'.substr($customer['mobile'], -3) }}
                     @endif
                  </td>
-                </tr>                
+                </tr>                    
 
               </table>
 
