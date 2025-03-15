@@ -18,6 +18,10 @@
 
             <!-- use this space for notify user -->
 
+            @if(!$sms_balance)
+              <div class="alert alert-danger"> SMS FEATURE NOT Active Yet</div>
+            @endif
+
             @if (session('status'))
 
               <div class="alert alert-success">
@@ -75,8 +79,13 @@ $cids = isset($ids)? $ids : '';
               <div class="card-header">
                 <h5 class="m-0">New SMS</h5>
               </div>
-              <div class="card-body">                
+              <div class="card-body">
+                @if($sms_balance)                
                 <form class="form-horizontal" action="{{ url('sms/sendSms') }}" method="POST" >
+                @else
+                <form class="form-horizontal" action="#" method="GET" >
+                @endif
+
                   @csrf
                   <div class="card-body">
                     <div class="form-group row">
@@ -123,6 +132,26 @@ $cids = isset($ids)? $ids : '';
               </div>            
               
             </div>
+          @else
+
+          <div class="col-12 col-md-6" style="opacity: 0.2;">
+              <div class="small-box p-3">
+                <div class="inner">                  
+                  <h3>Non Masking SMS: 0</h3>
+                  <h3>Masking SMS: 0</h3>
+                  <h3>Last Update:  - - - </h3>
+
+                  <a href="#" class="btn btn-lg button btn-success">Update SMS Balance</a>              
+            
+                </div>
+                <div class="icon">
+                  <i class="fas fa-sms"></i>
+                </div>
+                
+              </div>            
+              
+            </div>
+
           @endif
 
         </div>
