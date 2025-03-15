@@ -385,13 +385,17 @@ class Report extends Controller
 		if ($sales) { 
 			foreach ($sales as $key => $sell) {
 
+                if (isset($sale_data[$sell->salesman_id]['salesman_total_qty'])) {
+                    $sale_data[$sell->salesman_id]['salesman_total_qty'] += $sell->qty;
+                } else {
+                    $sale_data[$sell->salesman_id]['salesman_total_qty'] = $sell->qty;
+                }
+
 				if(isset($sale_data[$sell->salesman_id]['items'][$sell->item_id])) {
 					$sale_data[$sell->salesman_id]['items'][$sell->item_id]['qty'] += $sell->qty;
-                    $sale_data[$sell->salesman_id]['salesman_total_qty'] += $sell->qty;
 				} else {
 					$sale_data[$sell->salesman_id]['items'][$sell->item_id] = ['name' => $sell->item_name, 'qty'=> $sell->qty];
 					$sale_data[$sell->salesman_id]['salesman_name'] =  $sell->name;
-                    $sale_data[$sell->salesman_id]['salesman_total_qty'] =  $sell->qty;
 				}
 			}
 		}

@@ -85,7 +85,7 @@
                     <tbody>
                       @if($sale_data)
                         @foreach($sale_data as $key => $sell)
-                          <tr>
+                          <tr class="table-info">
                             <td>{{ $sell['salesman_name'] }}</td><td>TOTAL</td><td>{{ $sell['salesman_total_qty'] }}</td>
                           </tr>
                           @if($sell['items'])
