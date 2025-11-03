@@ -16,11 +16,11 @@ use App\Models\Salesman;
 use Cart;
 
 trait SaleTrait {
-  
+
 
     public function getBranchInfo($id){
 
-         $branch = DB::table('branches')->find($id);            
+         $branch = DB::table('branches')->find($id);
 
         return $branch;
 
@@ -47,7 +47,7 @@ trait SaleTrait {
 
          Cart::destroy();
 
-        //empty payments               
+        //empty payments
 
         session()->forget('payment');
         session()->forget('discount');
@@ -79,7 +79,7 @@ trait SaleTrait {
             'qty' => 'required|max:9|min:0',
             'rowid'=> 'required'
         ]);
-        
+
         Cart::update($data['rowid'], $data['qty']);
 
         return redirect('/sales');
@@ -109,8 +109,16 @@ trait SaleTrait {
             ->where('deleted', 0)
             ->get()->first();
 
-            return $inventroy; 
+            return $inventroy;
 
+    }
+
+    public function checkInventory($sku){
+        $inventroy = DB::table('inventories')
+            ->where('sku', $sku)
+            ->get()->first();
+
+            return $inventroy;
     }
 
     public function getInventoryAnyBranch($sku){
@@ -121,7 +129,7 @@ trait SaleTrait {
             ->where('deleted', 0)
             ->get();
 
-            return $inventroy; 
+            return $inventroy;
 
     }
 
@@ -132,23 +140,23 @@ trait SaleTrait {
             ->select('items.name')
             ->get()->first();
 
-            return $item; 
+            return $item;
 
     }
 
 
 
-    public function addPayment(Request $request) {        
+    public function addPayment(Request $request) {
 
         //use session
 
-        $validatedData = $request->validate([          
+        $validatedData = $request->validate([
 
             'amount' => 'required|min:0|numeric',
 
             'payment_type' => 'required'
 
-        ]);     
+        ]);
 
         $payment = ['payment_type'=>$validatedData['payment_type'],'amount'=>$validatedData['amount']];
 
@@ -164,17 +172,17 @@ trait SaleTrait {
 
          //use session
 
-        $validatedData = $request->validate([          
+        $validatedData = $request->validate([
 
             'amount' => 'required|min:0|numeric',
 
             'discount_type' => 'required'
 
-        ]);     
+        ]);
 
         $discount = ['type'=>$validatedData['discount_type'], 'amount'=>$validatedData['amount'], 'discount_code' => $request->discount_code];
 
-        $request->session()->put('discount', $discount);       
+        $request->session()->put('discount', $discount);
 
         return redirect('/sales');
 
@@ -208,7 +216,7 @@ trait SaleTrait {
 
 
 
-    
+
 
     public function getTotalPayment(){
 
@@ -291,7 +299,7 @@ trait SaleTrait {
 
         }
 
-        return floatval($subtotal); 
+        return floatval($subtotal);
 
     }
 
@@ -354,10 +362,10 @@ trait SaleTrait {
         foreach($cartContent as $cart){
 
             if($cart->qty > 0 && $cart->options->mode =='sale'){ //sale
-                $sale_tot += $cart->price * $cart->qty; 
+                $sale_tot += $cart->price * $cart->qty;
                 //$item_tax = $this->getItemTax($cart->price);
 
-                //$saleTax += $cart->qty * $item_tax ;  
+                //$saleTax += $cart->qty * $item_tax ;
 
             }else if($cart->qty < 0 && $cart->options->mode =='return'){ //return
                 $return_tot += $cart->price * abs($cart->qty);
@@ -377,9 +385,9 @@ trait SaleTrait {
 
        // var_dump($returnTax);
 
-        $tax = $saleTax - $returnTax; 
+        $tax = $saleTax - $returnTax;
 
-        return $tax; 
+        return $tax;
 
     }
 
@@ -396,11 +404,11 @@ trait SaleTrait {
         $salesman_id =  $request->input('salesman');
         if ($salesman_id) {
             $salesman = Salesman::where('idnumber', $salesman_id)->get()->first();
-            if ($salesman) { 
+            if ($salesman) {
                 $details = ['id'=>$salesman->id,'name'=>$salesman->name];
                 $request->session()->put('salesman', $details);
             }
-        }               
+        }
 
         return redirect('/sales');
     }
@@ -425,11 +433,11 @@ trait SaleTrait {
             $new_customer = ['id'=>$customer->id,'name'=>$customer->name, 'mobile'=>$customer->mobile];
 
         }else{
-            $validatedData = $request->validate([ 
+            $validatedData = $request->validate([
                 'name' => 'required|min:3',
                 'mobile' => 'required|min:10|unique:customers'
-            ]);       
-     
+            ]);
+
             $customer = Customer::create([
                          'name' => $validatedData['name'],
                          'mobile' =>  $validatedData['mobile'],
@@ -437,10 +445,10 @@ trait SaleTrait {
                      ]);
             $new_customer = ['id'=>$customer['id'],'name'=>$customer['name'], 'mobile'=>$customer['mobile']];
         }
-       
-       
-       
-        $request->session()->put('customer', $new_customer);       
+
+
+
+        $request->session()->put('customer', $new_customer);
 
         return redirect('/sales');
     }
@@ -466,6 +474,6 @@ trait SaleTrait {
 
 
 
-//end of file 
+//end of file
 
 }

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Helper;
 
@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\DB;
 class Helper{
 
 	public static function printLogo(){
-		echo '<img src="'.asset('storage/app/public/logo.png').'" alt="logo" style="width:300px;height:80px;"  />';
-	} 
+		echo '<img src="'.asset('storage/logo.png').'" alt="logo" style="width:300px;height:80px;"  />';
+	}
 
 	public static function printMono(){
-		echo '<img src="'.asset('storage/app/public/mono.png').'" alt="logo" style="width:60px;height:60px;" class="brand-image img-circle elevation-3" />';
+		echo '<img src="'.asset('storage/mono.png').'" alt="logo" style="width:60px;height:60px;" class="brand-image img-circle elevation-3" />';
 	}
 
 	public static function getConfig(){
@@ -56,7 +56,7 @@ class Helper{
 
 	}
 
-	
+
 
 	public static function getCurrency(){
 
@@ -64,7 +64,7 @@ class Helper{
 
 	}
 
-		
+
 
 	public static function viewSaleId($id){
 
@@ -72,16 +72,16 @@ class Helper{
 
 	}
 
-		
 
-	public static function cleanStr($str){		
+
+	public static function cleanStr($str){
 
 	   		$newStr =  preg_replace('/[^A-Za-z0-9\-]/', '', $str); // Removes special chars.
 
-	   		return strtolower($newStr);    	
+	   		return strtolower($newStr);
 
 	}
 
-	
+
 
 }

@@ -28,7 +28,7 @@ class SaleController extends Controller
         $data['payment'] = $this->getTotalPayment();
         $data['due'] = $this->getDue();
         $data['customer'] = $this->getSaleCustomer();
-        $data['salesman'] = $this->getSalesman();        
+        $data['salesman'] = $this->getSalesman();
         $data['paymentType'] = $this->getPaymentType();
         return view('branch.index',$data);
     }
@@ -36,7 +36,7 @@ class SaleController extends Controller
 
     function addToCart(Request $request){
         //validate
-    	$validatedData = $request->validate([          
+    	$validatedData = $request->validate([
             'sku' => 'required|numeric',
             'mode' => 'required'
         ]);
@@ -56,17 +56,24 @@ class SaleController extends Controller
         //quantity not set can not sale
         if($qty === 0){
             $status .= ' Sale or return ??';
-        }else{ 
+        }else{
             //get logged branch
             $branchId = auth()->user()->branch_id;
             //search inventory
-            $itemInventory = $this->getInventory($validatedData['sku'], $branchId);
+            // Need to look for item anywhere event qty - 0 for return , if found add to cart for return
+            if ($qty < 0) {
+                // return I guesss so just check if did exists this sku regardless branch
+                $itemInventory = $this->checkInventory($validatedData['sku']);
+            }else {
+                $itemInventory = $this->getInventory($validatedData['sku'], $branchId);
+            }
+
             if(!$itemInventory){
                 //item not found in this branch
-                $status = ' Item Not Found in this branch. '; 
+                $status = ' Item Not Found in this branch. ';
                 //search inventory to other branch
                 $anyBranchInventory = $this->getInventoryAnyBranch($validatedData['sku']);
-                if(count($anyBranchInventory)>0){                    
+                if(count($anyBranchInventory)>0){
                     foreach($anyBranchInventory as $otherBranchInventory){
                         $status .='Found '.$otherBranchInventory->qty.'pcs in '.$otherBranchInventory->branch->title.', ';
                     }
@@ -74,7 +81,7 @@ class SaleController extends Controller
                     $status .= 'Not found any of branch or unable to sale ! ';
                 }
             }else{
-                //item found in this branch      
+                //item found in this branch
                 $item = $this->getItem($itemInventory->item_id);
                 //add to cart
                 $cart = $this->addItemToCart($itemInventory->sku, $item->name, $qty, $itemInventory->unit_price, 0, $itemInventory->id, $mode, $itemInventory->qty);
@@ -85,7 +92,7 @@ class SaleController extends Controller
 		return redirect('/sales')->with('status',$status);
     }
 
-   
+
     function doSale(Request $request){
     	//get cart Item update inventori
 
@@ -95,7 +102,7 @@ class SaleController extends Controller
             //$request->session()->push('payment', ['payment_type'=>'none','amount'=>0.00]);
         }
         $cartTotPayment =  $this->getTotalPayment();
-        $changeAmount  = $cartTotal - $cartTotPayment; 
+        $changeAmount  = $cartTotal - $cartTotPayment;
         if($changeAmount <= 0){
             $data['cartContent'] = $this->getCartContent();
             //$data['payments'] = session('payment');
@@ -106,7 +113,7 @@ class SaleController extends Controller
             // if($cartContent)
             $cartTax = $this->getCartTax();
             $saleData = [
-                'total_item' =>  $this->getCartCount(), 
+                'total_item' =>  $this->getCartCount(),
                 'subtotal' => $this->getCartSubtotal(),
                 'total_sale' => $cartTotal,
                 'totalWTax' =>$cartTotal + $cartTax,
@@ -121,9 +128,9 @@ class SaleController extends Controller
                 'salesman_id' => $data['salesman']? $data['salesman']['id'] : 0,
             ];
 
-           //save sale and get instance 
-            $data['sale'] = Sale::create($saleData); 
-            
+           //save sale and get instance
+            $data['sale'] = Sale::create($saleData);
+
             foreach($data['cartContent'] as $cartItem){
                 $inventory =  Inventory::find($cartItem->options->inv_id);
                 //save sale or return
@@ -138,30 +145,30 @@ class SaleController extends Controller
                 $saleitem->tax_code =  $this->getConfig()->default_tax; //$cartItem->taxRate;
                 $saleitem->tax_amount =$this->getItemTax($cartItem->price);
                 $saleitem->save();
-                $mode = $cartItem->options->mode; 
-                if($mode == 'sale' && $cartItem->qty > 0){                    
-                    $remain_qty =   intval($inventory->qty) -  intval($cartItem->qty);         
+                $mode = $cartItem->options->mode;
+                if($mode == 'sale' && $cartItem->qty > 0){
+                    $remain_qty =   intval($inventory->qty) -  intval($cartItem->qty);
                     //update inventory for sale
                     $inventory->qty = $remain_qty ;
                     $inventory->save();
                 }else if($mode == 'return' && $cartItem->qty < 0){
                     //update qty for return
-                    $new_qty =   intval($inventory->qty) + ( -1 * intval($cartItem->qty));         
+                    $new_qty =   intval($inventory->qty) + ( -1 * intval($cartItem->qty));
                     $inventory->qty = $new_qty ;
                     $inventory->save();
                 }
-                   
+
                 //in all case Track Entry
                 $tracQty = -1 * $cartItem->qty;
                 $viewSaleId = Helper::viewSaleId($data['sale']->id);
                 $this->SaveTrackInventory($inventory->id, $inventory->item_id, $data['sale']->user_id, $data['sale']->branch_id, $cartItem->id, $tracQty, $viewSaleId);
-               
-                
+
+
             }
-         //create receipt      
-        $data['discount_info'] = session('discount');   
+         //create receipt
+        $data['discount_info'] = session('discount');
         $data['branchinfo'] = $this->getBranchInfo($data['sale']->branch_id);
-        $data['config'] = $this->getConfig();        
+        $data['config'] = $this->getConfig();
         $data['title'] = $this->title;
         //save payments
         $this->savePayments($data['sale']->id);
@@ -169,16 +176,16 @@ class SaleController extends Controller
         if(SmsController::mode_live) {
             SmsController::sendSaleReceipt($cartTotPayment, $data['customer'], $data['config']->business_name);
         }
-        //remove sales info 
-        $this->deleteSaleInfo(); 
+        //remove sales info
+        $this->deleteSaleInfo();
         $data['payments'] = $this->getSalePayments($data['sale']->id);
-        return view('branch.receipt',$data);        
-            
+        return view('branch.receipt',$data);
+
         }else{
              return redirect('/sales/index')->with('status', 'Check Total Sale / Payment !');
               //return redirect()->route('sale',['status','Check Total Sale / Payment !']);
         }
-    	
+
     }
   //end
 }
