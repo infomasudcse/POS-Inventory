@@ -11,17 +11,17 @@ use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
-     
+
     use ReportTrait;
 
-    function home(){        
-    	$data['title'] = 'Index';
+    function home(){
+    	$data['title'] = 'Dashboard';
     	$data['sale'] = $this->getSale();
         $data['tax'] = $this->getTax();
     	$data['attendence'] = $this->getAttendence();
     	$data['expense'] = $this->getExpense();
         $data['status'] = $this->getSystemStatus();
-        
+
     	return view('admin.home',$data);
     }
 
@@ -37,23 +37,23 @@ class DashboardController extends Controller
                         $data[$day] = $data[$day] + floatval($sale->total);
                     }else{
                         $data[$day] = floatval($sale->total);
-                    }                      
+                    }
                 }
             }
             $chart_data = [];
             if($data){
                 foreach($data as $key => $total){
-                    $chart_data[] = [$key, $total]; 
+                    $chart_data[] = [$key, $total];
                 }
 
                 return json_encode($chart_data);
-            }           
-           
+            }
+
         }
 
         if($type==='week') {
             $sales = $this->getWeekSale();
-          
+
             $data = [];
             $chart_data = [];
             if($sales){
@@ -63,14 +63,14 @@ class DashboardController extends Controller
                         $data[$day] = $data[$day] + floatval($sale->total);
                     }else{
                         $data[$day] = floatval($sale->total);
-                    }                                          
+                    }
                 }
             }
 
             $chart_data = [];
             if($data){
                 foreach($data as $key => $total){
-                    $chart_data[] = [$key, $total];                    
+                    $chart_data[] = [$key, $total];
                 }
 
                 return json_encode($chart_data);
@@ -78,8 +78,8 @@ class DashboardController extends Controller
 
             return json_encode($chart_data);
 
-        }      
-       
+        }
+
         return json_encode([]);
     }
 }
