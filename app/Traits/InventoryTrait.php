@@ -8,20 +8,19 @@ use App\Models\Inventory;
 
 trait InventoryTrait {
 
-	function SaveTrackInventory($invId,$itemId,$userId,$branchId,$sku,$qty,$comment){
+	function SaveTrackInventory($invId, $itemId, $userId, $branchId, $sku, $qty, $comment) {
 		$trackitem = new Trackinventory;
-        $trackitem->inventory_id = $invId;
-        $trackitem->item_id = $itemId;
-        $trackitem->user_id = $userId;
-        $trackitem->branch_id = $branchId;
-        $trackitem->sku = $sku;
-        $trackitem->qty = $qty;
-        $trackitem->comment = $comment;
-        $trackitem->save();
-
+		$trackitem->inventory_id = $invId;
+		$trackitem->item_id = $itemId;
+		$trackitem->user_id = $userId;
+		$trackitem->branch_id = $branchId;
+		$trackitem->sku = $sku;
+		$trackitem->qty = $qty;
+		$trackitem->comment = $comment;
+		$trackitem->save();
 	}
 
-	function saveTransfer($sku,$from,$to,$qty,$user,$comment){
+	function saveTransfer ($sku, $from, $to, $qty, $user, $comment) {
 		$trans = new Transfer;
 		$trans->sku = $sku;
 		$trans->from_branch = $from;
@@ -29,32 +28,32 @@ trait InventoryTrait {
 		$trans->qty = $qty;
 		$trans->user_id = $user;
 		$trans->comment = $comment;
-		$trans->save(); 
+		$trans->save();
 	}
 
-	function transfer($inventory_id,$branch_to_id,$qty,$comment=''){
+	function transfer ($inventory_id, $branch_to_id, $qty, $comment='') {
 		$msg = '';
-		$user = auth()->user()->id;		
+		$user = auth()->user()->id;
 		$originInventory = Inventory::find($inventory_id);
-		
-		if($originInventory){
+
+		if ($originInventory) {
 			//check if from and to branch are same
-			if($originInventory->branch_id != $branch_to_id){
+			if ($originInventory->branch_id != $branch_to_id) {
 
 				$remainQty = intval($originInventory->qty) - intval($qty);
 				if($remainQty >= 0 ){
 					//save new inventory
 					// check previous inventory then create/update
 					$newInventory = Inventory::where('branch_id',$branch_to_id)->where('sku',$originInventory->sku)->get()->first();
-					//set a variable 
+					//set a variable
 					$trackTransfer = false;
-					if($newInventory){
+					if ($newInventory) {
 						//update inv
 						$newInventory->qty += $qty;
 						$newInventory->save();
 						$trackTransfer = true;
 						$msg .= $newInventory->sku." - Item added to Branch.";
-					}else{			
+					} else {
 						//create new
 						$Inventory = ['branch_id' => $branch_to_id,
 			   				'item_id' => $originInventory->item_id,
@@ -67,7 +66,7 @@ trait InventoryTrait {
 			   		$trackTransfer = true;
 					$msg .= $newInventory->sku." - Item transfered to Branch .";
 			   }
-			   	if($newInventory){
+			   	if ($newInventory) {
 					//update old inventory
 			   		$originInventory->qty = $remainQty;
 			   		$originInventory->save();
@@ -79,13 +78,13 @@ trait InventoryTrait {
 			   		$this->saveTransfer($newInventory->sku,$originInventory->branch_id,$newInventory->branch_id,$qty,$user,$comment);
 
 			   	}
-		   	}else{
+		   	} else {
 				   $msg = 'Can not transfer more then what you have ! ';
 			   }
-			}else{
+			} else {
 				$msg = 'Can not transfer to same branch ! ';
-			}	
-		}else{
+			}
+		} else {
 			$msg = 'Origin of Inventory not found ! ';
 		}
 
@@ -93,17 +92,17 @@ trait InventoryTrait {
 
 	}
 
-	function updateInventoryCustom($inventory_id, $qty, $action){
-		$user = auth()->user()->id;		
+	function updateInventoryCustom($inventory_id, $qty, $action) {
+		$user = auth()->user()->id;
 		$originInventory = Inventory::find($inventory_id);
-		
-		if($originInventory){
+
+		if ($originInventory) {
 			$trackQty = $qty;
-			if($action == 'add'){
+			if ($action == 'add') {
 			  $originInventory->qty += $qty;
 			  $action_comment = 'Manual-added';
 
-			}else if($action='remove'){
+			} else if($action='remove') {
 				$originInventory->qty -= $qty;
 				$action_comment = 'Manual Removed';
 				$trackQty = '-'.$qty;
@@ -111,11 +110,10 @@ trait InventoryTrait {
 			$originInventory->save();
 			//track new inventory
 			$this->SaveTrackInventory($originInventory->id,$originInventory->item_id,$user,$originInventory->branch_id,$originInventory->sku,$trackQty,$action_comment );
-			   		
 
 			return $originInventory->sku." - Qty Updated.";
 		}
 	}
 
-//end of trait 
+//end of trait
 }

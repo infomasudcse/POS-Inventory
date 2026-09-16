@@ -18,63 +18,55 @@ use Cart;
 trait SaleTrait {
 
 
-    public function getBranchInfo($id){
+    public function getBranchInfo($id) {
 
-         $branch = DB::table('branches')->find($id);
+        $branch = DB::table('branches')->find($id);
 
         return $branch;
-
     }
 
-    public function getPaymentType(){
+    public function getPaymentType() {
         return DB::table('paymenttypes')->get();
     }
 
-    public function getSalePayments($sale_id){
+    public function getSalePayments($sale_id) {
         return DB::table('salepayments')->where('sale_id', $sale_id)->join('paymenttypes', 'salepayments.payment_type', '=', 'paymenttypes.id')->get();
     }
 
 
-    public function getConfig(){
+    public function getConfig() {
 
         $config = DB::table('configs')->first();
 
         return $config;
-
     }
 
-    public function deleteSaleInfo(){
+    public function deleteSaleInfo() {
 
          Cart::destroy();
 
         //empty payments
-
         session()->forget('payment');
         session()->forget('discount');
         session()->forget('customer');
         session()->forget('salesman');
-
     }
 
-    public function cancelSale(){
+    public function cancelSale() {
 
         $this->deleteSaleInfo();
 
         return redirect('/sales');
-
     }
 
-
-
-    public function removeFromCart($rowId){
+    public function removeFromCart($rowId) {
 
         Cart::remove($rowId);
 
         return redirect('/sales');
-
     }
 
-    public function updateQtyToCart(Request $request){
+    public function updateQtyToCart(Request $request) {
         $data = $request->validate([
             'qty' => 'required|max:9|min:0',
             'rowid'=> 'required'
@@ -83,45 +75,36 @@ trait SaleTrait {
         Cart::update($data['rowid'], $data['qty']);
 
         return redirect('/sales');
-
     }
 
-
-
-
-
-    public function deletePayment(Request $request){
+    public function deletePayment(Request $request) {
 
     	$request->session()->forget('payment');
 
     	return redirect('/sales');
-
     }
 
+    public function getInventory($sku, $branch) {
 
+    	$inventroy = DB::table('inventories')
+            	->where('sku', $sku)
+            	->where('branch_id', $branch)
+            	->where('qty','>',0)
+            	->where('deleted', 0)
+        			->get()->first();
 
-    public function getInventory($sku, $branch){
-
-    	 $inventroy = DB::table('inventories')
-            ->where('sku', $sku)
-            ->where('branch_id', $branch)
-            ->where('qty','>',0)
-            ->where('deleted', 0)
-            ->get()->first();
-
-            return $inventroy;
-
+        return $inventroy;
     }
 
-    public function checkInventory($sku){
-        $inventroy = DB::table('inventories')
-            ->where('sku', $sku)
-            ->get()->first();
+    public function checkInventory($sku) {
+      $inventroy = DB::table('inventories')
+            			->where('sku', $sku)
+            			->get()->first();
 
-            return $inventroy;
+      return $inventroy;
     }
 
-    public function getInventoryAnyBranch($sku){
+    public function getInventoryAnyBranch($sku) {
 
          $inventroy = Inventory::with('branch')
             ->where('sku', $sku)
