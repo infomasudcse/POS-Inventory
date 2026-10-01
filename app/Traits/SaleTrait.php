@@ -170,7 +170,7 @@ trait SaleTrait {
 	}
 
 	public function addItemToCart($sku, $name, $qty, $price, $weight, $optionId, $mode, $stock) {
-		$cart = Cart::add($sku, $name, $qty, $price, $weight, ['inv_id' => $optionId, 'mode' => $mode,'stock'=>$stock]);
+		$cart = Cart::add($sku, $name, $qty, $price, $weight, ['inv_id' => $optionId, 'mode' => $mode,'stock'=> $stock]);
 
 		return $cart;
 	}
@@ -219,7 +219,7 @@ trait SaleTrait {
 
 	public function getCartCount() {
 		$cartContent = $this->getCartContent();
-		$count =0.00;
+		$count = 0.00;
 		if ($cartContent) {
 			foreach ($cartContent as $cart) {
 				$count +=  abs($cart->qty);
@@ -227,6 +227,22 @@ trait SaleTrait {
 		}
 
 		return $count;
+	}
+
+	public function isThisSaleHasOneReturn() {
+		$cartContent = $this->getCartContent();
+		$returnCount = 0;
+		if ($cartContent) {
+			foreach ($cartContent as $cart) {
+				if($cart->qty < 0) $returnCount++;
+			}
+		}
+
+		if ($returnCount) {
+			return true;
+		}
+
+		return false;
 	}
 
 	public function getCartTax() {
