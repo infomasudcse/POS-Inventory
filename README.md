@@ -1,15 +1,16 @@
 
 
-## Inventory with pos
+## Inventory with POS
 
 ## Project Technologies
 1.	Laravel  - 8
-2.	Bootstrap - 4
-3.	Datatable
-4.	Jquery - 3
-5.	Ajax
-6.	HTML
-4.	CSS
+2.  laravel-Breeze
+3.  Shopping Cart
+4.  PDF, Barcode
+5.	Bootstrap - 4
+6.	Datatable
+7.	Jquery, Ajax
+8.	Blade
 
 ## Project Features
 
