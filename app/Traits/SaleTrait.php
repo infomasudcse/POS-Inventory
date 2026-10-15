@@ -299,30 +299,25 @@ trait SaleTrait {
 	}
 
 	public function addCustomer(Request $request) {
-			//use session
-			$customer_id =  $request->input('customer_id');
-			if ($customer_id) {
+		$validatedData = $request->validate([
+			'name' => 'required|min:3',
+			'mobile' => 'required|min:10'
+		]);
 
-					$customer = Customer::where('id', $customer_id)->get()->first();
-					$new_customer = ['id'=>$customer->id,'name'=>$customer->name, 'mobile'=>$customer->mobile];
+		$customer = Customer::where('mobile', $validatedData['mobile'])->get()->first();
+		if ($customer) {
+			$new_customer = ['id' => $customer->id, 'name' => $customer->name, 'mobile' => $customer->mobile];
+		} else {
+			$customer = Customer::create([
+					'name' => $validatedData['name'],
+					'mobile' =>  $validatedData['mobile'],
+					'branch_id' => Auth()->user()->branch_id,
+				]);
+			$new_customer = ['id' => $customer['id'], 'name' => $customer['name'], 'mobile' => $customer['mobile']];
+		}
+		$request->session()->put('customer', $new_customer);
 
-			} else {
-					$validatedData = $request->validate([
-							'name' => 'required|min:3',
-							'mobile' => 'required|min:10|unique:customers'
-					]);
-
-				$customer = Customer::create([
-											'name' => $validatedData['name'],
-											'mobile' =>  $validatedData['mobile'],
-											'branch_id' => Auth()->user()->branch_id,
-										]);
-				$new_customer = ['id'=>$customer['id'],'name'=>$customer['name'], 'mobile'=>$customer['mobile']];
-			}
-
-			$request->session()->put('customer', $new_customer);
-
-			return redirect('/sales');
+		return redirect('/sales');
 	}
 
 	public function getSaleCustomer() {
