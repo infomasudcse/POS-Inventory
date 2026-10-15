@@ -1,19 +1,9 @@
 
   $(function () { 
 
-    $('.details').click(function(){
+     $('.details').click(function(){
       var targetId = $(this).attr('data-id');
       $('#details'+targetId).show();
-    });
-
-    $('#addRow').click(function(){
-      var copiable = $('#copiable').html();
-      $('#specialContainer').append(copiable);
-      return false;
-    });
-    $('#removeRow').click(function(){
-      $('#specialContainer div.form-group:last-child').remove();
-      return false;
     });
 
    $('#from_branch_id').change(function(){
@@ -28,20 +18,71 @@
 
     $('#branchTable').DataTable({"ajax":'BranchController/getBranch'});
     $('#categoriesTable').DataTable({"ajax":'CategoryController/getCategory'});
-    $('#sizesTable').DataTable({"ajax":'SizeController/getSize'});
     $('#employeesTable').DataTable({"ajax":'EmployeeController/getEmplopyee'});
     $('#subCategoriesTable').DataTable({"ajax":'SubCategoryController/getSubCategory'});
     $('#variationsTable').DataTable({"ajax":'VariationController/getVariation'});
     $('#variationsvalTable').DataTable({"ajax":'VariationvalController/getVariationval'});
     $('#itemTable').DataTable({"ajax":'ItemController/getItems'});
     $('#inventoriTable').DataTable({"ajax":'InventoryController/getInventory'});
+    $('#expenseTypeTable').DataTable({"ajax":'ExpensetypeController/getExpenseType'});
+    $('#paymentTypeTable').DataTable({"ajax":'PaymenttypeController/getPaymentType'});
+    $('#expensesTable').DataTable({"ajax":'ExpensesController/getExpenses'});
+    $('#salesmanTable').DataTable({"ajax":'SalesmanController/getSalesmans'});
+    $('#customerTable').DataTable({
+      "ajax":'CustomerController/getCustomers',
+      "pageLength": 20,
+      "columnDefs": [
+        {
+            "targets": [0], // Disable ordering for the first and second column (index starts at 0)
+            "orderable": false
+        }
+    ]
+    });
+
+    /** SMS  */
+    // Select/Deselect all checkboxes
+    function updateSelectedCount() {
+        let count = $(".customer-checkbox:checked").length; // Count checked checkboxes
+        $("#selectedCount").text('Selected: ' + count); // Update the counter display
+    }
+
+    // Select/Deselect all checkboxes
+    $('#selectAllCustomer').on('click', function () {
+        $('.customer-checkbox').prop('checked', this.checked);
+        updateSelectedCount(); // Update count when "Select All" is clicked
+    });
+
+    // Update count when checkboxes are clicked
+    $(document).on('change', '.customer-checkbox', function () {
+        updateSelectedCount();
+    });
+
+
+    $('#sendToSMSRequestForm').on('click', function () {
+  
+      // Send selected IDs as a GET request
+      let selectedCustomers = [];
+
+      $(".customer-checkbox:checked").each(function () {
+          selectedCustomers.push($(this).val());
+      });
+      if (selectedCustomers.length > 0) {
+              let url = $(this).data('link') + "/" + selectedCustomers.join(",");
+              window.location.href = url; // Redirect to GET request URL
+          } else {
+              alert("Please select at least one customer.");
+          }
+      });
+
+    /** SMS END */
+    
     //load item suggestion
     $('#item-category').change(function(){    
         var selectedOption = $(this).children("option:selected").val();
         var actionUrl = $(this).attr('data-find-url');
 
-        console.log(actionUrl);
-        console.log(selectedOption);
+        //console.log(actionUrl);
+        //console.log(selectedOption);
 
          $.ajax({         
           url: actionUrl+'/'+selectedOption,
@@ -64,6 +105,22 @@
             modal.find('#actionForm').attr('action',formAction);
 
            });      
+    });
+    //payment type input modal 
+    $('#reportPaymentModal').on('show.bs.modal', function (event) {
+      var span = $(event.relatedTarget); // Button that triggered the modal
+      var formAction = span.data('action'); // Extract info from data-* attributes
+      var tokenFrom = span.data('tokenfrom');
+      var tokeen = '';
+      var modal = $(this)
+      $.ajax({         
+          url: tokenFrom+"/",
+          cache: false          
+          }).done(function( msg ) { 
+            modal.find('.modal-body #tok').val(msg);
+            modal.find('#actionForm').attr('action',formAction);
+
+            });      
     });
     //report input modal 
      $('#reportModal').on('show.bs.modal', function (event) {
@@ -97,12 +154,27 @@
 
            });      
     });
-    //report inventory    
+    //report inventory
+    
+    $('#inventoryToday').on('show.bs.modal', function (event) {
+      var span = $(event.relatedTarget); // Button that triggered the modal
+      var formAction = span.data('action'); // Extract info from data-* attributes
+      var tokenFrom = span.data('tokenfrom');      
+      var modal = $(this)
+      $.ajax({         
+          url: tokenFrom+"/",
+          cache: false          
+          }).done(function( msg ) { 
+            modal.find('.modal-body #tok').val(msg);
+            modal.find('#actionForm').attr('action',formAction);
+           });      
+    }); 
+
+
      $('#inventoryReportModal').on('show.bs.modal', function (event) {
       var span = $(event.relatedTarget); // Button that triggered the modal
       var formAction = span.data('action'); // Extract info from data-* attributes
-      var tokenFrom = span.data('tokenfrom');
-      var tokeen = '';
+      var tokenFrom = span.data('tokenfrom');      
       var modal = $(this)
       $.ajax({         
           url: tokenFrom+"/",
@@ -115,6 +187,26 @@
     }); 
     
     //load modal with sku
+    $('#updateModal').on('show.bs.modal', function (event) {
+      var span = $(event.relatedTarget); // Button that triggered the modal
+      var skus = span.data('whatever'); // Extract info from data-* attributes
+      var qtys = span.data('qty');
+      var datainv = span.data('inv');
+      var dataLocation = span.data('location');
+      var tokeen = '';
+      var modal = $(this)
+      $.ajax({         
+          url: dataLocation,
+          cache: false          
+          }).done(function( msg ) { 
+            modal.find('.modal-body #tok').val( msg)
+            modal.find('.modal-body #data_inv').val( datainv)
+            modal.find('.modal-body #sku').val( skus)
+            modal.find('.modal-body #quantity').text('Current Qty: '+qtys)
+
+           });      
+    });
+
     $('#inventoryModal').on('show.bs.modal', function (event) {
       var span = $(event.relatedTarget); // Button that triggered the modal
       var skus = span.data('whatever'); // Extract info from data-* attributes
@@ -131,6 +223,7 @@
             modal.find('.modal-body #data_inv').val( datainv)
             modal.find('.modal-body #sku').val( skus)
             modal.find('.modal-body #quantity').val(qtys)
+
            });      
     });
 
@@ -157,17 +250,9 @@
            });      
     });
 
-$('#iteminput').focus();
-$('#productsearch').focus();
-$('#firstInput').focus();
-
-$('#nobarcode').change(function(){
-  if($(this).is(':checked')){
-    $("#check-msg").html('Manual Bar Code will be Needed on Inventory Creation !');
-  }else{
-    $("#check-msg").html('Bar code will be auto generated ! ');
-  }
-});
+    $('#iteminput').focus();
+    $('#productsearch').focus();
+    $('.textarea').summernote()
 
 //document ready end
   });
@@ -218,7 +303,6 @@ $('#nobarcode').change(function(){
     
   });
 
-
   $(document).on('click','.no-suggestion-found .inventory-form',function(){  $('#search_result').hide(); });
   $(document).on('mouseleave','.list-group-flush',function(){$('#search_result').hide(); });
 
@@ -226,7 +310,7 @@ $('#nobarcode').change(function(){
  $(document).on('keyup','#searchSku', function(){
     var query = $(this).val();   
     var actionUrl = $(this).attr('actionTo');   
-    if(query.length>5){       
+    if(query.length>2){       
        $.ajax({
               type: "GET",
               url: actionUrl+"/"+query,          
@@ -268,16 +352,6 @@ $('#nobarcode').change(function(){
 
   $(document).on('mouseleave','.searchDiv',function(){$('#search_result').hide(); });
 
-  $(document).on('click','#allSize',function(){
-    var isChecked = $(this).is(':checked');
-    
-    if(isChecked){
-      $('#onlySize').slideUp();
-    }else{
-      $('#onlySize').slideDown();
-    }
-  });
-
 function print_this(divarea) {
  var contents = $("#"+divarea).html();
         var frame1 = $('<iframe />');
@@ -303,4 +377,41 @@ function print_this(divarea) {
 
 }
  
+/** 17-10-2022 */
 
+$('#more-option').click(function(){
+  $('#hidden-row').toggleClass('hidden');
+});
+
+$(document).on('click', '#deleteSKU', function(e){
+  let sku = $('#delsku').val();
+  if(!sku){
+    return;
+  }
+  $('.delete-overlay h2').html('Removing...');
+  $('.delete-overlay').removeClass('hidden');
+  let answer = askConfirm();
+  if(answer){
+   
+    let option = $('#delAll').prop('checked');
+   
+    $.ajax({
+      type: "GET",
+      url: "InventoryController/deleteSkuInventory/"+sku+"/"+option,          
+      dataType: "JSON",
+      success:function(resp){
+        console.log(resp);                         
+          if(resp.success === true){
+            window.location.reload();
+          }else{
+            $('.delete-overlay h2').html(resp.msg);
+            setTimeout(()=> {
+              $('.delete-overlay').addClass('hidden');
+            }, 2000);
+          }
+      }
+    });
+  }else{
+    $('.delete-overlay').addClass('hidden');
+  }
+});

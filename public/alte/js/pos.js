@@ -1,4 +1,4 @@
-$(function () { 
+$(function () {
 
 
 $('#iteminput').focus();
@@ -8,22 +8,23 @@ $('#iteminput').focus();
       $('#details'+targetId).show();
     });
 
-//report input modal 
+//report input modal
      $('#reportModal').on('show.bs.modal', function (event) {
       var span = $(event.relatedTarget); // Button that triggered the modal
       var formAction = span.data('action'); // Extract info from data-* attributes
       var tokenFrom = span.data('tokenfrom');
       var tokeen = '';
       var modal = $(this)
-      $.ajax({         
+      $.ajax({
           url: tokenFrom+"/",
-          cache: false          
-          }).done(function( msg ) { 
+          cache: false
+          }).done(function( msg ) {
             modal.find('.modal-body #tok').val(msg);
             modal.find('#actionForm').attr('action',formAction);
 
-           });      
+           });
     });
+
 });
 
 
@@ -45,7 +46,7 @@ function print_this(divarea) {
         frameDoc.document.write('<html><head><title>POS</title>');
         frameDoc.document.write('</head><body>');
         frameDoc.document.write('<style>td{font-size:12px;} .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {padding:2px;} </style>');
-       
+
        frameDoc.document.write(contents);
         frameDoc.document.write('</body></html>');
         frameDoc.document.close();
@@ -54,7 +55,48 @@ function print_this(divarea) {
             window.frames["frame1"].print();
             frame1.remove();
         }, 500);
-   
-
 }
 
+//customer suggestionon on inventory create
+$(document).on('keyup','#customersearch', function(){
+    var query = $(this).val();
+    var actionUrl = $(this).attr('actionTo');
+    if(query.length>4){
+
+       $.ajax({
+              type: "GET",
+              url: actionUrl+"/"+query,
+              dataType: "JSON",
+              success:function(resp){
+              //console.log(resp);
+                  if(resp!=''){
+                      $('.list-group').html(resp);
+                      $('#search_result').show();
+                  }else{
+                    $('.error-div').html('<div class="alert-danger"><-- Check!</div>');
+                    $('#search_result').hide();
+                  }
+              }
+            });
+    }else{
+      $('#search_result').hide();
+    }
+});
+
+//select suggested item
+$(document).on('click','.suggested-item', function(){
+
+    $('#customername').val($(this).attr('data-name'));
+    $('#customersearch').val($(this).attr('data-mobile'));
+    $('#customerid').val($(this).attr('data-id'));
+    $('#search_result').hide();
+    $('#customerForm').submit();
+
+});
+
+//toggle branch overview
+$(document).on('click','#overview', function(){
+
+  $('#overview-body').toggle();
+
+});
