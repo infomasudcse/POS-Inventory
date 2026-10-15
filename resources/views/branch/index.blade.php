@@ -8,7 +8,7 @@
 
         <div class="row mb-2">
 
-          <div class="col">        
+          <div class="col">
 
              <!-- use this space for notify user -->
 
@@ -72,15 +72,15 @@
 
                     <div class="row">
 
-                     
 
-                          <div class="col-sm-10">  
+
+                          <div class="col-sm-10">
 
                               <div class="form-group">
 
                                  <input type="text" class="form-control is-warning" id="iteminput" name="sku" placeholder="Scan item or enter sku ..." autocomplete="off">
 
-                              </div>                           
+                              </div>
 
                           </div>
 
@@ -96,16 +96,16 @@
 
                           </div>
 
-                     
 
-                    </div>                   
+
+                    </div>
 
                    </form>
 
               </div>
 
               <div class="card-body">
-               
+
                  <table id="inventori" class="table">
 
                     <thead>
@@ -116,11 +116,11 @@
 
                       <th>SKU</th>
 
-                      <th>Item</th>                
+                      <th>Item</th>
 
-                      <th>Price</th>                     
+                      <th>Price</th>
 
-                      <th style="width:50px;">Qty</th>                                      
+                      <th style="width:50px;">Qty</th>
 
                       <th>Tot</th>
 
@@ -147,7 +147,7 @@
                              @csrf
                              <input type="hidden" name="rowid" value="{{  $content->rowId }}"/>
                              <input type="number" value="{{ $content->qty }}" name="qty" min="1" max="9" size="1" autocomplete="off"/>
-                             <input type="submit" class="btn btn-xs btn-outline-info" value="Update"/> 
+                             <input type="submit" class="btn btn-xs btn-outline-info" value="Update"/>
                           </form>
                         </td>
 
@@ -155,7 +155,7 @@
 
                       </tr>
 
-                      
+
 
                       @endforeach
 
@@ -173,7 +173,7 @@
 
 
 
-           
+
 
           </div>
 
@@ -195,27 +195,27 @@
 
                   </div>
 
-                </div>               
+                </div>
 
               </div>
               <div class="card-header">
-                  @if($customer)                 
+                  @if($customer)
                   <div class="row">
                       <div class="col">
                         <table class="summary_table">
                           <tr>
                               <td>Customer</td>
-                              <td class="text-right"> 
+                              <td class="text-right">
                                   <a href="{{ url('sales/removeCustomer') }}" class="btn btn-outline-secondary btn-sm">X</a>
                               </td>
                             </tr>
-                          <tr>                            
+                          <tr>
                               <td colspan="2" class="text-info">{{ ucwords($customer['name']) }} / {{ $customer['mobile'] }}</td>
                           </tr>
-                            
+
                         </table>
                       </div>
-                    </div>   
+                    </div>
 
                   @else
 
@@ -225,20 +225,20 @@
                   <div class="row">
 
                     <div class="col-9">
-                      <input id="customerid" class="" type="hidden" name="customer_id" value="" /> 
-                      <input id="customername" class="p-0 w-100 mb-1" name="name" type="text" value="{{ old('name') }}" placeholder="Customer Name" autocomplete="off" />
-                      <input id="customersearch" class="p-0 w-100" name="mobile" value="" type="text" placeholder="Mobile" autocomplete="off" actionTo="{{ url('CustomerController/getSuggestion') }}"/>
+                      <input id="customerid" class="" type="hidden" name="customer_id" value="" />
+                      <input id="customername" class="p-0 pl-1 w-100 mb-1" name="name" type="text" value="{{ old('name') }}" placeholder="Customer Name" autocomplete="off" />
+                      <input id="customersearch" class="p-0 pl-1 w-100" name="mobile" value="" type="text" placeholder="Mobile" autocomplete="off" actionTo="{{ url('CustomerController/getSuggestion') }}"/>
                       <div class="list-group-div" id="search_result" data-fill="input-pick" style="position: absolute; display:none; max-height:200px; overflow-y:scroll;z-index: 10;width:96%;border:1px dotted red;">
 
                         <ul class="list-group">
-                        </ul>                        
+                        </ul>
 
                       </div>
 
                     </div>
 
                     <div class="col-3 text-right">
-                      <button type="submit" class="btn btn-sm btn-outline-info">Add</button>                  
+                      <button type="submit" class="btn btn-sm btn-outline-info">Add</button>
                     </div>
 
                   </div>
@@ -252,18 +252,18 @@
                 @if($salesman)
                 <div class="row">
                     <div class="col-12">
-                      <span class="text-primary"> {{ $salesman['name'] }} </span>               
+                      <span class="text-primary"> {{ $salesman['name'] }} </span>
                     </div>
-                  </div>                
-                @else 
+                  </div>
+                @else
                 <form action="{{ url('sales/addSalesman') }}" method="POST" id="salesmanForm">
                   @csrf
                   <div class="row">
                     <div class="col-9">
-                      <input id="salesman" class="p-0 w-100" name="salesman" placeholder="salesman" type="text" value="{{ old('salesman') }}" autocomplete="off" />               
+                      <input id="salesman" class="p-0 pl-1 w-100" name="salesman" placeholder="salesman" type="text" value="{{ old('salesman') }}" autocomplete="off" />
                     </div>
                     <div class="col-3 text-right">
-                      <button type="submit" class="btn btn-sm btn-outline-info">Add</button>                  
+                      <button type="submit" class="btn btn-sm btn-outline-info">Add</button>
                     </div>
 
                   </div>
@@ -323,7 +323,7 @@
 
                       </table>
 
-                    </div>  
+                    </div>
 
                 </div>
 
@@ -341,7 +341,7 @@
 
                         <td style="width:60%;border-right:1px dotted #ccc;">
 
-                           
+
 
                             <form action="{{ url('sales/addPayment') }}" method="POST">
 
@@ -355,7 +355,7 @@
 
                                 <tr><td>Payment Type:</td></tr>
 
-                                <tr><td class="">                                     
+                                <tr><td class="">
 
                                           <select class="small_input" name="payment_type">
 
@@ -364,21 +364,21 @@
 
                                               <option value="{{ $ptype->id }}">{{ $ptype->typename }}</option>
 
-                                              
+
                                               @endforeach
 
                                           @endif
-                                          </select>                                      
+                                          </select>
 
-                                  </td>                            
+                                  </td>
 
                                 </tr>
 
                                 <tr><td>Amount :</td></tr>
 
-                                <tr><td  class="">                                      
+                                <tr><td  class="">
 
-                                         <input class="small_input" name="amount" type="number" step="0.01" autocomplete="off" />
+                                         <input class="small_input pl-1" name="amount" type="number" step="0.01" autocomplete="off" />
 
                                   </td>
 
@@ -386,32 +386,32 @@
 
                                 <tr>
 
-                                  <td class="">                                   
+                                  <td class="">
 
                                           <button type="submit" class="btn btn-sm btn-info">Add Payment</button>
 
-                                    
 
-                                  </td>                            
 
-                                </tr>                  
+                                  </td>
 
-                               
+                                </tr>
+
+
 
                               </table>
 
                               </div>
 
-                            </div> 
+                            </div>
 
-                            </form> 
+                            </form>
 
                         </td>
 
                         <td style="width:40%;">
 
                         @if($branchInfo->discount == 1)
-                        <?php 
+                        <?php
                           $discount = session('discount');
                           $discount_code = '';
                           $discount_amount = '';
@@ -419,7 +419,7 @@
                             $discount_amount = $discount['amount'];
                             $discount_code = $discount['discount_code'];
 
-                          }  
+                          }
                         ?>
 
                           <form action="{{ url('sales/addDiscount') }}" method="POST">
@@ -447,7 +447,7 @@
 
                               <tr>
                                 <td  class="">
-                                    <input class="small_input" name="amount" type="text" autocomplete="off" value="{{ $discount_amount }}"/> 
+                                    <input class="small_input" name="amount" type="text" autocomplete="off" value="{{ $discount_amount }}"/>
                                 </td>
                               </tr>
                               <tr><td class="label">Discount Code:</td></tr>
@@ -460,7 +460,7 @@
                                 <td class="">
                                   <button type="submit" class="btn btn-sm btn-outline-info">Add Discount</button>
                                 </td>
-                              </tr> 
+                              </tr>
 
                             </table>
 
@@ -468,23 +468,23 @@
 
                             </div>
 
-                            </form> 
+                            </form>
                         @else
                         <h6 class="text-center"> No Discount Option </h6>
 
 
-                        @endif    
+                        @endif
 
 
                         </td>
 
                       </tr>
 
-                    </table>  
+                    </table>
 
                   </div>
 
-                </div>   
+                </div>
 
                 <div class="summary_divider"></div>
 
@@ -494,7 +494,7 @@
 
 
 
-                        <?php  
+                        <?php
 
                              $payments = session('payment');
 
@@ -506,7 +506,7 @@
 
                         <table class="table">
 
-                          <tr>                     
+                          <tr>
 
                             <th>Type</th>
 
@@ -518,7 +518,7 @@
 
                           <?php foreach($payments as $paid){ ?>
 
-                          <tr>                     
+                          <tr>
 
                             <td><?php echo ucfirst($paid['payment_type']);  ?> </td>
 
@@ -538,7 +538,7 @@
 
                     </div>
 
-                 </div>    
+                 </div>
 
                  <div class="summary_divider"></div>
 
@@ -570,7 +570,7 @@
 
                         <tr>
 
-                          <td>                       
+                          <td>
 
                           </td>
 
@@ -592,7 +592,7 @@
 
                 </table>
 
-                
+
 
               </div>
 
@@ -600,7 +600,7 @@
 
 
 
-           
+
 
           </div>
 
