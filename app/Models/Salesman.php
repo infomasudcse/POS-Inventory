@@ -14,9 +14,13 @@ class Salesman extends Model
         'name',
         'mobile',
         'nid',
-        'idnumber',      
-      ];
+        'idnumber',
+		'branch_id'
+    ];
 
+	public function branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
 
-    
 }

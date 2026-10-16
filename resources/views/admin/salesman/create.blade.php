@@ -31,7 +31,7 @@
 
       <div class="container-fluid">
 
-        <div class="row">         
+        <div class="row">
 
           <div class="col-lg-12">
 
@@ -43,13 +43,28 @@
 
               </div>
 
-              <div class="card-body">                
+              <div class="card-body">
 
               <form class="form-horizontal" action="{{ url('salesman') }}" method="POST" >
 
                 @csrf
 
-                <div class="card-body">                  
+                <div class="card-body">
+
+									<div class="form-group row">
+										<label for="idnumber" class="col-sm-2 col-form-label">Branch</label>
+										<div class="col-sm-10">
+										<select id="branch" name="branch_id" class="form-control is-warning">
+
+                          @foreach ($branches as $branch)
+
+                                <option value="{{ $branch->id }}"> {{ $branch->name }}</option>
+
+                            @endforeach
+
+                        </select>
+										</div>
+									</div>
 
                   <div class="form-group row">
                     <label for="iteminput" class="col-sm-2 col-form-label">Full Name</label>

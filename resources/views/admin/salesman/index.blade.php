@@ -1,22 +1,11 @@
 @extends('admin')
 
-
-
 @section('content')
 
- <!-- Content Header (Page header) -->
-
  <div class="content-header">
-
-
-
-      <div class="container-fluid">
-
+    <div class="container-fluid">
         <div class="row">
-
           <div class="col">
-
-            <!-- use this space for notify user -->
 
             @if (session('status'))
 
@@ -48,23 +37,18 @@
 
           </div>
 
-        </div><!-- /.row -->
+        </div>
 
-      </div><!-- /.container-fluid -->
+      </div>
 
 </div>
 
-    <!-- /.content-header -->
-
-
-
-    <!-- Main content -->
 
 <div class="content">
 
       <div class="container-fluid">
 
-        <div class="row">         
+        <div class="row">
 
           <div class="col-lg-12">
 
@@ -78,13 +62,7 @@
 
                       <div class="col"><a href="{{ route('salesman.create') }}" class="btn btn-flat btn-primary float-right">New</a></div>
 
-
-
-                  </div>  
-
-
-
-                    
+                  </div>
 
               </div>
 
@@ -97,17 +75,18 @@
                 <tr>
 
                   <th>SL.</th>
-                  <th>Name/NID</th>                  
+                  <th>Name/NID</th>
                   <th>Mobile</th>
                   <th>IDNumber</th>
+				  				<th>Branch</th>
                   <th>Action</th>
 
                 </tr>
 
                 </thead>
 
-                <tbody>  
-                </tbody>               
+                <tbody>
+                </tbody>
 
               </table>
 
@@ -117,18 +96,10 @@
 
           </div>
 
-          <!-- /.col-md-6 -->
-
         </div>
 
-        <!-- /.row -->
-
-      </div><!-- /.container-fluid -->
+      </div>
 
 </div>
-
-
-
-
 
 @endsection

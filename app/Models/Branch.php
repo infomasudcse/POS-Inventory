@@ -15,10 +15,16 @@ class Branch extends Model
     {
         return $this->hasMany(User::class);
     }
-     public function inventory(){
+
+	public function salesman()
+    {
+        return $this->hasMany(Salesman::class);
+    }
+
+    public function inventory(){
         return $this->hasMany(Inventory::class);
     }
-    
+
     public function sale()
     {
         return $this->hasMany(Sale::class);
