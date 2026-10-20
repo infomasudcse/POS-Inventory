@@ -288,6 +288,12 @@ trait SaleTrait {
 		return redirect('/sales');
 	}
 
+	public function removeSalesman() {
+		session()->forget('salesman');
+
+		return redirect('/sales');
+	}
+
 	public function getSalesman() {
 		$return = [];
 		$salesman = session('salesman');

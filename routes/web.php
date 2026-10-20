@@ -38,10 +38,10 @@ use App\Http\Controllers\SalesmanController;
 
  Route::get('/', function () {
      $config =  ConfigController::getSystemStatus();
-  
+
      return view('auth.login', ['config'=>$config]);
  });
- 
+
 // Route::get('/', function () {
 //     return view('one');
 // });
@@ -52,7 +52,7 @@ use App\Http\Controllers\SalesmanController;
 
 
 Route::middleware(['auth','role:admin'])->group(function () {
-	  //only admin access 
+	  //only admin access
     Route::get('/dashboard', [DashboardController::class,'home'])->name('dashboard');
     Route::resources([
     'configs' => ConfigController::class,
@@ -69,24 +69,24 @@ Route::middleware(['auth','role:admin'])->group(function () {
     'expenses' => ExpensesController::class,
     'customer' => CustomerController::class,
     'salesman' => SalesmanController::class,
-    ]);  
+    ]);
 
     Route::get('/DashboardController/getChartData/{type}', [DashboardController::class,'getChartData']);
 
-    Route::get('/config/changeSystemStatus', [ConfigController::class, 'changeState']);  
+    Route::get('/config/changeSystemStatus', [ConfigController::class, 'changeState']);
 
     Route::get('/BranchController/getBranch', [BranchController::class,'getBranch']);
     Route::get('/CustomerController/getCustomers',[CustomerController::class,'getCustomers']);
     Route::get('/customer/details/{id}',[CustomerController::class,'customersDetails']);
-    
+
     Route::get('/EmployeeController/getEmplopyee',[EmployeeController::class,'getEmplopyee']);
     Route::get('/employee/status/{id}',[EmployeeController::class,'changeEmplopyeeStatus']);
     Route::get('/employee/canTransferMode/{id}',[EmployeeController::class,'changeTranserMode']);
 
-    Route::get('/CategoryController/getCategory', [CategoryController::class,'getCategory']); 
-    Route::get('/SubCategoryController/getSubCategory', [SubcategoryController::class,'getSubCategory']); 
+    Route::get('/CategoryController/getCategory', [CategoryController::class,'getCategory']);
+    Route::get('/SubCategoryController/getSubCategory', [SubcategoryController::class,'getSubCategory']);
     Route::get('/SubCategoryController/getSubCategoryByCatId/{id}', [SubcategoryController::class,'getSubCategoryByCatId']);
-    Route::get('/VariationController/getVariation', [VariationController::class,'getVariation']);    
+    Route::get('/VariationController/getVariation', [VariationController::class,'getVariation']);
     Route::get('/VariationvalController/getVariationval', [VariationvalController::class,'getVariationval']);
     Route::get('/ItemController/getItems',[ItemController::class,'getItems']);
     Route::get('/ItemController/getSuggestion/{id}',[ItemController::class,'getSuggestion']);
@@ -96,15 +96,15 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('/InventoryController/deleteSkuInventory/{id}/{option}',[InventoryController::class,'deleteSkuInventory']);
 
     Route::get('/ExpensetypeController/getExpenseType',[ExpensetypeController::class,'getExpenseType']);
-    Route::get('/ExpensesController/getExpenses',[ExpensesController::class,'getExpenses']);  
+    Route::get('/ExpensesController/getExpenses',[ExpensesController::class,'getExpenses']);
     Route::get('/PaymenttypeController/getPaymentType',[PaymenttypeController::class,'getPaymentType']);
-    Route::get('/SalesmanController/getSalesmans',[SalesmanController::class,'getSalesmans']);   
+    Route::get('/SalesmanController/getSalesmans',[SalesmanController::class,'getSalesmans']);
 
     Route::get('/HelperController/getCSRF',[HelperController::class,'getCSRF']);
     Route::post('/helper/updateInventoryQty',[HelperController::class,'updateInventoryQty']);
     Route::post('/helper/printBarcode',[HelperController::class,'printBarcode']);
     Route::post('/helper/printSalesmanBarcode',[HelperController::class,'printSalesmanBarcode']);
-    
+
     Route::post('/helper/transferTo',[HelperController::class,'transferTo']);
     Route::get('/inventory/massDistribute',[InventoryController::class,'massDistribute']);
     Route::post('/helper/addToAdminTransfer',[HelperController::class,'addToAdminTransfer']);
@@ -117,7 +117,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::post('/report/sale/summary',[Report::class,'saleSummary']);
     Route::post('/report/sale/details',[Report::class,'saleDetails']);
     Route::post('/report/sale/corporate',[Report::class,'corporateSale']);
-    Route::get('/report/distribute/today',[Report::class,'distributeToday']); 
+    Route::get('/report/distribute/today',[Report::class,'distributeToday']);
     Route::post('/report/distribute/history',[Report::class,'distributeHistory']);
     Route::post('/report/presentinventory',[Report::class,'presentInventory']);
     Route::post('/report/todayinventory',[Report::class,'todayInventory']);
@@ -127,7 +127,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('/report/expense/today',[Report::class,'todayExpense']);
     Route::post('/report/expense/details',[Report::class,'expenseDetails']);
     Route::get('/report/payment/today',[Report::class,'todayPayment']);
-    Route::post('/report/payment/history',[Report::class,'historyPayment']);   
+    Route::post('/report/payment/history',[Report::class,'historyPayment']);
     Route::get('/report/profit/today',[Report::class,'todayProfit']);
     Route::post('/report/profit/history',[Report::class,'profitDetails']);
     Route::post('/report/salesman/details',[Report::class,'salesmanSalesDetails']);
@@ -148,11 +148,13 @@ Route::middleware(['auth','role:staff'])->group(function () {
     Route::post('/sales/addPayment',[SaleController::class, 'addPayment']);
     Route::get('/sales/deletePayment',[SaleController::class, 'deletePayment']);
     Route::post('/sales/doSale',[SaleController::class, 'doSale']);
-    Route::get('/sales/cancelSale',[SaleController::class, 'cancelSale']);  
+    Route::get('/sales/cancelSale',[SaleController::class, 'cancelSale']);
     Route::post('/sales/addDiscount',[SaleController::class, 'addDiscount']);
     Route::post('/sales/addCustomer',[SaleController::class, 'addCustomer']);
     Route::get('/sales/removeCustomer',[SaleController::class, 'removeCustomer']);
     Route::post('/sales/addSalesman',[SaleController::class, 'addSalesman']);
+    Route::get('/sales/removeSalesman',[SaleController::class, 'removeSalesman']);
+
 
     Route::get('/CustomerController/getSuggestion/{id}',[CustomerController::class,'getSuggestion']);
     //Branch Report
@@ -162,7 +164,7 @@ Route::middleware(['auth','role:staff'])->group(function () {
     Route::get('/branchReport/expenseYeasterday',[BranchreportController::class, 'branchExpense']);
     Route::get('/branchReport/CurrentStock',[BranchreportController::class, 'CurrentStock']);
     Route::get('/branchReport/salesmanSales',[BranchreportController::class, 'salesmanSales']);
-    
+
     //Branch Transfer
     Route::get('/branchTransfer',[BranchTransferController::class, 'index'])->name('branch-transfer');
     Route::get('/branchTransfer/startOverTransfer',[BranchTransferController::class, 'startOverTransfer']);
@@ -176,7 +178,7 @@ Route::middleware(['auth','role:staff'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     //Only authenticated user
-     //sales receipt 
+     //sales receipt
     Route::get('/sales/receipt/{id}',[PreviewController::class, 'saleReceipt']);
     Route::post('/PreviewController/printPad',[PreviewController::class, 'BusinessPad']);
 

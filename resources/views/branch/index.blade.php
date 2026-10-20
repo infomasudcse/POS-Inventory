@@ -251,8 +251,11 @@
               <div class="card-header">
                 @if($salesman)
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-9">
                       <span class="text-primary"> {{ $salesman['name'] }} </span>
+                    </div>
+					<div class="col-3 text-right">
+                      <a href="{{ url('sales/removeSalesman') }}" class="btn btn-outline-secondary btn-sm">X</a>
                     </div>
                   </div>
                 @else
@@ -260,7 +263,7 @@
                   @csrf
                   <div class="row">
                     <div class="col-9">
-                      <input id="salesman" class="p-0 pl-1 w-100" name="salesman" placeholder="salesman" type="text" value="{{ old('salesman') }}" autocomplete="off" />
+                      <input id="salesman" class="p-0 pl-1 w-100" name="salesman" placeholder="salesman ID" type="text" value="{{ old('salesman') }}" autocomplete="off" />
                     </div>
                     <div class="col-3 text-right">
                       <button type="submit" class="btn btn-sm btn-outline-info">Add</button>
