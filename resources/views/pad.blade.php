@@ -32,7 +32,7 @@
 										$action = '/sales';
 									}
 								?>
-								<a href="{{ url($action)}}" class="nav-link">Back</a>
+								<a href="{{ url($action)}}" class="nav-link btn btn-outline btn-default">Back</a>
 							</li>
 						</ul>
 					</div>
@@ -53,7 +53,7 @@
 											<table id="receiptTable" style="width:100%;" cellpadding="3" >
 												<tr>
 													<td>
-														<table style="width:100%;border-bottom: 2px red solid;text-align:center;" id="headerTable">
+														<table style="width:100%;border-bottom: 2px black solid;text-align:center;" id="headerTable">
 															<tr><td>{{ Helper::printLogo() }}</td></tr>
 															<tr><td>{{ ucwords($config->address) }}</td></tr>
 															<tr><td>{{ ucwords($config->contact) }}</td></tr>
@@ -80,10 +80,10 @@
 			</div>
 			<footer class="main-footer">
 				<div class="float-right d-none d-sm-inline">
-					Copyright &copy; Mayer Doya Fashion Houes.
+					Copyright &copy; {{ Helper::getConfig()->business_name }}.
 				</div>
 				<!-- Default to the left -->
-				Powered by <strong><a href="https://www.anisha.uk/" class="credit-link">ANISHA</a></strong>
+				Powered by <strong><a href="{{ Helper::getConfig()->support_link }}" class="credit-link">{{ Helper::getConfig()->support }}</a></strong>
 			</footer>
 		</div>
 		<script src="{{ asset('alte/js/jquery/jquery.min.js') }}"></script>
