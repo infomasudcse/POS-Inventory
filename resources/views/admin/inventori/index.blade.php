@@ -1,14 +1,10 @@
 @extends('admin')
 
-
-
 @section('content')
 
  <!-- Content Header (Page header) -->
 
  <div class="content-header">
-
-
 
       <div class="container-fluid">
 
@@ -62,184 +58,180 @@
 
 <div class="content">
 
-      <div class="container-fluid">
+	<div class="container-fluid">
 
-        <div class="row">         
+		<div class="row">
 
-          <div class="col-lg-12">
+			<div class="col-lg-12">
 
-            <div class="card card-secondary card-outline">
+				<div class="card card-secondary card-outline">
 
-              <div class="card-header">
+					<div class="card-header">
 
-                  <div class="row">
-                      <div class="col">
-                        <a href="{{ url('inventories/create') }}" title='create Inventory' class='btn btn-flat btn-info btn-sm'> <i class='fas fa-list'> </i> Add New</a>
-                        <button id="more-option" title='more option' class='btn btn-flat btn-warning btn-sm'> <i class='fas fa-plus'> </i> More</button>
-                      </div>
+							<div class="row">
+									<div class="col">
+										<a href="{{ url('inventories/create') }}" title='create Inventory' class='btn btn-flat btn-info btn-sm'> <i class='fas fa-list'> </i> Add New</a>
+										<button id="more-option" title='more option' class='btn btn-flat btn-warning btn-sm'> <i class='fas fa-plus'> </i> More</button>
+									</div>
 
-                      <div class="col"><h5 class="m-0 text-center">{{ $title }}</h5></div>
-                     
-                      <div class="col searchDiv">
-                        <input type="text" class="float-right" id="searchSku" actionTo="{{ url('InventoryController/searchSku') }}"  />
-                        <div class="list-group-div" id="search_result" data-fill="input-pick" style="position: absolute;top:30px;right:2%; display:none; max-height:200px; z-index: 10;width:52%;">
+									<div class="col"><h5 class="m-0 text-center">{{ $title }}</h5></div>
 
-                          <ul class="list-group">      </ul>                     
+									<div class="col searchDiv">
+										<input type="text" class="float-right" id="searchSku" actionTo="{{ url('InventoryController/searchSku') }}"  />
+										<div class="list-group-div" id="search_result" data-fill="input-pick" style="position: absolute;top:30px;right:2%; display:none; max-height:200px; z-index: 10;width:52%;">
 
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div id="hidden-row" class="form-group row hidden-row alert alert-danger mt-3 hidden" >                        
-                    <div class="col-12">
-                      <label for="delsku" class="form-label">Delete a product SKU from Inventory ( all branch ) </label>
-                    </div>
-                    <div class="col-12">                      
-                      <input type="checkbox" class=""  id="delAll" value="1">
-                      <label for="delAll" class="form-label">Also Sell Record </label>
-                    </div>
-                    <div class="col-4">
-                    
-                      <input type="number" class="is-warning" id="delsku" placeholder="SKU..." autocomplete="off"/>
-                    </div>
-                    <div class="col-4">
-                      <button id="deleteSKU" class="btn btn-flat btn-warning btn-sm"> Delete</button>
-                    </div>
-                    <div class="delete-overlay hidden"><h2>Removing....</h2></div>
+											<ul class="list-group">      </ul>
 
-                  </div>
-                                     
+									</div>
+								</div>
+							</div>
 
-              </div>
+							<div id="hidden-row" class="form-group row hidden-row alert alert-danger mt-3 hidden" >
+								<div class="col-12">
+									<label for="delsku" class="form-label">Delete a product SKU from Inventory ( all branch ) </label>
+								</div>
+								<div class="col-12">
+									<input type="checkbox" class=""  id="delAll" value="1">
+									<label for="delAll" class="form-label">Also Sell Record </label>
+								</div>
+								<div class="col-4">
 
-              <div class="card-body">
+									<input type="number" class="is-warning" id="delsku" placeholder="SKU..." autocomplete="off"/>
+								</div>
+								<div class="col-4">
+									<button id="deleteSKU" class="btn btn-flat btn-warning btn-sm"> Delete</button>
+								</div>
+								<div class="delete-overlay hidden"><h2>Removing....</h2></div>
 
-              <table id="inventori" class="table table-bordered">
+							</div>
 
-                <thead>
 
-                <tr>
+					</div>
 
-                  <th>SL</th>
+					<div class="card-body">
 
-                  <th>SKU</th>
+					<table id="inventori" class="table table-bordered">
 
-                  <th>Item</th>                
+						<thead>
 
-                  <th>Qty</th>
+						<tr>
 
-                  <th>Branch</th>
+							<th>SL</th>
 
-                  <th>Cost</th>
+							<th>SKU</th>
 
-                  <th>Sale</th>
+							<th>Item</th>
 
-                  <th>More</th>                 
+							<th>Qty</th>
 
-                  <th>Action</th>
+							<th>Branch</th>
 
-                </tr>
+							<th>Cost</th>
 
-                </thead>
+							<th>Sale</th>
 
-                <tbody id="tableBody"> 
+							<th>More</th>
 
+							<th>Action</th>
 
+						</tr>
 
-                  
+						</thead>
 
-                  @foreach ($inventories as $inventory)
+						<tbody id="tableBody">
 
-                      <tr>
+							@foreach ($inventories as $inventory)
 
-                         <?php 
+									<tr>
 
-                          $variations = json_decode($inventory->variation);
+											<?php
 
-                          $str ='';
+											$variations = json_decode($inventory->variation);
 
-                          foreach($variations as $vary){
+											$str ='';
 
-                            $str .= $vary->value.', ';
+											foreach($variations as $vary){
 
-                          }
+												$str .= $vary->value.', ';
 
-                          ?>
+											}
 
-                          <td> {{ $loop->iteration }}</td>
+											?>
 
-                          <td>{{ $inventory->sku }}</td>
+											<td> {{ $loop->iteration }}</td>
 
-                          <td>{{ $inventory->item->name }}</td>
+											<td>{{ $inventory->sku }}</td>
 
-                          <td>{{ $inventory->qty }}</td>
+											<td>{{ $inventory->item->name }}</td>
 
-                          <td>{{ $inventory->branch->name }} </td>
+											<td>{{ $inventory->qty }}</td>
 
-                          <td>{{ Helper::toCurrency($inventory->cost_price) }} </td>
+											<td>{{ $inventory->branch->name }} </td>
 
-                          <td>{{ Helper::toCurrency($inventory->unit_price) }} </td>
+											<td>{{ Helper::toCurrency($inventory->cost_price) }} </td>
 
-                          <td>{{ $str }} </td>
+											<td>{{ Helper::toCurrency($inventory->unit_price) }} </td>
 
-                          <td>
+											<td>{{ $str }} </td>
 
-                            <div class='btn-group'>
+											<td>
 
-                              <span  data-toggle="modal" data-target="#inventoryModal" data-inv="{{ $inventory->id }}" data-whatever="{{ $inventory->sku }}" data-qty="{{ $inventory->qty }}" class="btn mr-2 btn-default btn-sm btn-item-table" title="Print Barcode" data-location="{{ url('HelperController/getCSRF') }}"><i class="fas fa-barcode"></i></span>
+												<div class='btn-group'>
 
-                              <span  data-toggle="modal" data-target="#transferModal" data-origin_inv_id="{{ $inventory->id }}" data-origin-code="{{ $inventory->sku }}" data-origin-branch="{{ $inventory->branch->name }}" data-origin-qty="{{ $inventory->qty }}" class="btn mr-2 btn-default btn-sm btn-item-table" title="Transfer to another branch"  data-location="{{ url('HelperController/getCSRF') }}"><i class="fas fa-share-square"></i></span>
-                              
-                              <span  data-toggle="modal" data-target="#updateModal" data-inv="{{ $inventory->id }}" data-whatever="{{ $inventory->sku }}" data-qty="{{ $inventory->qty }}" class="btn mr-2 btn-default btn-sm btn-item-table" title="Add/Remove Qty"  data-location="{{ url('HelperController/getCSRF') }}"><i class="fas fa-plus"></i> / <i class="fas fa-minus"></i></span>
-                              
-                              
-                              <?php 
-                                if($inventory->branch_id == 1){
-                              ?>
-                               <a type='button' title='Edit' href=" {{ url('inventories/'.$inventory->id.'/edit') }}" class='btn btn-sm btn-default mr-2 btn-item-table'><i class='fas fa-edit'></i></a>
-                              
-                              <form action="{{ url('inventories/'. $inventory->id.'') }}" method='post'>
+													<span  data-toggle="modal" data-target="#inventoryModal" data-inv="{{ $inventory->id }}" data-whatever="{{ $inventory->sku }}" data-qty="{{ $inventory->qty }}" class="btn mr-2 btn-default btn-sm btn-item-table" title="Print Barcode" data-location="{{ url('HelperController/getCSRF') }}"><i class="fas fa-barcode"></i></span>
 
-                                <input type='hidden' name='_token' value="{{ csrf_token() }}" />
+													<span  data-toggle="modal" data-target="#transferModal" data-origin_inv_id="{{ $inventory->id }}" data-origin-code="{{ $inventory->sku }}" data-origin-branch="{{ $inventory->branch->name }}" data-origin-qty="{{ $inventory->qty }}" class="btn mr-2 btn-default btn-sm btn-item-table" title="Transfer to another branch"  data-location="{{ url('HelperController/getCSRF') }}"><i class="fas fa-share-square"></i></span>
 
-                                <input type='hidden' name='_method' value='DELETE'/>
+													<span  data-toggle="modal" data-target="#updateModal" data-inv="{{ $inventory->id }}" data-whatever="{{ $inventory->sku }}" data-qty="{{ $inventory->qty }}" class="btn mr-2 btn-default btn-sm btn-item-table" title="Add/Remove Qty"  data-location="{{ url('HelperController/getCSRF') }}"><i class="fas fa-plus"></i> / <i class="fas fa-minus"></i></span>
 
-                                <button type='submit' title='Delete' class='btn btn-default btn-sm btn-item-table delete'  onClick='return askConfirm()' ><i class='fas fa-trash'></i></button>
 
-                              </form>
+													<?php
+														if($inventory->branch_id == 1){
+													?>
+														<a type='button' title='Edit' href=" {{ url('inventories/'.$inventory->id.'/edit') }}" class='btn btn-sm btn-default mr-2 btn-item-table'><i class='fas fa-edit'></i></a>
 
-                              <?php 
-                                }
-                              ?>
+													<form action="{{ url('inventories/'. $inventory->id.'') }}" method='post'>
 
-                            </div>
+														<input type='hidden' name='_token' value="{{ csrf_token() }}" />
 
-                          </td>
+														<input type='hidden' name='_method' value='DELETE'/>
 
-                     </tr> 
+														<button type='submit' title='Delete' class='btn btn-default btn-sm btn-item-table delete'  onClick='return askConfirm()' ><i class='fas fa-trash'></i></button>
 
-                  @endforeach
+													</form>
 
-                </tbody>               
+													<?php
+														}
+													?>
 
-              </table>
+												</div>
 
-             
+											</td>
 
-              </div>
-              <div class="card-footer">  {{ $inventories->links() }} </div>
+									</tr>
 
-            </div>
+							@endforeach
 
-          </div>
+						</tbody>
 
-          <!-- /.col-md-6 -->
+					</table>
 
-        </div>
 
-        <!-- /.row -->
 
-      </div><!-- /.container-fluid -->
+					</div>
+					<div class="card-footer">  {{ $inventories->links() }} </div>
+
+				</div>
+
+			</div>
+
+			<!-- /.col-md-6 -->
+
+		</div>
+
+		<!-- /.row -->
+
+	</div><!-- /.container-fluid -->
 
 </div>
 
@@ -251,7 +243,7 @@
 
   <div class="modal-dialog modal-dialog-centered" role="document">
 
-    <div class="modal-content">      
+    <div class="modal-content">
 
       <div class="modal-header">
 
@@ -288,7 +280,7 @@
 
             <input type="number" name="qty" class="form-control" placeholder="0" required/>
 
-          </div>        
+          </div>
 
       </div>
 
@@ -354,7 +346,7 @@
 
   <div class="modal-dialog modal-dialog-centered" role="document">
 
-    <div class="modal-content">      
+    <div class="modal-content">
 
       <div class="modal-header">
 
@@ -420,7 +412,7 @@
 
 
 
-        
+
 
       </div>
 
